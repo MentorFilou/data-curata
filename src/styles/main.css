@@ -1,0 +1,18 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    color-scheme: light;
+  }
+
+  * {
+    scrollbar-width: thin;
+    scrollbar-color: theme('colors.neutral.300') transparent;
+  }
+
+  ::selection {
+    background-color: theme('colors.accent.200');
+  }
+}

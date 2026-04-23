@@ -1,0 +1,66 @@
+<script setup lang="ts">
+import { computed } from 'vue'
+import { Plus } from 'lucide-vue-next'
+import type { Field } from '@/lib/schema/types'
+import { useSchemaStore } from '@/stores/schema'
+import SchemaFieldRow from './SchemaFieldRow.vue'
+
+const schemaStore = useSchemaStore()
+const fields = computed(() => schemaStore.schema.fields)
+
+function addField() {
+  const newField: Field = {
+    id: crypto.randomUUID(),
+    name: '',
+    type: 'string',
+    nullable: false,
+  }
+  schemaStore.addField(newField)
+}
+
+function updateField(field: Field) {
+  schemaStore.updateField(field)
+}
+
+function removeField(id: string) {
+  schemaStore.removeField(id)
+}
+
+function moveUp(id: string) {
+  schemaStore.moveField(id, 'up')
+}
+
+function moveDown(id: string) {
+  schemaStore.moveField(id, 'down')
+}
+</script>
+
+<template>
+  <div class="p-4 space-y-3">
+    <div v-if="fields.length === 0" class="text-center py-6 text-neutral-500 text-sm">
+      No fields yet. Click "+ Add field" to start building your schema.
+    </div>
+
+    <SchemaFieldRow
+      v-for="(field, idx) in fields"
+      :key="field.id"
+      :field="field"
+      :is-first="idx === 0"
+      :is-last="idx === fields.length - 1"
+      :depth="0"
+      @update="updateField"
+      @remove="removeField"
+      @move-up="moveUp"
+      @move-down="moveDown"
+      @add-child="addField"
+    />
+
+    <button
+      class="flex items-center gap-2 text-sm text-accent-400 hover:text-accent-300 font-medium transition-colors"
+      @click="addField"
+    >
+      <Plus class="w-4 h-4" />
+      Add field
+    </button>
+  </div>
+</template>
