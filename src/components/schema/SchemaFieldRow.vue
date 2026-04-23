@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { computed } from 'vue'
 
-function newId() { return newId() }
+function newId() { return crypto.randomUUID() }
 import { Trash2, ChevronUp, ChevronDown, Plus } from 'lucide-vue-next'
 import type { Field, FieldType, ObjectField, ArrayField, EnumField } from '@/lib/schema/types'
 import SchemaTypePicker from './SchemaTypePicker.vue'
@@ -302,7 +302,7 @@ function updateItemsType(newType: FieldType) {
         class="text-xs text-accent-400 hover:text-accent-300 flex items-center gap-1"
         @click="addChildField"
       >
-        <Plus class="w-3 h-3" /> Add field
+        <Plus class="w-3 h-3" /> Add subfield
       </button>
     </div>
   </div>
