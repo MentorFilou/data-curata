@@ -9,6 +9,10 @@ import { useConfirm } from '@/composables/useConfirm'
 
 const EMPTY_SCHEMA: Schema = { version: 1, fields: [] }
 
+function deepClone<T>(value: T): T {
+  return JSON.parse(JSON.stringify(value))
+}
+
 export const useSchemaStore = defineStore('schema', () => {
   const schema = ref<Schema>(structuredClone(EMPTY_SCHEMA))
   const hydrated = ref(false)
@@ -66,7 +70,7 @@ export const useSchemaStore = defineStore('schema', () => {
   }
 
   async function addField(field: Field, parentId?: string): Promise<boolean> {
-    const newSchema = structuredClone(schema.value)
+    const newSchema = deepClone(schema.value)
     if (parentId) {
       const parent = findFieldById(newSchema.fields, parentId)
       if (parent && parent.type === 'object') {
@@ -79,19 +83,19 @@ export const useSchemaStore = defineStore('schema', () => {
   }
 
   async function updateField(field: Field): Promise<boolean> {
-    const newSchema = structuredClone(schema.value)
+    const newSchema = deepClone(schema.value)
     replaceFieldById(newSchema.fields, field)
     return setSchema(newSchema)
   }
 
   async function removeField(id: string): Promise<boolean> {
-    const newSchema = structuredClone(schema.value)
+    const newSchema = deepClone(schema.value)
     removeFieldById(newSchema.fields, id)
     return setSchema(newSchema)
   }
 
   async function moveField(id: string, direction: 'up' | 'down', parentId?: string): Promise<void> {
-    const newSchema = structuredClone(schema.value)
+    const newSchema = deepClone(schema.value)
     const fields = parentId
       ? (() => {
           const p = findFieldById(newSchema.fields, parentId)
