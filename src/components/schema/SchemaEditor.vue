@@ -47,9 +47,9 @@ function setMode(m: 'visual' | 'raw') {
         </span>
       </button>
 
-      <div v-if="expanded" class="flex items-center gap-4">
+      <div class="flex items-center gap-4">
         <!-- Mode toggle -->
-        <div class="flex items-center gap-1 bg-neutral-800 rounded-md p-0.5">
+        <div v-if="expanded" class="flex items-center gap-1 bg-neutral-800 rounded-md p-0.5">
           <button
             :class="['px-3 py-1 text-xs rounded transition-colors', mode === 'visual' ? 'bg-neutral-700 text-white' : 'text-neutral-400 hover:text-neutral-200']"
             @click="setMode('visual')"
