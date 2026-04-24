@@ -32,6 +32,7 @@ export default defineConfig([
         rules: {
             ...typescriptEslint.configs.recommended.rules,
             "vue/multi-word-component-names": "off",
+            "vue/no-deprecated-filter": "off",
             "@typescript-eslint/no-explicit-any": "warn",
         },
     },
