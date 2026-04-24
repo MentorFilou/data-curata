@@ -12,7 +12,10 @@ const entryCount = computed(() => entriesStore.entries.length)
 <template>
   <header class="bg-white border-b border-neutral-200 sticky top-0 z-40 dark:bg-neutral-900 dark:border-neutral-700">
     <div class="max-w-content mx-auto px-4 h-14 flex items-center justify-between">
-      <RouterLink to="/" class="font-semibold text-lg tracking-tight text-neutral-900 hover:text-accent-700 dark:text-neutral-100 dark:hover:text-accent-400">
+      <RouterLink
+        to="/"
+        class="font-semibold text-lg tracking-tight text-neutral-900 hover:text-accent-700 dark:text-neutral-100 dark:hover:text-accent-400"
+      >
         Data Curata
       </RouterLink>
       <nav class="flex items-center gap-4">
@@ -38,12 +41,18 @@ const entryCount = computed(() => entriesStore.entries.length)
           </span>
         </RouterLink>
         <button
-          @click="uiStore.toggleTheme()"
           class="p-2 rounded-md text-neutral-500 hover:text-neutral-900 hover:bg-neutral-100 dark:text-neutral-400 dark:hover:text-white dark:hover:bg-neutral-800 transition-colors"
           :title="uiStore.theme === 'dark' ? 'Switch to light mode' : 'Switch to dark mode'"
+          @click="uiStore.toggleTheme()"
         >
-          <Sun v-if="uiStore.theme === 'dark'" class="w-4 h-4" />
-          <Moon v-else class="w-4 h-4" />
+          <Sun
+            v-if="uiStore.theme === 'dark'"
+            class="w-4 h-4"
+          />
+          <Moon
+            v-else
+            class="w-4 h-4"
+          />
         </button>
       </nav>
     </div>

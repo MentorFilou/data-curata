@@ -28,8 +28,8 @@ function setMode(m: 'visual' | 'raw') {
     <div class="flex items-center justify-between px-4 py-3 border-b border-neutral-200 dark:border-neutral-700">
       <button
         class="flex-1 text-left flex items-center gap-3 text-neutral-700 hover:text-neutral-900 dark:text-neutral-300 dark:hover:text-white transition-colors"
-        @click="toggleExpanded"
         :aria-expanded="expanded"
+        @click="toggleExpanded"
       >
         <svg
           :class="['w-4 h-4 transition-transform text-neutral-400 dark:text-neutral-500', expanded ? 'rotate-90' : '']"
@@ -49,7 +49,10 @@ function setMode(m: 'visual' | 'raw') {
 
       <div class="flex items-center gap-4">
         <!-- Mode toggle -->
-        <div v-if="expanded" class="flex items-center gap-1 bg-neutral-100 dark:bg-neutral-700 rounded-md p-0.5">
+        <div
+          v-if="expanded"
+          class="flex items-center gap-1 bg-neutral-100 dark:bg-neutral-700 rounded-md p-0.5"
+        >
           <button
             :class="['px-3 py-1 text-xs rounded transition-colors', mode === 'visual' ? 'bg-white text-neutral-900 dark:bg-neutral-600 dark:text-white' : 'text-neutral-500 hover:text-neutral-900 dark:text-neutral-400 dark:hover:text-neutral-200']"
             @click="setMode('visual')"

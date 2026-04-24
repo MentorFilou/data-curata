@@ -14,7 +14,10 @@ const count = computed(() => entriesStore.entries.length)
   >
     <BarChart2 class="w-4 h-4" />
     View data
-    <span v-if="count > 0" class="px-1.5 py-0.5 bg-neutral-100 rounded text-xs text-neutral-600 dark:bg-neutral-700 dark:text-neutral-400">
+    <span
+      v-if="count > 0"
+      class="px-1.5 py-0.5 bg-neutral-100 rounded text-xs text-neutral-600 dark:bg-neutral-700 dark:text-neutral-400"
+    >
       {{ count }}
     </span>
   </RouterLink>

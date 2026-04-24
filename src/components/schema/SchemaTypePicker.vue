@@ -23,6 +23,12 @@ const types: { value: FieldType; label: string }[] = [
     class="text-xs bg-white border border-neutral-300 text-neutral-900 rounded px-2 py-1 focus:outline-none focus:ring-1 focus:ring-accent-400 dark:bg-neutral-800 dark:border-neutral-600 dark:text-neutral-200"
     @change="emit('update:modelValue', ($event.target as HTMLSelectElement).value as FieldType)"
   >
-    <option v-for="t in types" :key="t.value" :value="t.value">{{ t.label }}</option>
+    <option
+      v-for="t in types"
+      :key="t.value"
+      :value="t.value"
+    >
+      {{ t.label }}
+    </option>
   </select>
 </template>

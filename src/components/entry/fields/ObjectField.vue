@@ -20,7 +20,10 @@ const emit = defineEmits<{ 'update:modelValue': [value: EntryObject | null] }>()
       variant === 'compact' ? 'p-2' : 'p-4',
     ]"
   >
-    <div v-if="field.nullable && modelValue === null" class="flex items-center gap-2">
+    <div
+      v-if="field.nullable && modelValue === null"
+      class="flex items-center gap-2"
+    >
       <span class="text-sm text-neutral-500 italic">null</span>
       <button
         class="text-xs text-accent-600 hover:underline dark:text-accent-400"

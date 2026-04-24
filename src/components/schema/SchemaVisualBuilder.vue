@@ -37,7 +37,10 @@ function moveDown(id: string) {
 
 <template>
   <div class="p-4 space-y-3">
-    <div v-if="fields.length === 0" class="text-center py-6 text-neutral-500 text-sm">
+    <div
+      v-if="fields.length === 0"
+      class="text-center py-6 text-neutral-500 text-sm"
+    >
       No fields yet. Click "+ Add field" to start building your schema.
     </div>
 

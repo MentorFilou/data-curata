@@ -67,8 +67,8 @@ function cancelExport() {
       </button>
       <button
         class="px-2 py-2 border-l border-neutral-300 dark:border-neutral-600 text-neutral-600 dark:text-neutral-400 hover:bg-neutral-50 dark:hover:bg-neutral-800 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-500"
-        @click="showDropdown = !showDropdown"
         aria-label="More export formats"
+        @click="showDropdown = !showDropdown"
       >
         <ChevronDown class="w-4 h-4" />
       </button>
@@ -89,7 +89,11 @@ function cancelExport() {
     </div>
 
     <!-- Close dropdown on click outside -->
-    <div v-if="showDropdown" class="fixed inset-0 z-10" @click="showDropdown = false" />
+    <div
+      v-if="showDropdown"
+      class="fixed inset-0 z-10"
+      @click="showDropdown = false"
+    />
 
     <!-- Key mode dialog -->
     <Teleport to="body">
@@ -99,14 +103,20 @@ function cancelExport() {
           class="fixed inset-0 z-50 flex items-center justify-center p-4"
           @keydown.esc="cancelExport"
         >
-          <div class="absolute inset-0 bg-black/40" @click="cancelExport" />
+          <div
+            class="absolute inset-0 bg-black/40"
+            @click="cancelExport"
+          />
           <div
             class="relative bg-white dark:bg-neutral-800 rounded-xl shadow-xl max-w-sm w-full p-6 space-y-4"
             role="dialog"
             aria-modal="true"
             aria-labelledby="key-mode-title"
           >
-            <h2 id="key-mode-title" class="text-lg font-semibold text-neutral-900 dark:text-neutral-100">
+            <h2
+              id="key-mode-title"
+              class="text-lg font-semibold text-neutral-900 dark:text-neutral-100"
+            >
               Export keys as
             </h2>
             <p class="text-sm text-neutral-600 dark:text-neutral-400 leading-relaxed">

@@ -95,7 +95,10 @@ const sortedSnapshots = computed(() =>
       <div class="flex items-center gap-3">
         <ImportButton />
         <ExportButton />
-        <PrimaryToggle v-model="editMode" label="Edit mode" />
+        <PrimaryToggle
+          v-model="editMode"
+          label="Edit mode"
+        />
         <ClearAllButton />
       </div>
     </div>
@@ -105,9 +108,19 @@ const sortedSnapshots = computed(() =>
       v-if="showHistory"
       class="bg-white rounded-xl border border-neutral-200 p-4 shadow-sm dark:bg-neutral-800 dark:border-neutral-700"
     >
-      <h2 class="text-sm font-semibold text-neutral-800 dark:text-neutral-200 mb-3">Snapshots</h2>
-      <div v-if="sortedSnapshots.length === 0" class="text-sm text-neutral-400 dark:text-neutral-500">No snapshots yet.</div>
-      <ul v-else class="space-y-2">
+      <h2 class="text-sm font-semibold text-neutral-800 dark:text-neutral-200 mb-3">
+        Snapshots
+      </h2>
+      <div
+        v-if="sortedSnapshots.length === 0"
+        class="text-sm text-neutral-400 dark:text-neutral-500"
+      >
+        No snapshots yet.
+      </div>
+      <ul
+        v-else
+        class="space-y-2"
+      >
         <li
           v-for="snap in sortedSnapshots"
           :key="snap.id"
@@ -134,9 +147,16 @@ const sortedSnapshots = computed(() =>
       v-if="entriesStore.entries.length === 0"
       class="text-center py-16 text-neutral-500"
     >
-      <p class="text-base">No entries yet.</p>
+      <p class="text-base">
+        No entries yet.
+      </p>
       <p class="text-sm mt-1">
-        <RouterLink to="/" class="text-accent-600 hover:underline">Go to the home page</RouterLink>
+        <RouterLink
+          to="/"
+          class="text-accent-600 hover:underline"
+        >
+          Go to the home page
+        </RouterLink>
         to define a schema and add entries.
       </p>
     </div>

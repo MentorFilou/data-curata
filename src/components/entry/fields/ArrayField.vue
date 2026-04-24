@@ -82,7 +82,10 @@ function errorsForIndex(i: number): Record<string, string> | undefined {
 
 <template>
   <div class="space-y-2">
-    <div v-if="items.length === 0" class="text-sm text-neutral-400 dark:text-neutral-500 italic">
+    <div
+      v-if="items.length === 0"
+      class="text-sm text-neutral-400 dark:text-neutral-500 italic"
+    >
       Empty
     </div>
 
@@ -111,13 +114,13 @@ function errorsForIndex(i: number): Record<string, string> | undefined {
           :disabled="implicitlyKept"
           :class="['w-3.5 h-3.5 rounded accent-neutral-500', implicitlyKept ? 'cursor-not-allowed' : 'cursor-pointer']"
           @change="togglePin?.(itemPath(i))"
-        />
+        >
         <span class="text-xs text-neutral-400 dark:text-neutral-500">keep</span>
       </label>
       <button
         class="mt-1 p-1 text-red-400 hover:text-red-600 hover:bg-red-50 dark:hover:bg-red-900/30 rounded"
-        @click="removeItem(i)"
         title="Remove item"
+        @click="removeItem(i)"
       >
         <Trash2 class="w-3.5 h-3.5" />
       </button>

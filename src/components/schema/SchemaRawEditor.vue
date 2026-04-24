@@ -55,7 +55,10 @@ function onBlur() {
       :style="{ minHeight: '200px', fontSize: '13px' }"
       @blur="onBlur"
     />
-    <p v-if="parseError" class="text-xs text-red-600 px-3 py-2 bg-red-50 border-t border-red-200 dark:text-red-400 dark:bg-red-950/40 dark:border-red-800">
+    <p
+      v-if="parseError"
+      class="text-xs text-red-600 px-3 py-2 bg-red-50 border-t border-red-200 dark:text-red-400 dark:bg-red-950/40 dark:border-red-800"
+    >
       {{ parseError }}
     </p>
   </div>

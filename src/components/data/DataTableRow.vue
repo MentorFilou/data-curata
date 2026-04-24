@@ -35,12 +35,24 @@ function formatValue(val: EntryValue): string {
     >
       {{ cellValue(entry, field) }}
     </td>
-    <td v-if="editMode" class="px-4 py-3">
+    <td
+      v-if="editMode"
+      class="px-4 py-3"
+    >
       <div class="flex items-center gap-1">
-        <IconButton size="sm" title="Edit entry" @click="emit('edit', entry.id)">
+        <IconButton
+          size="sm"
+          title="Edit entry"
+          @click="emit('edit', entry.id)"
+        >
           <Pencil class="w-3.5 h-3.5" />
         </IconButton>
-        <IconButton size="sm" title="Delete entry" variant="danger" @click="emit('remove', entry.id)">
+        <IconButton
+          size="sm"
+          title="Delete entry"
+          variant="danger"
+          @click="emit('remove', entry.id)"
+        >
           <Trash2 class="w-3.5 h-3.5" />
         </IconButton>
       </div>
