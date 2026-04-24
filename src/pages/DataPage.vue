@@ -8,6 +8,8 @@ import { useConfirm } from '@/composables/useConfirm'
 import DataTable from '@/components/data/DataTable.vue'
 import DataEditDrawer from '@/components/data/DataEditDrawer.vue'
 import ClearAllButton from '@/components/data/ClearAllButton.vue'
+import ExportButton from '@/components/actions/ExportButton.vue'
+import ImportButton from '@/components/actions/ImportButton.vue'
 import type { Entry, EntryObject } from '@/lib/schema/types'
 
 const entriesStore = useEntriesStore()
@@ -90,6 +92,8 @@ const sortedSnapshots = computed(() =>
         </button>
       </div>
       <div class="flex items-center gap-3">
+        <ImportButton />
+        <ExportButton />
         <label class="flex items-center gap-2 text-sm text-neutral-700 dark:text-neutral-300 cursor-pointer select-none">
           <input
             type="checkbox"
