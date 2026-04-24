@@ -5,13 +5,13 @@
 ## Commands
 
 ```bash
-npm run dev          # dev server at localhost:5173
-npm run build        # production build (must pass before committing)
-npm run typecheck    # vue-tsc --noEmit (strict, no any without comment)
-npm run test         # Vitest unit tests (src/tests/**/*.test.ts)
-npm run test:e2e     # Playwright smoke tests (e2e/smoke.spec.ts)
-npm run lint         # ESLint
-npm run format       # Prettier
+pnpm dev             # dev server at localhost:5173
+pnpm build           # production build (must pass before committing)
+pnpm typecheck       # vue-tsc --noEmit (strict, no any without comment)
+pnpm test            # Vitest unit tests (src/tests/**/*.test.ts)
+pnpm test:e2e        # Playwright smoke tests (e2e/smoke.spec.ts)
+pnpm lint            # ESLint
+pnpm format          # Prettier
 ```
 
 All four of `build`, `typecheck`, `test`, and `test:e2e` must pass before a task is done.
@@ -54,7 +54,7 @@ App boots → `main.ts` awaits `schemaStore.hydrate()`, `entriesStore.hydrate()`
 ## Engineering defaults
 
 - **Read before editing.** Check the file first; don't guess at existing structure.
-- **Typecheck after every non-trivial change.** `npm run typecheck` catches Vue template errors that the editor misses.
+- **Typecheck after every non-trivial change.** `pnpm typecheck` catches Vue template errors that the editor misses.
 - **No new dependencies** without checking README §2. If a library feels missing, ask first.
 - **Commits after each logical unit** — conventional-commit prefix (`feat:`, `fix:`, `chore:`, `test:`).
 - **No comments explaining what the code does.** Only comment *why* — hidden constraints, non-obvious invariants, workarounds.
