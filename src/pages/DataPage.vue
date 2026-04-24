@@ -10,6 +10,7 @@ import DataEditDrawer from '@/components/data/DataEditDrawer.vue'
 import ClearAllButton from '@/components/data/ClearAllButton.vue'
 import ExportButton from '@/components/actions/ExportButton.vue'
 import ImportButton from '@/components/actions/ImportButton.vue'
+import PrimaryToggle from '@/components/common/PrimaryToggle.vue'
 import type { Entry, EntryObject } from '@/lib/schema/types'
 
 const entriesStore = useEntriesStore()
@@ -94,15 +95,7 @@ const sortedSnapshots = computed(() =>
       <div class="flex items-center gap-3">
         <ImportButton />
         <ExportButton />
-        <label class="flex items-center gap-2 text-sm text-neutral-700 dark:text-neutral-300 cursor-pointer select-none">
-          <input
-            type="checkbox"
-            :checked="editMode"
-            class="rounded border-neutral-300 text-accent-600 focus:ring-accent-500"
-            @change="editMode = ($event.target as HTMLInputElement).checked"
-          />
-          Edit mode
-        </label>
+        <PrimaryToggle v-model="editMode" label="Edit mode" />
         <ClearAllButton />
       </div>
     </div>
