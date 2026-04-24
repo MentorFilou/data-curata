@@ -1,6 +1,6 @@
 # CLAUDE.md — Data Curata
 
-> Full spec: `README.md` · Implementation notes & deviations: `IMPLEMENTATION_NOTES.md`
+> Full spec: `docs/SPEC.md` · Implementation notes & deviations: `docs/NOTES.md`
 
 ## Commands
 
