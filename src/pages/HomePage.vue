@@ -3,8 +3,6 @@ import { ref, computed, watch, provide } from 'vue'
 import SchemaEditor from '@/components/schema/SchemaEditor.vue'
 import EntryForm from '@/components/entry/EntryForm.vue'
 import EntryActions from '@/components/entry/EntryActions.vue'
-import ViewDataButton from '@/components/actions/ViewDataButton.vue'
-import ExportButton from '@/components/actions/ExportButton.vue'
 import { useSchemaStore } from '@/stores/schema'
 import { useEntriesStore } from '@/stores/entries'
 import { useUiStore } from '@/stores/ui'
@@ -129,12 +127,6 @@ function onReset() {
         />
         <EntryActions :can-submit="canSubmit" @submit="onSubmit" @reset="onReset" />
       </template>
-    </div>
-
-    <!-- Action row -->
-    <div class="flex items-center gap-3">
-      <ViewDataButton />
-      <ExportButton />
     </div>
   </div>
 </template>
