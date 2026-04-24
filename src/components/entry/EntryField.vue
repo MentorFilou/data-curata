@@ -85,6 +85,7 @@ const emit = defineEmits<{ 'update:modelValue': [value: EntryValue] }>()
     :model-value="modelValue as EntryValue[] | null"
     :errors="errors"
     :variant="variant"
+    :path-prefix="pathPrefix"
     @update:model-value="emit('update:modelValue', $event)"
   />
 </template>

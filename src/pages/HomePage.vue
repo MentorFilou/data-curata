@@ -10,7 +10,7 @@ import { useEntriesStore } from '@/stores/entries'
 import { useUiStore } from '@/stores/ui'
 import { validateEntry } from '@/lib/schema/validate'
 import { defaultValueForField } from '@/lib/schema/defaults'
-import type { EntryObject } from '@/lib/schema/types'
+import type { EntryObject, EntryValue } from '@/lib/schema/types'
 
 const schemaStore = useSchemaStore()
 const entriesStore = useEntriesStore()
@@ -55,7 +55,12 @@ const canSubmit = computed(
   () => schemaStore.schema.fields.length > 0 && validationResult.value.valid
 )
 
-function applyPins(source: EntryObject, target: EntryObject, prefix: string): void {
+function applyPins(
+  source: EntryObject,
+  target: EntryObject,
+  prefix: string,
+  nextPins: Set<string>,
+): void {
   for (const fieldId of Object.keys(source)) {
     const path = prefix + fieldId
     if (pinnedPaths.value.has(path)) {
@@ -63,13 +68,20 @@ function applyPins(source: EntryObject, target: EntryObject, prefix: string): vo
     } else {
       const subPrefix = path + '.'
       const hasSub = [...pinnedPaths.value].some((p) => p.startsWith(subPrefix))
-      if (hasSub) {
-        const src = source[fieldId]
-        if (src !== null && typeof src === 'object' && !Array.isArray(src)) {
-          const tgt = ((target[fieldId] as EntryObject | null | undefined) ?? {}) as EntryObject
-          applyPins(src as EntryObject, tgt, subPrefix)
-          target[fieldId] = tgt
-        }
+      if (!hasSub) continue
+      const src = source[fieldId]
+      if (src === null || typeof src !== 'object') continue
+      if (Array.isArray(src)) {
+        // Keep only individually pinned items; remap their indices in nextPins
+        const srcArr = src as EntryValue[]
+        const kept = srcArr.filter((_, idx) => pinnedPaths.value.has(subPrefix + idx))
+        target[fieldId] = kept
+        for (let idx = 0; idx < srcArr.length; idx++) nextPins.delete(subPrefix + idx)
+        for (let idx = 0; idx < kept.length; idx++) nextPins.add(subPrefix + idx)
+      } else {
+        const tgt = ((target[fieldId] as EntryObject | null | undefined) ?? {}) as EntryObject
+        applyPins(src as EntryObject, tgt, subPrefix, nextPins)
+        target[fieldId] = tgt
       }
     }
   }
@@ -79,8 +91,10 @@ function onSubmit() {
   if (!canSubmit.value) return
   entriesStore.addEntry({ ...formData.value })
   const newData = buildDefaultData()
-  applyPins(formData.value, newData, '')
+  const nextPins = new Set(pinnedPaths.value)
+  applyPins(formData.value, newData, '', nextPins)
   formData.value = newData
+  pinnedPaths.value = nextPins
   uiStore.addToast('Entry added', 'success')
 }
 

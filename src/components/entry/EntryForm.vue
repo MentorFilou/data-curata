@@ -76,7 +76,7 @@ function subErrors(field: Field): Record<string, string> | undefined {
           optional
         </span>
         <label
-          v-if="variant !== 'compact' && !insideArrayItem && field.type !== 'array' && pinnedPaths !== undefined"
+          v-if="variant !== 'compact' && !insideArrayItem && pinnedPaths !== undefined"
           :class="['ml-auto flex items-center gap-1.5 select-none', ancestorPinned ? 'opacity-40 cursor-not-allowed' : 'cursor-pointer']"
           :title="ancestorPinned ? 'Kept by parent' : isPinned(field.id) ? 'Value will be kept after submitting' : 'Keep this value after submitting'"
         >
