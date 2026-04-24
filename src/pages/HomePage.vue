@@ -25,12 +25,15 @@ function buildDefaultData(): EntryObject {
 }
 
 const formData = ref<EntryObject>(buildDefaultData())
+const pinnedFields = ref<Set<string>>(new Set())
 
-// Reset form when schema changes
+// Reset form when schema changes; clear pins for fields that no longer exist
 watch(
   () => schemaStore.schema.fields,
-  () => {
+  (fields) => {
     formData.value = buildDefaultData()
+    const validIds = new Set(fields.map((f) => f.id))
+    pinnedFields.value = new Set([...pinnedFields.value].filter((id) => validIds.has(id)))
   },
   { deep: true }
 )
@@ -46,7 +49,13 @@ const canSubmit = computed(
 function onSubmit() {
   if (!canSubmit.value) return
   entriesStore.addEntry({ ...formData.value })
-  formData.value = buildDefaultData()
+  const newData = buildDefaultData()
+  for (const fieldId of pinnedFields.value) {
+    if (fieldId in formData.value) {
+      newData[fieldId] = formData.value[fieldId]
+    }
+  }
+  formData.value = newData
   uiStore.addToast('Entry added', 'success')
 }
 
@@ -77,7 +86,9 @@ function onReset() {
           :model-value="formData"
           :errors="canSubmit ? undefined : validationResult.errors"
           variant="full"
+          :pinned-fields="pinnedFields"
           @update:model-value="formData = $event"
+          @update:pinned-fields="pinnedFields = $event"
         />
         <EntryActions :can-submit="canSubmit" @submit="onSubmit" @reset="onReset" />
       </template>
