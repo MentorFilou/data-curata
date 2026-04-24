@@ -1,13 +1,15 @@
 <script setup lang="ts">
-import { ref, watch } from 'vue'
+import { ref, watch, computed } from 'vue'
 import { Codemirror } from 'vue-codemirror'
 import { json } from '@codemirror/lang-json'
 import { oneDark } from '@codemirror/theme-one-dark'
 import { useSchemaStore } from '@/stores/schema'
+import { useUiStore } from '@/stores/ui'
 import { validateSchema } from '@/lib/schema/validate'
 import type { Schema } from '@/lib/schema/types'
 
 const schemaStore = useSchemaStore()
+const uiStore = useUiStore()
 
 const rawText = ref(JSON.stringify(schemaStore.schema, null, 2))
 const parseError = ref<string | null>(null)
@@ -25,7 +27,9 @@ watch(
   { deep: true }
 )
 
-const extensions = [json(), oneDark]
+const extensions = computed(() =>
+  uiStore.theme === 'dark' ? [json(), oneDark] : [json()]
+)
 
 function onBlur() {
   try {
@@ -51,7 +55,7 @@ function onBlur() {
       :style="{ minHeight: '200px', fontSize: '13px' }"
       @blur="onBlur"
     />
-    <p v-if="parseError" class="text-xs text-red-400 px-3 py-2 bg-red-950/40 border-t border-red-800">
+    <p v-if="parseError" class="text-xs text-red-600 px-3 py-2 bg-red-50 border-t border-red-200 dark:text-red-400 dark:bg-red-950/40 dark:border-red-800">
       {{ parseError }}
     </p>
   </div>

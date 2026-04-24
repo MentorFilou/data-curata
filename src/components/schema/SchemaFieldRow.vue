@@ -121,7 +121,7 @@ function updateItemsType(newType: FieldType) {
 
 <template>
   <div
-    :class="['rounded-lg border border-neutral-700 bg-neutral-800/50 p-3 space-y-2', depth > 0 ? 'ml-4 border-l-2 border-l-accent-600/40' : '']"
+    :class="['rounded-lg border border-neutral-200 bg-neutral-50 dark:border-neutral-700 dark:bg-neutral-800/50 p-3 space-y-2', depth > 0 ? 'ml-4 border-l-2 border-l-accent-600/40' : '']"
   >
     <!-- Row header -->
     <div class="flex items-center gap-2">
@@ -139,17 +139,17 @@ function updateItemsType(newType: FieldType) {
         :value="field.name"
         type="text"
         placeholder="field name"
-        class="flex-1 min-w-0 text-sm bg-neutral-800 border border-neutral-600 text-neutral-100 rounded px-2 py-1 focus:outline-none focus:ring-1 focus:ring-accent-400 placeholder:text-neutral-500 font-mono"
+        class="flex-1 min-w-0 text-sm bg-white border border-neutral-300 text-neutral-900 rounded px-2 py-1 focus:outline-none focus:ring-1 focus:ring-accent-400 placeholder:text-neutral-400 font-mono dark:bg-neutral-800 dark:border-neutral-600 dark:text-neutral-100 dark:placeholder:text-neutral-500"
         @input="update({ name: ($event.target as HTMLInputElement).value })"
       />
 
       <SchemaTypePicker :model-value="field.type" @update:model-value="onTypeChange" />
 
-      <label class="flex items-center gap-1 text-xs text-neutral-400 cursor-pointer select-none">
+      <label class="flex items-center gap-1 text-xs text-neutral-500 dark:text-neutral-400 cursor-pointer select-none">
         <input
           type="checkbox"
           :checked="field.nullable"
-          class="rounded border-neutral-600 bg-neutral-800 text-accent-500 focus:ring-accent-400"
+          class="rounded border-neutral-300 bg-white text-accent-500 focus:ring-accent-400 dark:border-neutral-600 dark:bg-neutral-800"
           @change="update({ nullable: ($event.target as HTMLInputElement).checked })"
         />
         nullable
@@ -165,13 +165,13 @@ function updateItemsType(newType: FieldType) {
       :value="field.description ?? ''"
       type="text"
       placeholder="description (optional)"
-      class="w-full text-xs bg-neutral-800/50 border border-neutral-700 text-neutral-400 rounded px-2 py-1 focus:outline-none focus:ring-1 focus:ring-accent-400 placeholder:text-neutral-600"
+      class="w-full text-xs bg-neutral-50 border border-neutral-200 text-neutral-500 rounded px-2 py-1 focus:outline-none focus:ring-1 focus:ring-accent-400 placeholder:text-neutral-400 dark:bg-neutral-800/50 dark:border-neutral-700 dark:text-neutral-400 dark:placeholder:text-neutral-600"
       @input="update({ description: ($event.target as HTMLInputElement).value || undefined })"
     />
 
     <!-- Enum values -->
     <div v-if="field.type === 'enum'">
-      <p class="text-xs text-neutral-500 mb-1">Values:</p>
+      <p class="text-xs text-neutral-500 dark:text-neutral-500 mb-1">Values:</p>
       <SchemaEnumEditor
         :values="(field as EnumField).values"
         @update:values="update({ values: $event })"
@@ -179,12 +179,12 @@ function updateItemsType(newType: FieldType) {
     </div>
 
     <!-- Number extras -->
-    <div v-if="field.type === 'number'" class="flex items-center gap-3 text-xs text-neutral-400">
+    <div v-if="field.type === 'number'" class="flex items-center gap-3 text-xs text-neutral-500 dark:text-neutral-400">
       <label class="flex items-center gap-1 cursor-pointer">
         <input
           type="checkbox"
           :checked="(field as import('@/lib/schema/types').NumberField).integer ?? false"
-          class="rounded border-neutral-600 bg-neutral-800 text-accent-500"
+          class="rounded border-neutral-300 bg-white text-accent-500 dark:border-neutral-600 dark:bg-neutral-800"
           @change="update({ integer: ($event.target as HTMLInputElement).checked })"
         />
         integer only
@@ -194,7 +194,7 @@ function updateItemsType(newType: FieldType) {
         <input
           type="number"
           :value="(field as import('@/lib/schema/types').NumberField).min ?? ''"
-          class="w-16 bg-neutral-800 border border-neutral-600 text-neutral-200 rounded px-1.5 py-0.5 focus:outline-none focus:ring-1 focus:ring-accent-400"
+          class="w-16 bg-white border border-neutral-300 text-neutral-800 rounded px-1.5 py-0.5 focus:outline-none focus:ring-1 focus:ring-accent-400 dark:bg-neutral-800 dark:border-neutral-600 dark:text-neutral-200"
           @input="update({ min: ($event.target as HTMLInputElement).value ? Number(($event.target as HTMLInputElement).value) : undefined })"
         />
       </label>
@@ -203,19 +203,19 @@ function updateItemsType(newType: FieldType) {
         <input
           type="number"
           :value="(field as import('@/lib/schema/types').NumberField).max ?? ''"
-          class="w-16 bg-neutral-800 border border-neutral-600 text-neutral-200 rounded px-1.5 py-0.5 focus:outline-none focus:ring-1 focus:ring-accent-400"
+          class="w-16 bg-white border border-neutral-300 text-neutral-800 rounded px-1.5 py-0.5 focus:outline-none focus:ring-1 focus:ring-accent-400 dark:bg-neutral-800 dark:border-neutral-600 dark:text-neutral-200"
           @input="update({ max: ($event.target as HTMLInputElement).value ? Number(($event.target as HTMLInputElement).value) : undefined })"
         />
       </label>
     </div>
 
     <!-- String extras -->
-    <div v-if="field.type === 'string'" class="text-xs text-neutral-400">
+    <div v-if="field.type === 'string'" class="text-xs text-neutral-500 dark:text-neutral-400">
       <label class="flex items-center gap-1 cursor-pointer">
         <input
           type="checkbox"
           :checked="(field as import('@/lib/schema/types').StringField).multiline ?? false"
-          class="rounded border-neutral-600 bg-neutral-800 text-accent-500"
+          class="rounded border-neutral-300 bg-white text-accent-500 dark:border-neutral-600 dark:bg-neutral-800"
           @change="update({ multiline: ($event.target as HTMLInputElement).checked })"
         />
         multiline
@@ -224,7 +224,7 @@ function updateItemsType(newType: FieldType) {
 
     <!-- Array items type -->
     <div v-if="field.type === 'array'" class="space-y-2">
-      <div class="flex items-center gap-2 text-xs text-neutral-400">
+      <div class="flex items-center gap-2 text-xs text-neutral-500 dark:text-neutral-400">
         <span>Items type:</span>
         <SchemaTypePicker
           :model-value="(field as ArrayField).items.type"
@@ -271,7 +271,7 @@ function updateItemsType(newType: FieldType) {
           }"
         />
         <button
-          class="mt-2 text-xs text-accent-400 hover:text-accent-300 flex items-center gap-1"
+          class="mt-2 text-xs text-accent-600 hover:text-accent-700 dark:text-accent-400 dark:hover:text-accent-300 flex items-center gap-1"
           @click="() => {
             const items = (field as ArrayField).items as ObjectField
             const newF: Field = { id: newId(), name: '', type: 'string', nullable: false }
@@ -299,7 +299,7 @@ function updateItemsType(newType: FieldType) {
         @add-child="addChildField"
       />
       <button
-        class="text-xs text-accent-400 hover:text-accent-300 flex items-center gap-1"
+        class="text-xs text-accent-600 hover:text-accent-700 dark:text-accent-400 dark:hover:text-accent-300 flex items-center gap-1"
         @click="addChildField"
       >
         <Plus class="w-3 h-3" /> Add subfield

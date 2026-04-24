@@ -56,7 +56,7 @@ function moveDown(id: string) {
     />
 
     <button
-      class="flex items-center gap-2 text-sm text-accent-400 hover:text-accent-300 font-medium transition-colors"
+      class="flex items-center gap-2 text-sm text-accent-600 hover:text-accent-700 dark:text-accent-400 dark:hover:text-accent-300 font-medium transition-colors"
       @click="addField"
     >
       <Plus class="w-4 h-4" />

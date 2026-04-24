@@ -61,8 +61,8 @@ function onReset() {
     <SchemaEditor />
 
     <!-- Entry form -->
-    <div class="bg-white rounded-xl border border-neutral-200 p-6 shadow-sm">
-      <h2 class="text-base font-semibold text-neutral-900 mb-5">Add Entry</h2>
+    <div class="bg-white rounded-xl border border-neutral-200 p-6 shadow-sm dark:bg-neutral-800 dark:border-neutral-700">
+      <h2 class="text-base font-semibold text-neutral-900 dark:text-neutral-100 mb-5">Add Entry</h2>
 
       <div v-if="schemaStore.schema.fields.length === 0" class="text-center py-10 text-neutral-500">
         <p class="text-sm">No schema defined yet.</p>

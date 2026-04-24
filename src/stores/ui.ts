@@ -2,6 +2,7 @@ import { defineStore } from 'pinia'
 import { ref } from 'vue'
 
 export type SchemaEditorMode = 'visual' | 'raw'
+export type Theme = 'light' | 'dark'
 
 export interface Toast {
   id: string
@@ -10,11 +11,19 @@ export interface Toast {
   duration?: number
 }
 
+function applyTheme(t: Theme) {
+  document.documentElement.classList.toggle('dark', t === 'dark')
+}
+
 export const useUiStore = defineStore('ui', () => {
   const editMode = ref(false)
   const schemaEditorMode = ref<SchemaEditorMode>('visual')
   const schemaEditorExpanded = ref(false)
   const toasts = ref<Toast[]>([])
+  const theme = ref<Theme>((localStorage.getItem('theme') as Theme) ?? 'light')
+
+  // Sync initial theme to DOM
+  applyTheme(theme.value)
 
   function toggleEditMode(): void {
     editMode.value = !editMode.value
@@ -26,6 +35,12 @@ export const useUiStore = defineStore('ui', () => {
 
   function toggleSchemaEditor(): void {
     schemaEditorExpanded.value = !schemaEditorExpanded.value
+  }
+
+  function toggleTheme(): void {
+    theme.value = theme.value === 'light' ? 'dark' : 'light'
+    localStorage.setItem('theme', theme.value)
+    applyTheme(theme.value)
   }
 
   function addToast(message: string, type: Toast['type'] = 'info', duration = 3000): void {
@@ -43,9 +58,11 @@ export const useUiStore = defineStore('ui', () => {
     schemaEditorMode,
     schemaEditorExpanded,
     toasts,
+    theme,
     toggleEditMode,
     setSchemaEditorMode,
     toggleSchemaEditor,
+    toggleTheme,
     addToast,
     removeToast,
   }

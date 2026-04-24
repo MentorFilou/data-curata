@@ -4,9 +4,9 @@ defineEmits<{ toggle: [] }>()
 </script>
 
 <template>
-  <div class="rounded-xl border border-neutral-200 overflow-hidden">
+  <div class="rounded-xl border border-neutral-200 dark:border-neutral-700 overflow-hidden">
     <button
-      class="w-full flex items-center justify-between px-4 py-3 bg-neutral-50 hover:bg-neutral-100 text-sm font-medium text-neutral-700 transition-colors"
+      class="w-full flex items-center justify-between px-4 py-3 bg-neutral-50 hover:bg-neutral-100 dark:bg-neutral-800 dark:hover:bg-neutral-700 text-sm font-medium text-neutral-700 dark:text-neutral-300 transition-colors"
       @click="$emit('toggle')"
     >
       <span>{{ title }}</span>

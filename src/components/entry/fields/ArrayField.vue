@@ -48,7 +48,7 @@ function errorsForIndex(i: number): Record<string, string> | undefined {
 
 <template>
   <div class="space-y-2">
-    <div v-if="items.length === 0 && field.nullable" class="text-sm text-neutral-400 italic">
+    <div v-if="items.length === 0 && field.nullable" class="text-sm text-neutral-400 dark:text-neutral-500 italic">
       Empty (nullable)
     </div>
 
@@ -67,7 +67,7 @@ function errorsForIndex(i: number): Record<string, string> | undefined {
         @update:model-value="updateItem(i, $event)"
       />
       <button
-        class="mt-1 p-1 text-red-400 hover:text-red-600 hover:bg-red-50 rounded"
+        class="mt-1 p-1 text-red-400 hover:text-red-600 hover:bg-red-50 dark:hover:bg-red-900/30 rounded"
         @click="removeItem(i)"
         title="Remove item"
       >
@@ -76,7 +76,7 @@ function errorsForIndex(i: number): Record<string, string> | undefined {
     </div>
 
     <button
-      class="flex items-center gap-1.5 text-sm text-accent-600 hover:text-accent-700 font-medium"
+      class="flex items-center gap-1.5 text-sm text-accent-600 hover:text-accent-700 dark:text-accent-400 dark:hover:text-accent-300 font-medium"
       @click="addItem"
     >
       <Plus class="w-4 h-4" />

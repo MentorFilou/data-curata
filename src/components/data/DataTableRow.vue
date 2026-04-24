@@ -26,11 +26,11 @@ function formatValue(val: EntryValue): string {
 </script>
 
 <template>
-  <tr class="border-b border-neutral-100 hover:bg-neutral-50 transition-colors">
+  <tr class="border-b border-neutral-100 hover:bg-neutral-50 transition-colors dark:border-neutral-700 dark:hover:bg-neutral-800/60">
     <td
       v-for="field in fields"
       :key="field.id"
-      class="px-4 py-3 text-sm text-neutral-700 max-w-xs truncate"
+      class="px-4 py-3 text-sm text-neutral-700 dark:text-neutral-300 max-w-xs truncate"
       :title="String(entry.data[field.id] ?? '')"
     >
       {{ cellValue(entry, field) }}

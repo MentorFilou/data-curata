@@ -4,12 +4,16 @@
 
 @layer base {
   :root {
-    color-scheme: light;
+    color-scheme: light dark;
   }
 
   * {
     scrollbar-width: thin;
     scrollbar-color: theme('colors.neutral.300') transparent;
+  }
+
+  html.dark * {
+    scrollbar-color: theme('colors.neutral.600') transparent;
   }
 
   ::selection {

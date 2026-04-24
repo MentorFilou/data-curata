@@ -15,14 +15,14 @@ const emit = defineEmits<{ 'update:modelValue': [value: EntryObject | null] }>()
 <template>
   <div
     :class="[
-      'rounded-lg border border-neutral-200 bg-neutral-50',
+      'rounded-lg border border-neutral-200 bg-neutral-50 dark:border-neutral-700 dark:bg-neutral-800/50',
       variant === 'compact' ? 'p-2' : 'p-4',
     ]"
   >
     <div v-if="field.nullable && modelValue === null" class="flex items-center gap-2">
       <span class="text-sm text-neutral-500 italic">null</span>
       <button
-        class="text-xs text-accent-600 hover:underline"
+        class="text-xs text-accent-600 hover:underline dark:text-accent-400"
         @click="emit('update:modelValue', {})"
       >
         Set value
@@ -38,7 +38,7 @@ const emit = defineEmits<{ 'update:modelValue': [value: EntryObject | null] }>()
       />
       <button
         v-if="field.nullable"
-        class="mt-2 text-xs text-neutral-400 hover:text-red-500"
+        class="mt-2 text-xs text-neutral-400 hover:text-red-500 dark:hover:text-red-400"
         @click="emit('update:modelValue', null)"
       >
         Clear (set null)

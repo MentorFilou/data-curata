@@ -32,7 +32,7 @@ function subErrors(field: Field): Record<string, string> | undefined {
       <div :class="['flex items-baseline gap-2', variant === 'compact' ? 'mb-0.5' : 'mb-1.5']">
         <label
           :class="[
-            'font-medium text-neutral-800',
+            'font-medium text-neutral-800 dark:text-neutral-200',
             variant === 'compact' ? 'text-xs' : 'text-sm',
           ]"
         >
@@ -40,14 +40,14 @@ function subErrors(field: Field): Record<string, string> | undefined {
         </label>
         <span
           v-if="field.nullable"
-          class="text-xs text-neutral-400 font-normal px-1 py-0.5 bg-neutral-100 rounded"
+          class="text-xs text-neutral-400 font-normal px-1 py-0.5 bg-neutral-100 rounded dark:bg-neutral-700 dark:text-neutral-500"
         >
           optional
         </span>
       </div>
       <p
         v-if="field.description && variant !== 'compact'"
-        class="text-xs text-neutral-500 mb-1.5"
+        class="text-xs text-neutral-500 dark:text-neutral-400 mb-1.5"
       >
         {{ field.description }}
       </p>

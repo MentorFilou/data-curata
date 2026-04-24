@@ -12,14 +12,14 @@ const emit = defineEmits<{ edit: [id: string]; remove: [id: string] }>()
 </script>
 
 <template>
-  <div class="overflow-x-auto rounded-xl border border-neutral-200">
+  <div class="overflow-x-auto rounded-xl border border-neutral-200 dark:border-neutral-700">
     <table class="w-full text-sm">
       <thead>
-        <tr class="bg-neutral-50 border-b border-neutral-200">
+        <tr class="bg-neutral-50 border-b border-neutral-200 dark:bg-neutral-800 dark:border-neutral-700">
           <th
             v-for="field in fields"
             :key="field.id"
-            class="px-4 py-3 text-left text-xs font-semibold text-neutral-600 uppercase tracking-wide"
+            class="px-4 py-3 text-left text-xs font-semibold text-neutral-600 uppercase tracking-wide dark:text-neutral-400"
           >
             {{ field.name }}
           </th>

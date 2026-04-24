@@ -14,7 +14,7 @@ const { state, accept, cancel } = useConfirm()
       >
         <div class="absolute inset-0 bg-black/40" @click="cancel" />
         <div
-          class="relative bg-white rounded-xl shadow-xl max-w-md w-full p-6 space-y-4"
+          class="relative bg-white dark:bg-neutral-800 rounded-xl shadow-xl max-w-md w-full p-6 space-y-4"
           role="dialog"
           aria-modal="true"
           :aria-labelledby="state.options.title ? 'confirm-title' : undefined"
@@ -22,14 +22,14 @@ const { state, accept, cancel } = useConfirm()
           <h2
             v-if="state.options.title"
             id="confirm-title"
-            class="text-lg font-semibold text-neutral-900"
+            class="text-lg font-semibold text-neutral-900 dark:text-neutral-100"
           >
             {{ state.options.title }}
           </h2>
-          <p class="text-sm text-neutral-700 leading-relaxed">{{ state.options.message }}</p>
+          <p class="text-sm text-neutral-700 dark:text-neutral-300 leading-relaxed">{{ state.options.message }}</p>
           <div class="flex justify-end gap-3 pt-2">
             <button
-              class="px-4 py-2 text-sm font-medium rounded-lg border border-neutral-300 text-neutral-700 hover:bg-neutral-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-500"
+              class="px-4 py-2 text-sm font-medium rounded-lg border border-neutral-300 text-neutral-700 hover:bg-neutral-50 dark:border-neutral-600 dark:text-neutral-300 dark:hover:bg-neutral-700 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-500"
               @click="cancel"
             >
               {{ state.options.cancelLabel ?? 'Cancel' }}

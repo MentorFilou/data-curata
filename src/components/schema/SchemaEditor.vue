@@ -23,16 +23,16 @@ function setMode(m: 'visual' | 'raw') {
 </script>
 
 <template>
-  <div class="rounded-xl bg-neutral-900 border border-neutral-700 overflow-hidden font-mono text-sm">
+  <div class="rounded-xl bg-white border border-neutral-200 overflow-hidden font-mono text-sm dark:bg-neutral-800 dark:border-neutral-700">
     <!-- Header -->
-    <div class="flex items-center justify-between px-4 py-3 border-b border-neutral-700">
+    <div class="flex items-center justify-between px-4 py-3 border-b border-neutral-200 dark:border-neutral-700">
       <button
-        class="flex-1 text-left flex items-center gap-3 text-neutral-300 hover:text-white transition-colors"
+        class="flex-1 text-left flex items-center gap-3 text-neutral-700 hover:text-neutral-900 dark:text-neutral-300 dark:hover:text-white transition-colors"
         @click="toggleExpanded"
         :aria-expanded="expanded"
       >
         <svg
-          :class="['w-4 h-4 transition-transform text-neutral-500', expanded ? 'rotate-90' : '']"
+          :class="['w-4 h-4 transition-transform text-neutral-400 dark:text-neutral-500', expanded ? 'rotate-90' : '']"
           xmlns="http://www.w3.org/2000/svg"
           viewBox="0 0 24 24"
           fill="none"
@@ -41,7 +41,7 @@ function setMode(m: 'visual' | 'raw') {
         >
           <polyline points="9 18 15 12 9 6" />
         </svg>
-        <span class="text-accent-400">Schema</span>
+        <span class="text-accent-600 dark:text-accent-400">Schema</span>
         <span class="text-neutral-500 font-sans text-xs">
           {{ fieldCount }} {{ fieldCount === 1 ? 'field' : 'fields' }} · click to {{ expanded ? 'collapse' : 'edit' }}
         </span>
@@ -49,15 +49,15 @@ function setMode(m: 'visual' | 'raw') {
 
       <div class="flex items-center gap-4">
         <!-- Mode toggle -->
-        <div v-if="expanded" class="flex items-center gap-1 bg-neutral-800 rounded-md p-0.5">
+        <div v-if="expanded" class="flex items-center gap-1 bg-neutral-100 dark:bg-neutral-700 rounded-md p-0.5">
           <button
-            :class="['px-3 py-1 text-xs rounded transition-colors', mode === 'visual' ? 'bg-neutral-700 text-white' : 'text-neutral-400 hover:text-neutral-200']"
+            :class="['px-3 py-1 text-xs rounded transition-colors', mode === 'visual' ? 'bg-white text-neutral-900 dark:bg-neutral-600 dark:text-white' : 'text-neutral-500 hover:text-neutral-900 dark:text-neutral-400 dark:hover:text-neutral-200']"
             @click="setMode('visual')"
           >
             Visual
           </button>
           <button
-            :class="['px-3 py-1 text-xs rounded transition-colors', mode === 'raw' ? 'bg-neutral-700 text-white' : 'text-neutral-400 hover:text-neutral-200']"
+            :class="['px-3 py-1 text-xs rounded transition-colors', mode === 'raw' ? 'bg-white text-neutral-900 dark:bg-neutral-600 dark:text-white' : 'text-neutral-500 hover:text-neutral-900 dark:text-neutral-400 dark:hover:text-neutral-200']"
             @click="setMode('raw')"
           >
             Raw

@@ -35,16 +35,16 @@ function exportWith(formatId: string) {
 
 <template>
   <div class="relative">
-    <div class="flex rounded-lg border border-neutral-300 overflow-hidden">
+    <div class="flex rounded-lg border border-neutral-300 dark:border-neutral-600 overflow-hidden">
       <button
-        class="flex items-center gap-2 px-4 py-2 text-sm font-medium text-neutral-700 hover:bg-neutral-50 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-500"
+        class="flex items-center gap-2 px-4 py-2 text-sm font-medium text-neutral-700 hover:bg-neutral-50 dark:text-neutral-300 dark:hover:bg-neutral-800 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-500"
         @click="exportWith('json')"
       >
         <Download class="w-4 h-4" />
         Export
       </button>
       <button
-        class="px-2 py-2 border-l border-neutral-300 text-neutral-600 hover:bg-neutral-50 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-500"
+        class="px-2 py-2 border-l border-neutral-300 dark:border-neutral-600 text-neutral-600 dark:text-neutral-400 hover:bg-neutral-50 dark:hover:bg-neutral-800 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-500"
         @click="showDropdown = !showDropdown"
         aria-label="More export formats"
       >
@@ -54,12 +54,12 @@ function exportWith(formatId: string) {
 
     <div
       v-if="showDropdown"
-      class="absolute left-0 top-full mt-1 w-40 bg-white rounded-lg border border-neutral-200 shadow-lg z-20 py-1"
+      class="absolute left-0 top-full mt-1 w-40 bg-white dark:bg-neutral-800 rounded-lg border border-neutral-200 dark:border-neutral-700 shadow-lg z-20 py-1"
     >
       <button
         v-for="fmt in formats"
         :key="fmt.id"
-        class="w-full text-left px-3 py-2 text-sm text-neutral-700 hover:bg-neutral-50 transition-colors"
+        class="w-full text-left px-3 py-2 text-sm text-neutral-700 dark:text-neutral-300 hover:bg-neutral-50 dark:hover:bg-neutral-700 transition-colors"
         @click="exportWith(fmt.id)"
       >
         {{ fmt.label }}

@@ -79,18 +79,18 @@ const sortedSnapshots = computed(() =>
     <!-- Header -->
     <div class="flex items-center justify-between">
       <div class="flex items-baseline gap-3">
-        <h1 class="text-xl font-semibold text-neutral-900">
+        <h1 class="text-xl font-semibold text-neutral-900 dark:text-neutral-100">
           Entries ({{ entriesStore.entries.length }})
         </h1>
         <button
-          class="text-xs text-neutral-400 hover:text-accent-600 underline"
+          class="text-xs text-neutral-400 hover:text-accent-600 dark:hover:text-accent-400 underline"
           @click="showHistory = !showHistory"
         >
           History
         </button>
       </div>
       <div class="flex items-center gap-3">
-        <label class="flex items-center gap-2 text-sm text-neutral-700 cursor-pointer select-none">
+        <label class="flex items-center gap-2 text-sm text-neutral-700 dark:text-neutral-300 cursor-pointer select-none">
           <input
             type="checkbox"
             :checked="editMode"
@@ -106,24 +106,24 @@ const sortedSnapshots = computed(() =>
     <!-- History panel -->
     <div
       v-if="showHistory"
-      class="bg-white rounded-xl border border-neutral-200 p-4 shadow-sm"
+      class="bg-white rounded-xl border border-neutral-200 p-4 shadow-sm dark:bg-neutral-800 dark:border-neutral-700"
     >
-      <h2 class="text-sm font-semibold text-neutral-800 mb-3">Snapshots</h2>
-      <div v-if="sortedSnapshots.length === 0" class="text-sm text-neutral-400">No snapshots yet.</div>
+      <h2 class="text-sm font-semibold text-neutral-800 dark:text-neutral-200 mb-3">Snapshots</h2>
+      <div v-if="sortedSnapshots.length === 0" class="text-sm text-neutral-400 dark:text-neutral-500">No snapshots yet.</div>
       <ul v-else class="space-y-2">
         <li
           v-for="snap in sortedSnapshots"
           :key="snap.id"
-          class="flex items-center justify-between text-sm text-neutral-700"
+          class="flex items-center justify-between text-sm text-neutral-700 dark:text-neutral-300"
         >
           <div>
             <span class="font-medium">{{ snap.reason }}</span>
-            <span class="text-neutral-400 ml-2">{{ new Date(snap.createdAt).toLocaleString() }}</span>
-            <span class="text-neutral-400 ml-2">·</span>
-            <span class="text-neutral-400 ml-2">{{ snap.entries.length }} entries</span>
+            <span class="text-neutral-400 dark:text-neutral-500 ml-2">{{ new Date(snap.createdAt).toLocaleString() }}</span>
+            <span class="text-neutral-400 dark:text-neutral-500 ml-2">·</span>
+            <span class="text-neutral-400 dark:text-neutral-500 ml-2">{{ snap.entries.length }} entries</span>
           </div>
           <button
-            class="text-xs text-accent-600 hover:text-accent-800 underline"
+            class="text-xs text-accent-600 hover:text-accent-800 dark:text-accent-400 dark:hover:text-accent-300 underline"
             @click="restoreSnapshot(snap.id)"
           >
             Restore
