@@ -171,9 +171,6 @@ function validateValue(
       if (!Array.isArray(value)) {
         errors[path] = `"${field.name}" must be an array`
       } else {
-        if (!field.nullable && value.length === 0) {
-          errors[path] = `"${field.name}" must have at least one item`
-        }
         value.forEach((item, i) => {
           validateValue(item, field.items, `${path}.${i}`, errors)
         })

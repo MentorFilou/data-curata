@@ -82,8 +82,8 @@ function errorsForIndex(i: number): Record<string, string> | undefined {
 
 <template>
   <div class="space-y-2">
-    <div v-if="items.length === 0 && field.nullable" class="text-sm text-neutral-400 dark:text-neutral-500 italic">
-      Empty (nullable)
+    <div v-if="items.length === 0" class="text-sm text-neutral-400 dark:text-neutral-500 italic">
+      Empty
     </div>
 
     <div
