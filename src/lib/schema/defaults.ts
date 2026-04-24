@@ -15,6 +15,8 @@ function defaultValueForType(field: Field): EntryValue {
       return false
     case 'date':
       return ''
+    case 'datetime':
+      return ''
     case 'url':
       return ''
     case 'enum':
@@ -40,6 +42,8 @@ export function defaultValueForType2(type: FieldType): EntryValue {
     case 'boolean':
       return false
     case 'date':
+      return ''
+    case 'datetime':
       return ''
     case 'url':
       return ''

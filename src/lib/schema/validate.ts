@@ -132,6 +132,16 @@ function validateValue(
       }
       break
 
+    case 'datetime':
+      if (typeof value !== 'string') {
+        errors[path] = `"${field.name}" must be a datetime string`
+      } else if (!field.nullable && value === '') {
+        errors[path] = `"${field.name}" is required`
+      } else if (value !== '' && !isValidDateTime(value)) {
+        errors[path] = `"${field.name}" must be a valid datetime`
+      }
+      break
+
     case 'url':
       if (typeof value !== 'string') {
         errors[path] = `"${field.name}" must be a URL string`
@@ -175,6 +185,11 @@ function validateValue(
 
 function isValidDate(value: string): boolean {
   if (!/^\d{4}-\d{2}-\d{2}$/.test(value)) return false
+  const d = new Date(value)
+  return !isNaN(d.getTime())
+}
+
+function isValidDateTime(value: string): boolean {
   const d = new Date(value)
   return !isNaN(d.getTime())
 }

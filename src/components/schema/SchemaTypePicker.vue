@@ -9,6 +9,7 @@ const types: { value: FieldType; label: string }[] = [
   { value: 'number', label: 'Number' },
   { value: 'boolean', label: 'Boolean' },
   { value: 'date', label: 'Date' },
+  { value: 'datetime', label: 'DateTime' },
   { value: 'url', label: 'URL' },
   { value: 'enum', label: 'Enum' },
   { value: 'object', label: 'Object' },

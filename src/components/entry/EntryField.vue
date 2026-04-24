@@ -4,6 +4,7 @@ import StringField from './fields/StringField.vue'
 import NumberField from './fields/NumberField.vue'
 import BooleanField from './fields/BooleanField.vue'
 import DateField from './fields/DateField.vue'
+import DateTimeField from './fields/DateTimeField.vue'
 import UrlField from './fields/UrlField.vue'
 import EnumField from './fields/EnumField.vue'
 import ObjectField from './fields/ObjectField.vue'
@@ -48,6 +49,14 @@ const emit = defineEmits<{ 'update:modelValue': [value: EntryValue] }>()
   />
   <DateField
     v-else-if="field.type === 'date'"
+    :field="field"
+    :model-value="modelValue as string | null"
+    :error="error"
+    :variant="variant"
+    @update:model-value="emit('update:modelValue', $event)"
+  />
+  <DateTimeField
+    v-else-if="field.type === 'datetime'"
     :field="field"
     :model-value="modelValue as string | null"
     :error="error"

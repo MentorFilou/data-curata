@@ -1,4 +1,4 @@
-export type FieldType = 'string' | 'number' | 'boolean' | 'date' | 'url' | 'enum' | 'object' | 'array'
+export type FieldType = 'string' | 'number' | 'boolean' | 'date' | 'datetime' | 'url' | 'enum' | 'object' | 'array'
 
 export interface FieldBase {
   id: string
@@ -22,6 +22,10 @@ export interface NumberField extends FieldBase {
 
 export interface DateField extends FieldBase {
   type: 'date'
+}
+
+export interface DateTimeField extends FieldBase {
+  type: 'datetime'
 }
 
 export interface UrlField extends FieldBase {
@@ -51,6 +55,7 @@ export type Field =
   | StringField
   | NumberField
   | DateField
+  | DateTimeField
   | UrlField
   | BooleanField
   | EnumField

@@ -68,6 +68,9 @@ function coerce(value: EntryValue, field: Field): EntryValue {
     case 'date':
       if (typeof value === 'string' && /^\d{4}-\d{2}-\d{2}$/.test(value)) return value
       return field.nullable ? null : ''
+    case 'datetime':
+      if (typeof value === 'string' && !isNaN(new Date(value).getTime())) return value
+      return field.nullable ? null : ''
     case 'url':
       if (typeof value === 'string') {
         try {
