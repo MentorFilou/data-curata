@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { Pencil, Trash2 } from 'lucide-vue-next'
+import { Pencil, Trash2 } from '@lucide/vue'
 import type { Entry, Field, EntryValue } from '@/lib/schema/types'
 import IconButton from '@/components/common/IconButton.vue'
 

@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { ref } from 'vue'
-import { X, Plus } from 'lucide-vue-next'
+import { X, Plus } from '@lucide/vue'
 
 const props = defineProps<{ values: string[] }>()
 const emit = defineEmits<{ 'update:values': [values: string[]] }>()

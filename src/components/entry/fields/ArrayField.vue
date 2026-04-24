@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { computed, provide, inject } from 'vue'
 import type { Ref } from 'vue'
-import { Plus, Trash2 } from 'lucide-vue-next'
+import { Plus, Trash2 } from '@lucide/vue'
 import type { ArrayField as ArrayFieldType, EntryValue } from '@/lib/schema/types'
 import { defaultValueForField } from '@/lib/schema/defaults'
 import EntryField from '../EntryField.vue'

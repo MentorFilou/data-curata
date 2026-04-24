@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { ref, watch, computed } from 'vue'
-import { X } from 'lucide-vue-next'
+import { X } from '@lucide/vue'
 import type { Entry, EntryObject } from '@/lib/schema/types'
 import { useSchemaStore } from '@/stores/schema'
 import { validateEntry } from '@/lib/schema/validate'

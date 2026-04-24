@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { ref, computed } from 'vue'
-import { Download, ChevronDown } from 'lucide-vue-next'
+import { Download, ChevronDown } from '@lucide/vue'
 import { useEntriesStore } from '@/stores/entries'
 import { useSchemaStore } from '@/stores/schema'
 import { useUiStore } from '@/stores/ui'

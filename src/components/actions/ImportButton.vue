@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { ref } from 'vue'
-import { Upload } from 'lucide-vue-next'
+import { Upload } from '@lucide/vue'
 import { useEntriesStore } from '@/stores/entries'
 import { useSchemaStore } from '@/stores/schema'
 import { useHistoryStore } from '@/stores/history'

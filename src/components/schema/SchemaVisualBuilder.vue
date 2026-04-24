@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { computed } from 'vue'
-import { Plus } from 'lucide-vue-next'
+import { Plus } from '@lucide/vue'
 import type { Field } from '@/lib/schema/types'
 import { useSchemaStore } from '@/stores/schema'
 import SchemaFieldRow from './SchemaFieldRow.vue'

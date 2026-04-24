@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { BarChart2 } from 'lucide-vue-next'
+import { BarChart2 } from '@lucide/vue'
 import { useEntriesStore } from '@/stores/entries'
 import { computed } from 'vue'
 

@@ -2,7 +2,7 @@
 import { computed } from 'vue'
 
 function newId() { return crypto.randomUUID() }
-import { Trash2, ChevronUp, ChevronDown, Plus } from 'lucide-vue-next'
+import { Trash2, ChevronUp, ChevronDown, Plus } from '@lucide/vue'
 import type { Field, FieldType, ObjectField, ArrayField, EnumField } from '@/lib/schema/types'
 import SchemaTypePicker from './SchemaTypePicker.vue'
 import SchemaEnumEditor from './SchemaEnumEditor.vue'

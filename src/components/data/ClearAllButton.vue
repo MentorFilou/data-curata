@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { Trash2 } from 'lucide-vue-next'
+import { Trash2 } from '@lucide/vue'
 import { useEntriesStore } from '@/stores/entries'
 import { useHistoryStore } from '@/stores/history'
 import { useSchemaStore } from '@/stores/schema'

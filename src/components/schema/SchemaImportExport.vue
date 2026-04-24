@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { ref } from 'vue'
-import { Upload, Download } from 'lucide-vue-next'
+import { Upload, Download } from '@lucide/vue'
 import { useSchemaStore } from '@/stores/schema'
 import { useUiStore } from '@/stores/ui'
 import { validateSchema } from '@/lib/schema/validate'
