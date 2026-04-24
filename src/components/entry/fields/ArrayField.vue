@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed } from 'vue'
+import { computed, provide } from 'vue'
 import { Plus, Trash2 } from 'lucide-vue-next'
 import type { ArrayField as ArrayFieldType, EntryValue } from '@/lib/schema/types'
 import { defaultValueForField } from '@/lib/schema/defaults'
@@ -13,6 +13,8 @@ const props = defineProps<{
 }>()
 
 const emit = defineEmits<{ 'update:modelValue': [value: EntryValue[] | null] }>()
+
+provide('insideArrayItem', true)
 
 const items = computed(() => props.modelValue ?? [])
 

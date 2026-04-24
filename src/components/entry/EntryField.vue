@@ -15,6 +15,7 @@ defineProps<{
   error?: string
   errors?: Record<string, string>
   variant?: 'full' | 'compact'
+  pathPrefix?: string
 }>()
 
 const emit = defineEmits<{ 'update:modelValue': [value: EntryValue] }>()
@@ -75,6 +76,7 @@ const emit = defineEmits<{ 'update:modelValue': [value: EntryValue] }>()
     :model-value="modelValue as EntryObject | null"
     :errors="errors"
     :variant="variant"
+    :path-prefix="pathPrefix"
     @update:model-value="emit('update:modelValue', $event)"
   />
   <ArrayField

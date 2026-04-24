@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, computed, watch } from 'vue'
+import { ref, computed, watch, provide } from 'vue'
 import SchemaEditor from '@/components/schema/SchemaEditor.vue'
 import EntryForm from '@/components/entry/EntryForm.vue'
 import EntryActions from '@/components/entry/EntryActions.vue'
@@ -25,15 +25,24 @@ function buildDefaultData(): EntryObject {
 }
 
 const formData = ref<EntryObject>(buildDefaultData())
-const pinnedFields = ref<Set<string>>(new Set())
+const pinnedPaths = ref<Set<string>>(new Set())
 
-// Reset form when schema changes; clear pins for fields that no longer exist
+function togglePin(path: string) {
+  const next = new Set(pinnedPaths.value)
+  if (next.has(path)) next.delete(path)
+  else next.add(path)
+  pinnedPaths.value = next
+}
+
+provide('pinnedPaths', pinnedPaths)
+provide('togglePin', togglePin)
+
+// Reset form and pins when schema changes
 watch(
   () => schemaStore.schema.fields,
-  (fields) => {
+  () => {
     formData.value = buildDefaultData()
-    const validIds = new Set(fields.map((f) => f.id))
-    pinnedFields.value = new Set([...pinnedFields.value].filter((id) => validIds.has(id)))
+    pinnedPaths.value = new Set()
   },
   { deep: true }
 )
@@ -46,15 +55,31 @@ const canSubmit = computed(
   () => schemaStore.schema.fields.length > 0 && validationResult.value.valid
 )
 
+function applyPins(source: EntryObject, target: EntryObject, prefix: string): void {
+  for (const fieldId of Object.keys(source)) {
+    const path = prefix + fieldId
+    if (pinnedPaths.value.has(path)) {
+      target[fieldId] = source[fieldId]
+    } else {
+      const subPrefix = path + '.'
+      const hasSub = [...pinnedPaths.value].some((p) => p.startsWith(subPrefix))
+      if (hasSub) {
+        const src = source[fieldId]
+        if (src !== null && typeof src === 'object' && !Array.isArray(src)) {
+          const tgt = ((target[fieldId] as EntryObject | null | undefined) ?? {}) as EntryObject
+          applyPins(src as EntryObject, tgt, subPrefix)
+          target[fieldId] = tgt
+        }
+      }
+    }
+  }
+}
+
 function onSubmit() {
   if (!canSubmit.value) return
   entriesStore.addEntry({ ...formData.value })
   const newData = buildDefaultData()
-  for (const fieldId of pinnedFields.value) {
-    if (fieldId in formData.value) {
-      newData[fieldId] = formData.value[fieldId]
-    }
-  }
+  applyPins(formData.value, newData, '')
   formData.value = newData
   uiStore.addToast('Entry added', 'success')
 }
@@ -86,9 +111,7 @@ function onReset() {
           :model-value="formData"
           :errors="canSubmit ? undefined : validationResult.errors"
           variant="full"
-          :pinned-fields="pinnedFields"
           @update:model-value="formData = $event"
-          @update:pinned-fields="pinnedFields = $event"
         />
         <EntryActions :can-submit="canSubmit" @submit="onSubmit" @reset="onReset" />
       </template>

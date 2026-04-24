@@ -7,6 +7,7 @@ defineProps<{
   modelValue: EntryObject | null
   errors?: Record<string, string>
   variant?: 'full' | 'compact'
+  pathPrefix?: string
 }>()
 
 const emit = defineEmits<{ 'update:modelValue': [value: EntryObject | null] }>()
@@ -34,6 +35,7 @@ const emit = defineEmits<{ 'update:modelValue': [value: EntryObject | null] }>()
         :model-value="modelValue ?? {}"
         :errors="errors"
         :variant="variant"
+        :path-prefix="pathPrefix"
         @update:model-value="emit('update:modelValue', $event)"
       />
       <button
