@@ -10,8 +10,8 @@ pnpm build           # production build (must pass before committing)
 pnpm typecheck       # vue-tsc --noEmit (strict, no any without comment)
 pnpm test            # Vitest unit tests (src/tests/**/*.test.ts)
 pnpm test:e2e        # Playwright smoke tests (e2e/smoke.spec.ts)
-pnpm lint            # ESLint
-pnpm format          # Prettier
+pnpm lint            # ESLint static code analysis (eslint.config.js)
+pnpm format          # Prettier code style enforcement (.prettierrc)
 ```
 
 All four of `build`, `typecheck`, `test`, and `test:e2e` must pass before a task is done.
@@ -53,12 +53,13 @@ App boots → `main.ts` awaits `schemaStore.hydrate()`, `entriesStore.hydrate()`
 
 ## Engineering defaults
 
-- **Read before editing.** Check the file first; don't guess at existing structure.
+- **Read before editing.** Check the file first; don't guess at existing structure or blindly trust documentation files.
 - **Typecheck after every non-trivial change.** `pnpm typecheck` catches Vue template errors that the editor misses.
-- **No new dependencies** without checking README §2. If a library feels missing, ask first.
-- **Commits after each logical unit** — conventional-commit prefix (`feat:`, `fix:`, `chore:`, `test:`).
+- **No new dependencies** without checking docs/SPEC.md §2. If a library feels missing, ask first.
+- **Commits after each logical unit** — conventional-commit prefix (`feat:`, `fix:`, `chore:`, `test:`, `docs:`).
 - **No comments explaining what the code does.** Only comment *why* — hidden constraints, non-obvious invariants, workarounds.
 - **No `any` without a JSDoc comment** explaining the interop reason (one exception: `EntryValue` recursive type).
 - **Components > 200 lines → split.** Pages contain only store wiring; business logic belongs in `lib/` or stores.
 - **One confirm dialog path.** All destructive actions go through `useConfirm()`. No `window.confirm`.
 - **Errors surface inline**, not as alerts. Use `uiStore.addToast()` for operation feedback.
+- **Linting and Formatting before committing** every change should be verified with the `pnpm lint` and `pnpm format`
