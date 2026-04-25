@@ -16,7 +16,12 @@ export function validateSchema(schema: Schema): SchemaValidationResult {
   return { valid: errors.length === 0, errors }
 }
 
-function validateFields(fields: Field[], path: string, errors: string[], visited: Set<string>): void {
+function validateFields(
+  fields: Field[],
+  path: string,
+  errors: string[],
+  visited: Set<string>
+): void {
   const names = new Set<string>()
   for (const field of fields) {
     const fieldPath = path ? `${path}.${field.name}` : field.name
@@ -200,10 +205,7 @@ function isValidUrl(value: string): boolean {
   }
 }
 
-export function isBreakingChange(
-  oldFields: Field[],
-  newFields: Field[]
-): boolean {
+export function isBreakingChange(oldFields: Field[], newFields: Field[]): boolean {
   const oldMap = new Map(oldFields.map((f) => [f.id, f]))
   const newMap = new Map(newFields.map((f) => [f.id, f]))
 

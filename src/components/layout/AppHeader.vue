@@ -10,7 +10,9 @@ const entryCount = computed(() => entriesStore.entries.length)
 </script>
 
 <template>
-  <header class="bg-white border-b border-neutral-200 sticky top-0 z-40 dark:bg-neutral-900 dark:border-neutral-700">
+  <header
+    class="bg-white border-b border-neutral-200 sticky top-0 z-40 dark:bg-neutral-900 dark:border-neutral-700"
+  >
     <div class="max-w-content mx-auto px-4 h-14 flex items-center justify-between">
       <RouterLink
         to="/"
@@ -45,14 +47,8 @@ const entryCount = computed(() => entriesStore.entries.length)
           :title="uiStore.theme === 'dark' ? 'Switch to light mode' : 'Switch to dark mode'"
           @click="uiStore.toggleTheme()"
         >
-          <Sun
-            v-if="uiStore.theme === 'dark'"
-            class="w-4 h-4"
-          />
-          <Moon
-            v-else
-            class="w-4 h-4"
-          />
+          <Sun v-if="uiStore.theme === 'dark'" class="w-4 h-4" />
+          <Moon v-else class="w-4 h-4" />
         </button>
       </nav>
     </div>

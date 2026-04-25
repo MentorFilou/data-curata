@@ -13,11 +13,7 @@ export const useHistoryStore = defineStore('history', () => {
     hydrated.value = true
   }
 
-  async function snapshot(
-    reason: SnapshotReason,
-    schema: Schema,
-    entries: Entry[]
-  ): Promise<void> {
+  async function snapshot(reason: SnapshotReason, schema: Schema, entries: Entry[]): Promise<void> {
     const snap: Snapshot = {
       id: crypto.randomUUID(),
       createdAt: new Date().toISOString(),

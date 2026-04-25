@@ -56,7 +56,10 @@ function addItem() {
 }
 
 function removeItem(i: number) {
-  emit('update:modelValue', items.value.filter((_, idx) => idx !== i))
+  emit(
+    'update:modelValue',
+    items.value.filter((_, idx) => idx !== i)
+  )
 }
 
 function updateItem(i: number, value: EntryValue) {
@@ -82,18 +85,11 @@ function errorsForIndex(i: number): Record<string, string> | undefined {
 
 <template>
   <div class="space-y-2">
-    <div
-      v-if="items.length === 0"
-      class="text-sm text-neutral-400 dark:text-neutral-500 italic"
-    >
+    <div v-if="items.length === 0" class="text-sm text-neutral-400 dark:text-neutral-500 italic">
       Empty
     </div>
 
-    <div
-      v-for="(item, i) in items"
-      :key="i"
-      class="flex items-start gap-2"
-    >
+    <div v-for="(item, i) in items" :key="i" class="flex items-start gap-2">
       <EntryField
         :field="field.items"
         :model-value="item"
@@ -105,16 +101,28 @@ function errorsForIndex(i: number): Record<string, string> | undefined {
       />
       <label
         v-if="pinnedPaths !== undefined && variant !== 'compact'"
-        :class="['mt-1 flex items-center gap-1 select-none', implicitlyKept ? 'opacity-40 cursor-not-allowed' : 'cursor-pointer']"
-        :title="implicitlyKept ? 'Kept by array' : isItemPinned(i) ? 'Item will be kept after submitting' : 'Keep this item after submitting'"
+        :class="[
+          'mt-1 flex items-center gap-1 select-none',
+          implicitlyKept ? 'opacity-40 cursor-not-allowed' : 'cursor-pointer',
+        ]"
+        :title="
+          implicitlyKept
+            ? 'Kept by array'
+            : isItemPinned(i)
+              ? 'Item will be kept after submitting'
+              : 'Keep this item after submitting'
+        "
       >
         <input
           type="checkbox"
           :checked="isItemPinned(i) || implicitlyKept"
           :disabled="implicitlyKept"
-          :class="['w-3.5 h-3.5 rounded accent-neutral-500', implicitlyKept ? 'cursor-not-allowed' : 'cursor-pointer']"
+          :class="[
+            'w-3.5 h-3.5 rounded accent-neutral-500',
+            implicitlyKept ? 'cursor-not-allowed' : 'cursor-pointer',
+          ]"
           @change="togglePin?.(itemPath(i))"
-        >
+        />
         <span class="text-xs text-neutral-400 dark:text-neutral-500">keep</span>
       </label>
       <button

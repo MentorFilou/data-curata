@@ -1,7 +1,13 @@
 import { defineStore } from 'pinia'
 import { ref } from 'vue'
 import type { Entry, EntryObject } from '@/lib/schema/types'
-import { loadEntries, saveEntry, deleteEntry, clearEntries, saveAllEntries } from '@/lib/persistence/entriesRepo'
+import {
+  loadEntries,
+  saveEntry,
+  deleteEntry,
+  clearEntries,
+  saveAllEntries,
+} from '@/lib/persistence/entriesRepo'
 
 export const useEntriesStore = defineStore('entries', () => {
   const entries = ref<Entry[]>([])

@@ -15,7 +15,9 @@ const emit = defineEmits<{ edit: [id: string]; remove: [id: string] }>()
   <div class="overflow-x-auto rounded-xl border border-neutral-200 dark:border-neutral-700">
     <table class="w-full text-sm">
       <thead>
-        <tr class="bg-neutral-50 border-b border-neutral-200 dark:bg-neutral-800 dark:border-neutral-700">
+        <tr
+          class="bg-neutral-50 border-b border-neutral-200 dark:bg-neutral-800 dark:border-neutral-700"
+        >
           <th
             v-for="field in fields"
             :key="field.id"
@@ -23,10 +25,7 @@ const emit = defineEmits<{ edit: [id: string]; remove: [id: string] }>()
           >
             {{ field.name }}
           </th>
-          <th
-            v-if="editMode"
-            class="px-4 py-3 w-20"
-          />
+          <th v-if="editMode" class="px-4 py-3 w-20" />
         </tr>
       </thead>
       <tbody>

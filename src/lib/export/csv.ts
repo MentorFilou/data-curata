@@ -32,11 +32,7 @@ export const csvFormat: ExportFormat = {
   },
 }
 
-function collectPaths(
-  value: EntryValue,
-  prefix: string,
-  paths: Set<string>
-): void {
+function collectPaths(value: EntryValue, prefix: string, paths: Set<string>): void {
   if (value === null || value === undefined) {
     if (prefix) paths.add(prefix)
     return

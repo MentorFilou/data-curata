@@ -45,9 +45,7 @@ watch(
   { deep: true }
 )
 
-const validationResult = computed(() =>
-  validateEntry(formData.value, schemaStore.schema)
-)
+const validationResult = computed(() => validateEntry(formData.value, schemaStore.schema))
 
 const canSubmit = computed(
   () => schemaStore.schema.fields.length > 0 && validationResult.value.valid
@@ -57,7 +55,7 @@ function applyPins(
   source: EntryObject,
   target: EntryObject,
   prefix: string,
-  nextPins: Set<string>,
+  nextPins: Set<string>
 ): void {
   for (const fieldId of Object.keys(source)) {
     const path = prefix + fieldId
@@ -107,18 +105,13 @@ function onReset() {
     <SchemaEditor />
 
     <!-- Entry form -->
-    <div class="bg-white rounded-xl border border-neutral-200 p-6 shadow-sm dark:bg-neutral-800 dark:border-neutral-700">
-      <h2 class="text-base font-semibold text-neutral-900 dark:text-neutral-100 mb-5">
-        Add Entry
-      </h2>
+    <div
+      class="bg-white rounded-xl border border-neutral-200 p-6 shadow-sm dark:bg-neutral-800 dark:border-neutral-700"
+    >
+      <h2 class="text-base font-semibold text-neutral-900 dark:text-neutral-100 mb-5">Add Entry</h2>
 
-      <div
-        v-if="schemaStore.schema.fields.length === 0"
-        class="text-center py-10 text-neutral-500"
-      >
-        <p class="text-sm">
-          No schema defined yet.
-        </p>
+      <div v-if="schemaStore.schema.fields.length === 0" class="text-center py-10 text-neutral-500">
+        <p class="text-sm">No schema defined yet.</p>
         <p class="text-xs mt-1">
           Click <strong>Schema · click to edit</strong> above to define your data model.
         </p>
@@ -132,11 +125,7 @@ function onReset() {
           variant="full"
           @update:model-value="formData = $event"
         />
-        <EntryActions
-          :can-submit="canSubmit"
-          @submit="onSubmit"
-          @reset="onReset"
-        />
+        <EntryActions :can-submit="canSubmit" @submit="onSubmit" @reset="onReset" />
       </template>
     </div>
   </div>

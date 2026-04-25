@@ -75,13 +75,7 @@ function cancelImport() {
 
 <template>
   <div class="relative">
-    <input
-      ref="fileInput"
-      type="file"
-      accept=".json"
-      class="hidden"
-      @change="onFileSelected"
-    >
+    <input ref="fileInput" type="file" accept=".json" class="hidden" @change="onFileSelected" />
 
     <button
       class="flex items-center gap-2 px-4 py-2 text-sm font-medium rounded-lg border border-neutral-300 dark:border-neutral-600 text-neutral-700 hover:bg-neutral-50 dark:text-neutral-300 dark:hover:bg-neutral-800 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-500"
@@ -98,10 +92,7 @@ function cancelImport() {
           class="fixed inset-0 z-50 flex items-center justify-center p-4"
           @keydown.esc="cancelImport"
         >
-          <div
-            class="absolute inset-0 bg-black/40"
-            @click="cancelImport"
-          />
+          <div class="absolute inset-0 bg-black/40" @click="cancelImport" />
           <div
             class="relative bg-white dark:bg-neutral-800 rounded-xl shadow-xl max-w-sm w-full p-6 space-y-4"
             role="dialog"
@@ -115,8 +106,8 @@ function cancelImport() {
               Import {{ pendingData?.length }} {{ pendingData?.length === 1 ? 'entry' : 'entries' }}
             </h2>
             <p class="text-sm text-neutral-600 dark:text-neutral-400 leading-relaxed">
-              <strong>Merge</strong> appends to existing entries.
-              <strong>Replace</strong> clears current entries first (a snapshot is saved automatically).
+              <strong>Merge</strong> appends to existing entries. <strong>Replace</strong> clears
+              current entries first (a snapshot is saved automatically).
             </p>
             <div class="flex flex-col gap-2 pt-1">
               <button

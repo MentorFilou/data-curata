@@ -26,7 +26,9 @@ function formatValue(val: EntryValue): string {
 </script>
 
 <template>
-  <tr class="border-b border-neutral-100 hover:bg-neutral-50 transition-colors dark:border-neutral-700 dark:hover:bg-neutral-800/60">
+  <tr
+    class="border-b border-neutral-100 hover:bg-neutral-50 transition-colors dark:border-neutral-700 dark:hover:bg-neutral-800/60"
+  >
     <td
       v-for="field in fields"
       :key="field.id"
@@ -35,16 +37,9 @@ function formatValue(val: EntryValue): string {
     >
       {{ cellValue(entry, field) }}
     </td>
-    <td
-      v-if="editMode"
-      class="px-4 py-3"
-    >
+    <td v-if="editMode" class="px-4 py-3">
       <div class="flex items-center gap-1">
-        <IconButton
-          size="sm"
-          title="Edit entry"
-          @click="emit('edit', entry.id)"
-        >
+        <IconButton size="sm" title="Edit entry" @click="emit('edit', entry.id)">
           <Pencil class="w-3.5 h-3.5" />
         </IconButton>
         <IconButton

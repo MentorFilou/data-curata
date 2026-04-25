@@ -59,10 +59,7 @@ function subErrors(field: Field): Record<string, string> | undefined {
 
 <template>
   <div :class="['space-y-4', variant === 'compact' ? 'space-y-2' : 'space-y-5']">
-    <div
-      v-for="field in fields"
-      :key="field.id"
-    >
+    <div v-for="field in fields" :key="field.id">
       <div :class="['flex items-center gap-2', variant === 'compact' ? 'mb-0.5' : 'mb-1.5']">
         <label
           :class="[
@@ -80,8 +77,17 @@ function subErrors(field: Field): Record<string, string> | undefined {
         </span>
         <label
           v-if="variant !== 'compact' && !insideArrayItem && pinnedPaths !== undefined"
-          :class="['ml-auto flex items-center gap-1.5 select-none', ancestorPinned ? 'opacity-40 cursor-not-allowed' : 'cursor-pointer']"
-          :title="ancestorPinned ? 'Kept by parent' : isPinned(field.id) ? 'Value will be kept after submitting' : 'Keep this value after submitting'"
+          :class="[
+            'ml-auto flex items-center gap-1.5 select-none',
+            ancestorPinned ? 'opacity-40 cursor-not-allowed' : 'cursor-pointer',
+          ]"
+          :title="
+            ancestorPinned
+              ? 'Kept by parent'
+              : isPinned(field.id)
+                ? 'Value will be kept after submitting'
+                : 'Keep this value after submitting'
+          "
         >
           <input
             type="checkbox"
@@ -90,7 +96,7 @@ function subErrors(field: Field): Record<string, string> | undefined {
             class="w-3.5 h-3.5 rounded accent-neutral-500"
             :class="ancestorPinned ? 'cursor-not-allowed' : 'cursor-pointer'"
             @change="togglePin?.(currentPath(field.id))"
-          >
+          />
           <span class="text-xs text-neutral-400 dark:text-neutral-500">keep</span>
         </label>
       </div>

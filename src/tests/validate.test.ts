@@ -103,9 +103,7 @@ describe('validateEntry', () => {
 })
 
 describe('isBreakingChange', () => {
-  const oldFields: Field[] = [
-    { id: 'f1', name: 'title', type: 'string', nullable: false },
-  ]
+  const oldFields: Field[] = [{ id: 'f1', name: 'title', type: 'string', nullable: false }]
 
   it('adding a nullable field is not breaking', () => {
     const newFields: Field[] = [
@@ -128,16 +126,12 @@ describe('isBreakingChange', () => {
   })
 
   it('type change is breaking', () => {
-    const newFields: Field[] = [
-      { id: 'f1', name: 'title', type: 'number', nullable: false },
-    ]
+    const newFields: Field[] = [{ id: 'f1', name: 'title', type: 'number', nullable: false }]
     expect(isBreakingChange(oldFields, newFields)).toBe(true)
   })
 
   it('rename only (same id) is not breaking', () => {
-    const newFields: Field[] = [
-      { id: 'f1', name: 'renamed', type: 'string', nullable: false },
-    ]
+    const newFields: Field[] = [{ id: 'f1', name: 'renamed', type: 'string', nullable: false }]
     expect(isBreakingChange(oldFields, newFields)).toBe(false)
   })
 })

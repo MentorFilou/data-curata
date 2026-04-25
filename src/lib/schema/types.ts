@@ -1,4 +1,13 @@
-export type FieldType = 'string' | 'number' | 'boolean' | 'date' | 'datetime' | 'url' | 'enum' | 'object' | 'array'
+export type FieldType =
+  | 'string'
+  | 'number'
+  | 'boolean'
+  | 'date'
+  | 'datetime'
+  | 'url'
+  | 'enum'
+  | 'object'
+  | 'array'
 
 export interface FieldBase {
   id: string

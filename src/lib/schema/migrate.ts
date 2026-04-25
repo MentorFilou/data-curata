@@ -8,11 +8,7 @@ export function migrateEntries(entries: Entry[], oldSchema: Schema, newSchema: S
   }))
 }
 
-function migrateObject(
-  obj: EntryObject,
-  oldFields: Field[],
-  newFields: Field[]
-): EntryObject {
+function migrateObject(obj: EntryObject, oldFields: Field[], newFields: Field[]): EntryObject {
   const oldMap = new Map(oldFields.map((f) => [f.id, f]))
   const result: EntryObject = {}
 

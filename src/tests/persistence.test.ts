@@ -3,7 +3,13 @@ import 'fake-indexeddb/auto'
 import { IDBFactory } from 'fake-indexeddb'
 import { resetDbForTest } from '@/lib/persistence/db'
 import { loadSchema, saveSchema } from '@/lib/persistence/schemaRepo'
-import { loadEntries, saveEntry, deleteEntry, clearEntries, saveAllEntries } from '@/lib/persistence/entriesRepo'
+import {
+  loadEntries,
+  saveEntry,
+  deleteEntry,
+  clearEntries,
+  saveAllEntries,
+} from '@/lib/persistence/entriesRepo'
 import { loadSnapshots, saveSnapshot, MAX_SNAPSHOTS } from '@/lib/persistence/historyRepo'
 import type { Schema, Entry, Snapshot } from '@/lib/schema/types'
 
@@ -16,9 +22,7 @@ beforeEach(() => {
 
 const baseSchema: Schema = {
   version: 1,
-  fields: [
-    { id: 'f1', name: 'title', type: 'string', nullable: false },
-  ],
+  fields: [{ id: 'f1', name: 'title', type: 'string', nullable: false }],
 }
 
 function makeEntry(id: string): Entry {

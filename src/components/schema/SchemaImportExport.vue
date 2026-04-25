@@ -60,12 +60,6 @@ async function onFileSelected(e: Event) {
       <Download class="w-3.5 h-3.5" />
       Export
     </button>
-    <input
-      ref="fileInput"
-      type="file"
-      accept=".json"
-      class="hidden"
-      @change="onFileSelected"
-    >
+    <input ref="fileInput" type="file" accept=".json" class="hidden" @change="onFileSelected" />
   </div>
 </template>

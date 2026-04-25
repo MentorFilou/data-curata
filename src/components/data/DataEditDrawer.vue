@@ -36,19 +36,15 @@ function onSave() {
 <template>
   <Teleport to="body">
     <Transition name="slide">
-      <div
-        v-if="entry"
-        class="fixed inset-0 z-40 flex justify-end"
-      >
+      <div v-if="entry" class="fixed inset-0 z-40 flex justify-end">
+        <div class="absolute inset-0 bg-black/30" @click="emit('close')" />
         <div
-          class="absolute inset-0 bg-black/30"
-          @click="emit('close')"
-        />
-        <div class="relative w-full max-w-md bg-white dark:bg-neutral-800 shadow-2xl flex flex-col h-full">
-          <div class="flex items-center justify-between px-5 py-4 border-b border-neutral-200 dark:border-neutral-700">
-            <h2 class="text-sm font-semibold text-neutral-900 dark:text-neutral-100">
-              Edit Entry
-            </h2>
+          class="relative w-full max-w-md bg-white dark:bg-neutral-800 shadow-2xl flex flex-col h-full"
+        >
+          <div
+            class="flex items-center justify-between px-5 py-4 border-b border-neutral-200 dark:border-neutral-700"
+          >
+            <h2 class="text-sm font-semibold text-neutral-900 dark:text-neutral-100">Edit Entry</h2>
             <button
               class="p-1 rounded hover:bg-neutral-100 dark:hover:bg-neutral-700 text-neutral-500 dark:text-neutral-400"
               @click="emit('close')"

@@ -5,7 +5,9 @@ import Toast from '@/components/common/Toast.vue'
 </script>
 
 <template>
-  <div class="min-h-screen bg-neutral-50 text-neutral-900 dark:bg-neutral-900 dark:text-neutral-100">
+  <div
+    class="min-h-screen bg-neutral-50 text-neutral-900 dark:bg-neutral-900 dark:text-neutral-100"
+  >
     <AppHeader />
     <main class="max-w-content mx-auto px-4 py-8">
       <RouterView />

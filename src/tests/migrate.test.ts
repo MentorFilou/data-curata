@@ -23,10 +23,7 @@ describe('migrateEntries', () => {
     }
     const next: Schema = {
       version: 1,
-      fields: [
-        ...old.fields,
-        { id: 'f2', name: 'note', type: 'string', nullable: true },
-      ],
+      fields: [...old.fields, { id: 'f2', name: 'note', type: 'string', nullable: true }],
     }
     const result = migrateEntries([entry({ f1: 'hello' })], old, next)
     expect(result[0].data.f2).toBeNull()

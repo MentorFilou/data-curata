@@ -15,7 +15,13 @@ const schema: Schema = {
       nullable: false,
       fields: [{ id: 'f3', name: 'name', type: 'string', nullable: false }],
     },
-    { id: 'f4', name: 'tags', type: 'array', nullable: true, items: { id: 'f5', name: 'tag', type: 'string', nullable: false } },
+    {
+      id: 'f4',
+      name: 'tags',
+      type: 'array',
+      nullable: true,
+      items: { id: 'f5', name: 'tag', type: 'string', nullable: false },
+    },
   ],
 }
 
@@ -82,19 +88,29 @@ describe('CSV export', () => {
       version: 1,
       fields: [
         {
-          id: 'a', name: 'a', type: 'object', nullable: false, fields: [
+          id: 'a',
+          name: 'a',
+          type: 'object',
+          nullable: false,
+          fields: [
             {
-              id: 'b', name: 'b', type: 'object', nullable: false, fields: [
+              id: 'b',
+              name: 'b',
+              type: 'object',
+              nullable: false,
+              fields: [
                 {
-                  id: 'c', name: 'c', type: 'object', nullable: false, fields: [
-                    { id: 'd', name: 'd', type: 'string', nullable: false }
-                  ]
-                }
-              ]
-            }
-          ]
-        }
-      ]
+                  id: 'c',
+                  name: 'c',
+                  type: 'object',
+                  nullable: false,
+                  fields: [{ id: 'd', name: 'd', type: 'string', nullable: false }],
+                },
+              ],
+            },
+          ],
+        },
+      ],
     }
     const deepEntry = entry({ a: { b: { c: { d: 'deep' } } } })
     const output = csvFormat.serialize([deepEntry], deepSchema) as string

@@ -12,10 +12,7 @@ const { state, accept, cancel } = useConfirm()
         class="fixed inset-0 z-50 flex items-center justify-center p-4"
         @keydown.esc="cancel"
       >
-        <div
-          class="absolute inset-0 bg-black/40"
-          @click="cancel"
-        />
+        <div class="absolute inset-0 bg-black/40" @click="cancel" />
         <div
           class="relative bg-white dark:bg-neutral-800 rounded-xl shadow-xl max-w-md w-full p-6 space-y-4"
           role="dialog"
