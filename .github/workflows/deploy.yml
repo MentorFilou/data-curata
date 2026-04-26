@@ -1,6 +1,7 @@
 # Deploys to GitHub Pages on every push to main, but only after all CI workflows pass.
 # Triggered once per CI workflow completion; the gate job (1) verifies all have succeeded
 # and (2) cancels any sibling runs before proceeding using the queue created by concurrency.
+# Manually needs to update its status on the commit as its not actually triggered by that directly.
 
 name: Deploy
 
@@ -29,9 +30,24 @@ jobs:
     timeout-minutes: 5
     permissions:
       actions: write
+      statuses: write
     outputs:
       proceed: ${{ steps.cancel.outputs.proceed }}
     steps:
+      - name: Report deploy pending
+        uses: actions/github-script@3a2844b7e9c422d3c10d287c895573f7108da1b3 # v9.0.0
+        with:
+        # link this as a pending deployment to the commit for traceability
+          script: |
+            await github.rest.repos.createCommitStatus({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              sha: context.payload.workflow_run.head_sha,
+              state: 'pending',
+              context: 'Deploy',
+              description: 'Waiting for all CI workflows to pass...',
+            });
+
       - name: Check all CI workflows passed
         id: check
         uses: actions/github-script@3a2844b7e9c422d3c10d287c895573f7108da1b3 # v9.0.0
@@ -46,13 +62,31 @@ jobs:
               head_sha: commitSha,
               per_page: 100,
             });
-            const allPassed = required.every(name => {
-              const run = data.workflow_runs.find(
-                r => r.name === name && r.status === 'completed'
-              );
-              return run?.conclusion === 'success';
+            const runs = name => data.workflow_runs.find(
+              r => r.name === name && r.status === 'completed'
+            );
+            const anyFailed = required.some(name => {
+              const run = runs(name);
+              return run && run.conclusion !== 'success';
             });
+            const allPassed = required.every(name => runs(name)?.conclusion === 'success');
+            core.setOutput('ci_failed', anyFailed ? 'true' : 'false');
             core.setOutput('proceed', allPassed ? 'true' : 'false');
+
+      - name: Report CI failure
+        if: steps.check.outputs.ci_failed == 'true'
+        uses: actions/github-script@3a2844b7e9c422d3c10d287c895573f7108da1b3 # v9.0.0
+        with:
+          # update the link to the commit as a failed deployment due to ci failure
+          script: |
+            await github.rest.repos.createCommitStatus({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              sha: context.payload.workflow_run.head_sha,
+              state: 'failure',
+              context: 'Deploy',
+              description: 'A required CI workflow failed.',
+            });
 
       - name: Cancel other queued deploy runs for this SHA
         id: cancel
@@ -93,6 +127,7 @@ jobs:
       contents: read
       pages: write
       id-token: write
+      statuses: write
     environment:
       name: github-pages
       url: ${{ steps.deploy.outputs.page_url }}
@@ -113,3 +148,19 @@ jobs:
           path: dist
       - uses: actions/deploy-pages@cd2ce8fcbc39b97be8ca5fce6e763baed58fa128 # v5.0.0
         id: deploy
+      - name: Report deploy status
+        if: always()
+        uses: actions/github-script@3a2844b7e9c422d3c10d287c895573f7108da1b3 # v9.0.0
+        with:
+          # update the link to the commit with the actual status after the real 'deploy' job
+          script: |
+            const success = '${{ job.status }}' === 'success';
+            await github.rest.repos.createCommitStatus({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              sha: context.payload.workflow_run.head_sha,
+              state: success ? 'success' : 'failure',
+              context: 'Deploy',
+              description: success ? 'Deployed to GitHub Pages.' : 'Deployment failed.',
+              target_url: `https://github.com/${context.repo.owner}/${context.repo.repo}/actions/runs/${context.runId}`,
+            });
