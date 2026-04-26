@@ -2,7 +2,7 @@ import { test, expect } from '@playwright/test'
 
 test.describe('Flow 1: Define schema → add entry → verify on data page', () => {
   test('creates a schema, adds an entry, sees it on data page', async ({ page }) => {
-    await page.goto('/collect')
+    await page.goto('/define')
 
     // Expand schema editor
     await page.click('button[aria-expanded]')
@@ -14,8 +14,8 @@ test.describe('Flow 1: Define schema → add entry → verify on data page', () 
     const nameInputs = page.locator('input[placeholder="field name"]')
     await nameInputs.first().fill('title')
 
-    // Close editor (collapse)
-    await page.click('button[aria-expanded]')
+    // Navigate to collect page
+    await page.click('a[href="/collect"]')
 
     // Fill in the entry form
     await page.locator('input[type="text"]').first().fill('My first entry')
@@ -33,14 +33,16 @@ test.describe('Flow 1: Define schema → add entry → verify on data page', () 
 
 test.describe('Flow 2: Add entry → edit it → verify persists after reload', () => {
   test('edits an entry and the change persists after page reload', async ({ page }) => {
-    await page.goto('/collect')
+    await page.goto('/define')
 
     // Build a simple schema with one field
     await page.click('button[aria-expanded]')
     await page.click('button:has-text("Add field")')
     const nameInput = page.locator('input[placeholder="field name"]').first()
     await nameInput.fill('note')
-    await page.click('button[aria-expanded]')
+
+    // Navigate to collect page
+    await page.click('a[href="/collect"]')
 
     // Add entry
     await page.locator('input[type="text"]').first().fill('original value')
@@ -74,7 +76,7 @@ test.describe('Flow 2: Add entry → edit it → verify persists after reload', 
 
 test.describe('Flow 3: One of each field type → export as JSON', () => {
   test('defines a schema with multiple types and exports as JSON', async ({ page }) => {
-    await page.goto('/collect')
+    await page.goto('/define')
 
     // Build schema with several field types
     await page.click('button[aria-expanded]')
@@ -90,7 +92,8 @@ test.describe('Flow 3: One of each field type → export as JSON', () => {
     // Change type to number
     await page.locator('select').last().selectOption('number')
 
-    await page.click('button[aria-expanded]')
+    // Navigate to collect page
+    await page.click('a[href="/collect"]')
 
     // Fill and submit
     await page.locator('input[type="text"]').first().fill('Alice')

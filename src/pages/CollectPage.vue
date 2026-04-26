@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import { ref, computed, watch, provide } from 'vue'
-import SchemaEditor from '@/components/schema/SchemaEditor.vue'
 import EntryForm from '@/components/entry/EntryForm.vue'
 import EntryActions from '@/components/entry/EntryActions.vue'
 import { useSchemaStore } from '@/stores/schema'
@@ -101,9 +100,6 @@ function onReset() {
 
 <template>
   <div class="space-y-8">
-    <!-- Schema editor -->
-    <SchemaEditor />
-
     <!-- Entry form -->
     <div
       class="bg-white rounded-xl border border-neutral-200 p-6 shadow-sm dark:bg-neutral-800 dark:border-neutral-700"
@@ -120,7 +116,12 @@ function onReset() {
           No schema defined yet.
         </p>
         <p class="text-xs mt-1">
-          Click <strong>Schema · click to edit</strong> above to define your data model.
+          Head to <RouterLink
+            to="/define"
+            class="text-accent-700 hover:underline dark:text-accent-400"
+          >
+            Define
+          </RouterLink> to create your data model.
         </p>
       </div>
 

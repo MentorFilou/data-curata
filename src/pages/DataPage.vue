@@ -154,12 +154,19 @@ const sortedSnapshots = computed(() =>
       </p>
       <p class="text-sm mt-1">
         <RouterLink
+          to="/define"
+          class="text-accent-600 hover:underline"
+        >
+          Define
+        </RouterLink>
+        a schema, then
+        <RouterLink
           to="/collect"
           class="text-accent-600 hover:underline"
         >
-          Go to the Collect page
+          Collect
         </RouterLink>
-        to define a schema and add entries.
+        entries.
       </p>
     </div>
 
