@@ -1,66 +1,26 @@
-# Deploys to GitHub Pages on every push to main, but only after the CI workflow passes.
-# Manually needs to update its status on the commit as its not directly triggered by that.
+# Deploys to GitHub Pages. Called by ci.yml after all CI jobs pass.
 
 name: Deploy
 
-# start after the CI workflow finishes
 on:
-  workflow_run:
-    workflows: [CI]
-    types: [completed]
-    branches: [main]
+  workflow_call:
 
 # all permissions are declared explicitly per job
-permissions: {} 
+permissions: {}
 
-# stop this job if a new one is started due to a new commit/merge
-concurrency:
-  group: ${{ github.workflow }}-${{ github.ref }}
-  cancel-in-progress: true
-
-# 'gate' verifies this deploy is allowed to happen
-# 'deploy' then actually executes the deployment to github pages
 jobs:
-  gate:
-    # checks if the ci workflow has passed
-    if: github.event.workflow_run.conclusion == 'success'
-    runs-on: ubuntu-24.04
-    timeout-minutes: 5
-    permissions:
-      statuses: write
-    steps:
-      - name: Report deploy pending
-        uses: actions/github-script@3a2844b7e9c422d3c10d287c895573f7108da1b3 # v9.0.0
-        with:
-        # link this as a pending deployment to the commit for traceability
-          script: |
-            await github.rest.repos.createCommitStatus({
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              sha: context.payload.workflow_run.head_sha,
-              state: 'pending',
-              context: 'Deploy',
-              description: 'CI passed, deploying...',
-            });
-
-
   deploy:
-    needs: gate
-    if: needs.gate.result == 'success'
     runs-on: ubuntu-24.04
     timeout-minutes: 10
     permissions:
       contents: read
       pages: write
       id-token: write
-      statuses: write
     environment:
       name: github-pages
       url: ${{ steps.deploy.outputs.page_url }}
     steps:
       - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
-        with:
-          ref: ${{ github.event.workflow_run.head_sha }}
       - uses: pnpm/action-setup@fc06bc1257f339d1d5d8b3a19a8cae5388b55320 # v5.0.0
       - uses: actions/setup-node@48b55a011bda9f5d6aeb4c2d9c7362e8dae4041e # v6.4.0
         with:
@@ -74,19 +34,3 @@ jobs:
           path: dist
       - uses: actions/deploy-pages@cd2ce8fcbc39b97be8ca5fce6e763baed58fa128 # v5.0.0
         id: deploy
-      - name: Report deploy status
-        if: always()
-        uses: actions/github-script@3a2844b7e9c422d3c10d287c895573f7108da1b3 # v9.0.0
-        with:
-          # update the link to the commit with the actual status after the real 'deploy' job
-          script: |
-            const success = '${{ job.status }}' === 'success';
-            await github.rest.repos.createCommitStatus({
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              sha: context.payload.workflow_run.head_sha,
-              state: success ? 'success' : 'failure',
-              context: 'Deploy',
-              description: success ? 'Deployed to GitHub Pages.' : 'Deployment failed.',
-              target_url: `https://github.com/${context.repo.owner}/${context.repo.repo}/actions/runs/${context.runId}`,
-            });
