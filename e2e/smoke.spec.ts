@@ -48,7 +48,7 @@ test.describe('Flow 2: Add entry → edit it → verify persists after reload', 
 
     // Go to data page and enable edit mode
     await page.click('a[href="/data"]')
-    await page.check('input[type="checkbox"]:near(:text("Edit mode"))')
+    await page.click('button:has-text("Edit mode")')
 
     // Click edit (pencil) button for first row
     await page.click('button[title="Edit entry"]')
@@ -59,9 +59,16 @@ test.describe('Flow 2: Add entry → edit it → verify persists after reload', 
     // Save
     await page.click('button:has-text("Save changes")')
 
-    // Reload and verify
+    // Wait for the table to reflect the edit (drawer closed, value updated in-memory)
+    await expect(page.locator('td').first()).toContainText('edited value')
+
+    // Ensure a small delay for IDB transaction to complete and flush
+    await page.waitForTimeout(1000)
+
+    // Reload and verify persistence
     await page.reload()
-    await expect(page.locator('td')).toContainText('edited value')
+    await page.waitForLoadState('networkidle')
+    await expect(page.locator('td').first()).toContainText('edited value')
   })
 })
 
@@ -90,10 +97,14 @@ test.describe('Flow 3: One of each field type → export as JSON', () => {
     await page.locator('input[type="number"]').first().fill('42')
     await page.click('button:has-text("Add entry")')
 
-    // Export JSON via the dropdown
+    // Navigate to data page where the entries Export lives
+    await page.click('a[href="/data"]')
+
+    // Click Export → dialog appears → choose "Field names" to trigger download
+    await page.locator('main').getByRole('button', { name: 'Export', exact: true }).click()
     const [download] = await Promise.all([
       page.waitForEvent('download'),
-      page.click('button:has-text("Export")')
+      page.click('button:has-text("Field names")'),
     ])
 
     const stream = await download.createReadStream()
