@@ -154,10 +154,10 @@ const sortedSnapshots = computed(() =>
       </p>
       <p class="text-sm mt-1">
         <RouterLink
-          to="/"
+          to="/collect"
           class="text-accent-600 hover:underline"
         >
-          Go to the home page
+          Go to the Collect page
         </RouterLink>
         to define a schema and add entries.
       </p>

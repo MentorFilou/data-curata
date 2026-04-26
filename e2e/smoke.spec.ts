@@ -2,7 +2,7 @@ import { test, expect } from '@playwright/test'
 
 test.describe('Flow 1: Define schema → add entry → verify on data page', () => {
   test('creates a schema, adds an entry, sees it on data page', async ({ page }) => {
-    await page.goto('/')
+    await page.goto('/collect')
 
     // Expand schema editor
     await page.click('button[aria-expanded]')
@@ -33,7 +33,7 @@ test.describe('Flow 1: Define schema → add entry → verify on data page', () 
 
 test.describe('Flow 2: Add entry → edit it → verify persists after reload', () => {
   test('edits an entry and the change persists after page reload', async ({ page }) => {
-    await page.goto('/')
+    await page.goto('/collect')
 
     // Build a simple schema with one field
     await page.click('button[aria-expanded]')
@@ -74,7 +74,7 @@ test.describe('Flow 2: Add entry → edit it → verify persists after reload', 
 
 test.describe('Flow 3: One of each field type → export as JSON', () => {
   test('defines a schema with multiple types and exports as JSON', async ({ page }) => {
-    await page.goto('/')
+    await page.goto('/collect')
 
     // Build schema with several field types
     await page.click('button[aria-expanded]')

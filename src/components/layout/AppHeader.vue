@@ -22,7 +22,7 @@ const entryCount = computed(() => entriesStore.entries.length)
       </RouterLink>
       <nav class="flex items-center gap-4">
         <RouterLink
-          to="/"
+          to="/collect"
           class="text-sm font-medium text-neutral-600 hover:text-neutral-900 dark:text-neutral-300 dark:hover:text-white"
           active-class="text-accent-700 dark:text-accent-400"
         >
