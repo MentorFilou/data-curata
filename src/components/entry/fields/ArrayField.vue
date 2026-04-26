@@ -85,11 +85,18 @@ function errorsForIndex(i: number): Record<string, string> | undefined {
 
 <template>
   <div class="space-y-2">
-    <div v-if="items.length === 0" class="text-sm text-neutral-400 dark:text-neutral-500 italic">
+    <div
+      v-if="items.length === 0"
+      class="text-sm text-neutral-400 dark:text-neutral-500 italic"
+    >
       Empty
     </div>
 
-    <div v-for="(item, i) in items" :key="i" class="flex items-start gap-2">
+    <div
+      v-for="(item, i) in items"
+      :key="i"
+      class="flex items-start gap-2"
+    >
       <EntryField
         :field="field.items"
         :model-value="item"
@@ -122,7 +129,7 @@ function errorsForIndex(i: number): Record<string, string> | undefined {
             implicitlyKept ? 'cursor-not-allowed' : 'cursor-pointer',
           ]"
           @change="togglePin?.(itemPath(i))"
-        />
+        >
         <span class="text-xs text-neutral-400 dark:text-neutral-500">keep</span>
       </label>
       <button

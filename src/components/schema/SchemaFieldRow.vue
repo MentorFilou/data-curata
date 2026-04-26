@@ -164,9 +164,12 @@ function updateItemsType(newType: FieldType) {
         placeholder="field name"
         class="flex-1 min-w-0 text-sm bg-white border border-neutral-300 text-neutral-900 rounded px-2 py-1 focus:outline-none focus:ring-1 focus:ring-accent-400 placeholder:text-neutral-400 font-mono dark:bg-neutral-800 dark:border-neutral-600 dark:text-neutral-100 dark:placeholder:text-neutral-500"
         @input="update({ name: ($event.target as HTMLInputElement).value })"
-      />
+      >
 
-      <SchemaTypePicker :model-value="field.type" @update:model-value="onTypeChange" />
+      <SchemaTypePicker
+        :model-value="field.type"
+        @update:model-value="onTypeChange"
+      />
 
       <label
         class="flex items-center gap-1 text-xs text-neutral-500 dark:text-neutral-400 cursor-pointer select-none"
@@ -176,11 +179,16 @@ function updateItemsType(newType: FieldType) {
           :checked="field.nullable"
           class="rounded border-neutral-300 bg-white text-accent-500 focus:ring-accent-400 dark:border-neutral-600 dark:bg-neutral-800"
           @change="update({ nullable: ($event.target as HTMLInputElement).checked })"
-        />
+        >
         nullable
       </label>
 
-      <IconButton size="sm" title="Remove field" variant="danger" @click="emit('remove', field.id)">
+      <IconButton
+        size="sm"
+        title="Remove field"
+        variant="danger"
+        @click="emit('remove', field.id)"
+      >
         <Trash2 class="w-3.5 h-3.5" />
       </IconButton>
     </div>
@@ -192,11 +200,13 @@ function updateItemsType(newType: FieldType) {
       placeholder="description (optional)"
       class="w-full text-xs bg-neutral-50 border border-neutral-200 text-neutral-500 rounded px-2 py-1 focus:outline-none focus:ring-1 focus:ring-accent-400 placeholder:text-neutral-400 dark:bg-neutral-800/50 dark:border-neutral-700 dark:text-neutral-400 dark:placeholder:text-neutral-600"
       @input="update({ description: ($event.target as HTMLInputElement).value || undefined })"
-    />
+    >
 
     <!-- Enum values -->
     <div v-if="field.type === 'enum'">
-      <p class="text-xs text-neutral-500 dark:text-neutral-500 mb-1">Values:</p>
+      <p class="text-xs text-neutral-500 dark:text-neutral-500 mb-1">
+        Values:
+      </p>
       <SchemaEnumEditor
         :values="(field as EnumField).values"
         @update:values="update({ values: $event })"
@@ -214,7 +224,7 @@ function updateItemsType(newType: FieldType) {
           :checked="(field as import('@/lib/schema/types').NumberField).integer ?? false"
           class="rounded border-neutral-300 bg-white text-accent-500 dark:border-neutral-600 dark:bg-neutral-800"
           @change="update({ integer: ($event.target as HTMLInputElement).checked })"
-        />
+        >
         integer only
       </label>
       <label class="flex items-center gap-1">
@@ -230,7 +240,7 @@ function updateItemsType(newType: FieldType) {
                 : undefined,
             })
           "
-        />
+        >
       </label>
       <label class="flex items-center gap-1">
         max:
@@ -245,25 +255,31 @@ function updateItemsType(newType: FieldType) {
                 : undefined,
             })
           "
-        />
+        >
       </label>
     </div>
 
     <!-- String extras -->
-    <div v-if="field.type === 'string'" class="text-xs text-neutral-500 dark:text-neutral-400">
+    <div
+      v-if="field.type === 'string'"
+      class="text-xs text-neutral-500 dark:text-neutral-400"
+    >
       <label class="flex items-center gap-1 cursor-pointer">
         <input
           type="checkbox"
           :checked="(field as import('@/lib/schema/types').StringField).multiline ?? false"
           class="rounded border-neutral-300 bg-white text-accent-500 dark:border-neutral-600 dark:bg-neutral-800"
           @change="update({ multiline: ($event.target as HTMLInputElement).checked })"
-        />
+        >
         multiline
       </label>
     </div>
 
     <!-- Array items type -->
-    <div v-if="field.type === 'array'" class="space-y-2">
+    <div
+      v-if="field.type === 'array'"
+      class="space-y-2"
+    >
       <div class="flex items-center gap-2 text-xs text-neutral-500 dark:text-neutral-400">
         <span>Items type:</span>
         <SchemaTypePicker
@@ -272,7 +288,10 @@ function updateItemsType(newType: FieldType) {
         />
       </div>
       <!-- If items is an object, recurse -->
-      <div v-if="(field as ArrayField).items.type === 'object'" class="ml-2">
+      <div
+        v-if="(field as ArrayField).items.type === 'object'"
+        class="ml-2"
+      >
         <SchemaFieldRow
           v-for="(child, idx) in ((field as ArrayField).items as ObjectField).fields"
           :key="child.id"
@@ -346,7 +365,10 @@ function updateItemsType(newType: FieldType) {
     </div>
 
     <!-- Object children (recursive) -->
-    <div v-if="field.type === 'object'" class="space-y-2">
+    <div
+      v-if="field.type === 'object'"
+      class="space-y-2"
+    >
       <SchemaFieldRow
         v-for="(child, idx) in (field as ObjectField).fields"
         :key="child.id"

@@ -25,8 +25,11 @@ const emit = defineEmits<{ 'update:modelValue': [value: string | null] }>()
           : 'border-neutral-300 bg-white dark:border-neutral-600 dark:bg-neutral-800',
       ]"
       @input="emit('update:modelValue', ($event.target as HTMLInputElement).value || null)"
-    />
-    <p v-if="error" class="mt-1 text-xs text-red-600 dark:text-red-400">
+    >
+    <p
+      v-if="error"
+      class="mt-1 text-xs text-red-600 dark:text-red-400"
+    >
       {{ error }}
     </p>
   </div>

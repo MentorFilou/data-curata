@@ -25,7 +25,10 @@ const emit = defineEmits<{ edit: [id: string]; remove: [id: string] }>()
           >
             {{ field.name }}
           </th>
-          <th v-if="editMode" class="px-4 py-3 w-20" />
+          <th
+            v-if="editMode"
+            class="px-4 py-3 w-20"
+          />
         </tr>
       </thead>
       <tbody>

@@ -27,9 +27,15 @@ const colorMap = {
           ]"
           role="alert"
         >
-          <component :is="iconMap[toast.type]" class="w-4 h-4 shrink-0 mt-0.5" />
+          <component
+            :is="iconMap[toast.type]"
+            class="w-4 h-4 shrink-0 mt-0.5"
+          />
           <span class="flex-1">{{ toast.message }}</span>
-          <button class="hover:opacity-70" @click="uiStore.removeToast(toast.id)">
+          <button
+            class="hover:opacity-70"
+            @click="uiStore.removeToast(toast.id)"
+          >
             <X class="w-3.5 h-3.5" />
           </button>
         </div>

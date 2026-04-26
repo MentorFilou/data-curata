@@ -15,7 +15,6 @@ import type { Schema, Entry, Snapshot } from '@/lib/schema/types'
 
 // Each test gets a fresh IndexedDB
 beforeEach(() => {
-  // @ts-ignore — fake-indexeddb global override
   globalThis.indexedDB = new IDBFactory()
   resetDbForTest()
 })

@@ -1,4 +1,4 @@
-import type { Entry, Schema } from '@/lib/schema/types'
+import type { Entry } from '@/lib/schema/types'
 import type { ExportFormat } from './index'
 
 export const jsonFormat: ExportFormat = {
@@ -6,7 +6,7 @@ export const jsonFormat: ExportFormat = {
   label: 'JSON',
   extension: 'json',
   mimeType: 'application/json',
-  serialize(entries: Entry[], _schema: Schema): string {
+  serialize(entries: Entry[]): string {
     return JSON.stringify(
       entries.map((e) => entryToObject(e)),
       null,

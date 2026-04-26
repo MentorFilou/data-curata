@@ -89,7 +89,11 @@ function cancelExport() {
     </div>
 
     <!-- Close dropdown on click outside -->
-    <div v-if="showDropdown" class="fixed inset-0 z-10" @click="showDropdown = false" />
+    <div
+      v-if="showDropdown"
+      class="fixed inset-0 z-10"
+      @click="showDropdown = false"
+    />
 
     <!-- Key mode dialog -->
     <Teleport to="body">
@@ -99,7 +103,10 @@ function cancelExport() {
           class="fixed inset-0 z-50 flex items-center justify-center p-4"
           @keydown.esc="cancelExport"
         >
-          <div class="absolute inset-0 bg-black/40" @click="cancelExport" />
+          <div
+            class="absolute inset-0 bg-black/40"
+            @click="cancelExport"
+          />
           <div
             class="relative bg-white dark:bg-neutral-800 rounded-xl shadow-xl max-w-sm w-full p-6 space-y-4"
             role="dialog"

@@ -1,4 +1,4 @@
-import type { Entry, Schema, EntryValue } from '@/lib/schema/types'
+import type { Entry, EntryValue } from '@/lib/schema/types'
 import type { ExportFormat } from './index'
 
 export const csvFormat: ExportFormat = {
@@ -6,7 +6,7 @@ export const csvFormat: ExportFormat = {
   label: 'CSV',
   extension: 'csv',
   mimeType: 'text/csv',
-  serialize(entries: Entry[], _schema: Schema): string {
+  serialize(entries: Entry[]): string {
     if (entries.length === 0) return ''
 
     // Collect all dot-paths across all entries

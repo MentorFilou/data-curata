@@ -24,12 +24,24 @@ const emit = defineEmits<{ 'update:modelValue': [value: string | null] }>()
       ]"
       @change="emit('update:modelValue', ($event.target as HTMLSelectElement).value || null)"
     >
-      <option v-if="field.nullable" value="">— select —</option>
-      <option v-for="v in field.values" :key="v" :value="v">
+      <option
+        v-if="field.nullable"
+        value=""
+      >
+        — select —
+      </option>
+      <option
+        v-for="v in field.values"
+        :key="v"
+        :value="v"
+      >
         {{ v }}
       </option>
     </select>
-    <p v-if="error" class="mt-1 text-xs text-red-600 dark:text-red-400">
+    <p
+      v-if="error"
+      class="mt-1 text-xs text-red-600 dark:text-red-400"
+    >
       {{ error }}
     </p>
   </div>

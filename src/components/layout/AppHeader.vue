@@ -47,8 +47,14 @@ const entryCount = computed(() => entriesStore.entries.length)
           :title="uiStore.theme === 'dark' ? 'Switch to light mode' : 'Switch to dark mode'"
           @click="uiStore.toggleTheme()"
         >
-          <Sun v-if="uiStore.theme === 'dark'" class="w-4 h-4" />
-          <Moon v-else class="w-4 h-4" />
+          <Sun
+            v-if="uiStore.theme === 'dark'"
+            class="w-4 h-4"
+          />
+          <Moon
+            v-else
+            class="w-4 h-4"
+          />
         </button>
       </nav>
     </div>
