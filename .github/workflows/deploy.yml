@@ -1,38 +1,33 @@
-# Deploys to GitHub Pages on every push to main, but only after all CI workflows pass.
-# Triggered once per CI workflow completion; the gate job (1) verifies all have succeeded
-# and (2) cancels any sibling runs before proceeding using the queue created by concurrency.
-# Manually needs to update its status on the commit as its not actually triggered by that directly.
+# Deploys to GitHub Pages on every push to main, but only after the CI workflow passes.
+# Manually needs to update its status on the commit as its not directly triggered by that.
 
 name: Deploy
 
-# start after any finished CI run
+# start after the CI workflow finishes
 on:
   workflow_run:
-    workflows: [Build, Typecheck, Test, Lint, Format, "E2E Tests"]
+    workflows: [CI]
     types: [completed]
     branches: [main]
 
 # all permissions are declared explicitly per job
 permissions: {} 
 
-# queue multiple runs of this workflow so only 1 can finish
+# stop this job if a new one is started due to a new commit/merge
 concurrency:
-  group: deploy-${{ github.event.workflow_run.head_sha }}
-  cancel-in-progress: false
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
 
 # 'gate' verifies this deploy is allowed to happen
 # 'deploy' then actually executes the deployment to github pages
 jobs:
   gate:
-    # quick-checks the triggering workflow itself has passed
+    # checks if the ci workflow has passed
     if: github.event.workflow_run.conclusion == 'success'
     runs-on: ubuntu-24.04
     timeout-minutes: 5
     permissions:
-      actions: write
       statuses: write
-    outputs:
-      proceed: ${{ steps.cancel.outputs.proceed }}
     steps:
       - name: Report deploy pending
         uses: actions/github-script@3a2844b7e9c422d3c10d287c895573f7108da1b3 # v9.0.0
@@ -45,82 +40,13 @@ jobs:
               sha: context.payload.workflow_run.head_sha,
               state: 'pending',
               context: 'Deploy',
-              description: 'Waiting for all CI workflows to pass...',
+              description: 'CI passed, deploying...',
             });
 
-      - name: Check all CI workflows passed
-        id: check
-        uses: actions/github-script@3a2844b7e9c422d3c10d287c895573f7108da1b3 # v9.0.0
-        with:
-          # check if every workflow from this commit has been completed and has succeeded
-          script: |
-            const commitSha = context.payload.workflow_run.head_sha;
-            const required = ['Build', 'Typecheck', 'Test', 'Lint', 'Format', 'E2E Tests'];
-            const { data } = await github.rest.actions.listWorkflowRunsForRepo({
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              head_sha: commitSha,
-              per_page: 100,
-            });
-            const runs = name => data.workflow_runs.find(
-              r => r.name === name && r.status === 'completed'
-            );
-            const anyFailed = required.some(name => {
-              const run = runs(name);
-              return run && run.conclusion !== 'success';
-            });
-            const allPassed = required.every(name => runs(name)?.conclusion === 'success');
-            core.setOutput('ci_failed', anyFailed ? 'true' : 'false');
-            core.setOutput('proceed', allPassed ? 'true' : 'false');
-
-      - name: Report CI failure
-        if: steps.check.outputs.ci_failed == 'true'
-        uses: actions/github-script@3a2844b7e9c422d3c10d287c895573f7108da1b3 # v9.0.0
-        with:
-          # update the link to the commit as a failed deployment due to ci failure
-          script: |
-            await github.rest.repos.createCommitStatus({
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              sha: context.payload.workflow_run.head_sha,
-              state: 'failure',
-              context: 'Deploy',
-              description: 'A required CI workflow failed.',
-            });
-
-      - name: Cancel other queued deploy runs for this SHA
-        id: cancel
-        if: steps.check.outputs.proceed == 'true'
-        uses: actions/github-script@3a2844b7e9c422d3c10d287c895573f7108da1b3 # v9.0.0
-        with:
-          # cancel sibling runs so only this one proceeds to deployment
-          script: |
-            const commitSha = context.payload.workflow_run.head_sha;
-            const currentRunId = context.runId;
-            for (const status of ['queued', 'waiting', 'in_progress']) {
-              const { data } = await github.rest.actions.listWorkflowRuns({
-                owner: context.repo.owner,
-                repo: context.repo.repo,
-                workflow_id: 'deploy.yml',
-                head_sha: commitSha,
-                status,
-                per_page: 100,
-              });
-              for (const run of data.workflow_runs) {
-                if (run.id !== currentRunId) {
-                  await github.rest.actions.cancelWorkflowRun({
-                    owner: context.repo.owner,
-                    repo: context.repo.repo,
-                    run_id: run.id,
-                  });
-                }
-              }
-            }
-            core.setOutput('proceed', 'true');
 
   deploy:
     needs: gate
-    if: needs.gate.outputs.proceed == 'true'
+    if: needs.gate.result == 'success'
     runs-on: ubuntu-24.04
     timeout-minutes: 10
     permissions:
