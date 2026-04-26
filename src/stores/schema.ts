@@ -6,6 +6,8 @@ import { useAutosave } from '@/composables/useAutosave'
 import { isBreakingChange } from '@/lib/schema/validate'
 import { migrateEntries } from '@/lib/schema/migrate'
 import { useConfirm } from '@/composables/useConfirm'
+import { useEntriesStore } from './entries'
+import { useHistoryStore } from './history'
 
 const EMPTY_SCHEMA: Schema = { version: 1, fields: [] }
 
@@ -36,8 +38,6 @@ export const useSchemaStore = defineStore('schema', () => {
 
   async function setSchema(newSchema: Schema): Promise<boolean> {
     const { confirm } = useConfirm()
-    const { useEntriesStore } = await import('./entries')
-    const { useHistoryStore } = await import('./history')
     const entriesStore = useEntriesStore()
     const historyStore = useHistoryStore()
 
