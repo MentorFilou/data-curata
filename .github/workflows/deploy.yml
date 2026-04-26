@@ -1,0 +1,133 @@
+# Deploys to GitHub Pages on every push to main, but only after all CI workflows pass.
+# Triggered once per CI workflow completion; the gate job verifies (1) all have succeeded,
+# (2) for this commit it wasn't already deployed, and (3) cancels any sibling runs before proceeding.
+
+name: Deploy
+
+# start after any finished CI run
+on:
+  workflow_run:
+    workflows: [Build, Typecheck, Test, Lint, Format, "E2E Tests"]
+    types: [completed]
+    branches: [main]
+
+# all permissions are declared explicitly per job
+permissions: {} 
+
+# queue multiple runs of this workflow so only 1 can finish
+concurrency:
+  group: deploy-${{ github.event.workflow_run.head_sha }}
+  cancel-in-progress: false
+
+# 'gate' verifies this deploy is allowed to happen
+# 'deploy' then actually executes the deployment to github pages
+jobs:
+  gate:
+    # quick-checks the triggering workflow itself has passed
+    if: github.event.workflow_run.conclusion == 'success'
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    permissions:
+      actions: write
+    outputs:
+      proceed: ${{ steps.cancel.outputs.proceed }}
+    steps:
+      - name: Check all CI workflows passed
+        id: check
+        uses: actions/github-script@3a2844b7e9c422d3c10d287c895573f7108da1b3 # v9.0.0
+        with:
+          # check if every workflow from this commit has been completed and has succeeded
+          script: |
+            const commitSha = context.payload.workflow_run.head_sha;
+            const required = ['Build', 'Typecheck', 'Test', 'Lint', 'Format', 'E2E Tests'];
+            const { data } = await github.rest.actions.listWorkflowRunsForRepo({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              head_sha: commitSha,
+              per_page: 100,
+            });
+            const allPassed = required.every(name => {
+              const run = data.workflow_runs.find(
+                r => r.name === name && r.status === 'completed'
+              );
+              return run?.conclusion === 'success';
+            });
+            core.setOutput('proceed', allPassed ? 'true' : 'false');
+
+      - name: Check SHA not already deployed
+        id: dedup
+        if: steps.check.outputs.proceed == 'true'
+        uses: actions/github-script@3a2844b7e9c422d3c10d287c895573f7108da1b3 # v9.0.0
+        with:
+          # cancel if a pages deployment for this commit already exists
+          script: |
+            const commitSha = context.payload.workflow_run.head_sha;
+            const { data } = await github.rest.repos.listDeployments({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              sha: commitSha,
+              environment: 'github-pages',
+              per_page: 10,
+            });
+            const alreadyDeployed = data.some(d => d.sha === commitSha);
+            if (alreadyDeployed) core.setOutput('proceed', 'false');
+
+      - name: Cancel other queued deploy runs for this SHA
+        id: cancel
+        if: steps.check.outputs.proceed == 'true' && steps.dedup.outputs.proceed != 'false'
+        uses: actions/github-script@3a2844b7e9c422d3c10d287c895573f7108da1b3 # v9.0.0
+        with:
+          # cancel sibling runs so only this one proceeds to deployment
+          script: |
+            const commitSha = context.payload.workflow_run.head_sha;
+            const currentRunId = context.runId;
+            for (const status of ['queued', 'waiting', 'in_progress']) {
+              const { data } = await github.rest.actions.listWorkflowRuns({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                workflow_id: 'deploy.yml',
+                head_sha: commitSha,
+                status,
+                per_page: 100,
+              });
+              for (const run of data.workflow_runs) {
+                if (run.id !== currentRunId) {
+                  await github.rest.actions.cancelWorkflowRun({
+                    owner: context.repo.owner,
+                    repo: context.repo.repo,
+                    run_id: run.id,
+                  });
+                }
+              }
+            }
+            core.setOutput('proceed', 'true');
+
+  deploy:
+    needs: gate
+    if: needs.gate.outputs.proceed == 'true'
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    permissions:
+      contents: read
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deploy.outputs.page_url }}
+    steps:
+      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+        with:
+          ref: ${{ github.event.workflow_run.head_sha }}
+      - uses: pnpm/action-setup@fc06bc1257f339d1d5d8b3a19a8cae5388b55320 # v5.0.0
+      - uses: actions/setup-node@48b55a011bda9f5d6aeb4c2d9c7362e8dae4041e # v6.4.0
+        with:
+          node-version: 24
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm build
+      - uses: actions/configure-pages@45bfe0192ca1faeb007ade9deae92b16b8254a0d # v6.0.0
+      - uses: actions/upload-pages-artifact@fc324d3547104276b827a68afc52ff2a11cc49c9 # v5.0.0
+        with:
+          path: dist
+      - uses: actions/deploy-pages@cd2ce8fcbc39b97be8ca5fce6e763baed58fa128 # v5.0.0
+        id: deploy
