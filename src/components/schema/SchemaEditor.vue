@@ -10,12 +10,7 @@ const schemaStore = useSchemaStore()
 const uiStore = useUiStore()
 
 const fieldCount = computed(() => schemaStore.schema.fields.length)
-const expanded = computed(() => uiStore.schemaEditorExpanded)
 const mode = computed(() => uiStore.schemaEditorMode)
-
-function toggleExpanded() {
-  uiStore.toggleSchemaEditor()
-}
 
 function setMode(m: 'visual' | 'raw') {
   uiStore.setSchemaEditorMode(m)
@@ -30,37 +25,16 @@ function setMode(m: 'visual' | 'raw') {
     <div
       class="flex items-center justify-between px-4 py-3 border-b border-neutral-200 dark:border-neutral-700"
     >
-      <button
-        class="flex-1 text-left flex items-center gap-3 text-neutral-700 hover:text-neutral-900 dark:text-neutral-300 dark:hover:text-white transition-colors"
-        :aria-expanded="expanded"
-        @click="toggleExpanded"
-      >
-        <svg
-          :class="[
-            'w-4 h-4 transition-transform text-neutral-400 dark:text-neutral-500',
-            expanded ? 'rotate-90' : '',
-          ]"
-          xmlns="http://www.w3.org/2000/svg"
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="currentColor"
-          stroke-width="2"
-        >
-          <polyline points="9 18 15 12 9 6" />
-        </svg>
+      <div class="flex items-center gap-3">
         <span class="text-accent-600 dark:text-accent-400">Schema</span>
         <span class="text-neutral-500 font-sans text-xs">
-          {{ fieldCount }} {{ fieldCount === 1 ? 'field' : 'fields' }} · click to
-          {{ expanded ? 'collapse' : 'edit' }}
+          {{ fieldCount }} {{ fieldCount === 1 ? 'field' : 'fields' }}
         </span>
-      </button>
+      </div>
 
       <div class="flex items-center gap-4">
         <!-- Mode toggle -->
-        <div
-          v-if="expanded"
-          class="flex items-center gap-1 bg-neutral-100 dark:bg-neutral-700 rounded-md p-0.5"
-        >
+        <div class="flex items-center gap-1 bg-neutral-100 dark:bg-neutral-700 rounded-md p-0.5">
           <button
             :class="[
               'px-3 py-1 text-xs rounded transition-colors',
@@ -89,7 +63,7 @@ function setMode(m: 'visual' | 'raw') {
     </div>
 
     <!-- Body -->
-    <div v-if="expanded">
+    <div>
       <SchemaVisualBuilder v-if="mode === 'visual'" />
       <SchemaRawEditor v-else />
     </div>

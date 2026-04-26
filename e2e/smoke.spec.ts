@@ -4,9 +4,6 @@ test.describe('Flow 1: Define schema → add entry → verify on data page', () 
   test('creates a schema, adds an entry, sees it on data page', async ({ page }) => {
     await page.goto('/define')
 
-    // Expand schema editor
-    await page.click('button[aria-expanded]')
-
     // Add a field
     await page.click('button:has-text("Add field")')
 
@@ -36,7 +33,6 @@ test.describe('Flow 2: Add entry → edit it → verify persists after reload', 
     await page.goto('/define')
 
     // Build a simple schema with one field
-    await page.click('button[aria-expanded]')
     await page.click('button:has-text("Add field")')
     const nameInput = page.locator('input[placeholder="field name"]').first()
     await nameInput.fill('note')
@@ -79,8 +75,6 @@ test.describe('Flow 3: One of each field type → export as JSON', () => {
     await page.goto('/define')
 
     // Build schema with several field types
-    await page.click('button[aria-expanded]')
-
     // Add a string field
     await page.click('button:has-text("Add field")')
     await page.locator('input[placeholder="field name"]').last().fill('name')

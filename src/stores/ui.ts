@@ -18,7 +18,6 @@ function applyTheme(t: Theme) {
 export const useUiStore = defineStore('ui', () => {
   const editMode = ref(false)
   const schemaEditorMode = ref<SchemaEditorMode>('visual')
-  const schemaEditorExpanded = ref(false)
   const toasts = ref<Toast[]>([])
   const theme = ref<Theme>((localStorage.getItem('theme') as Theme) ?? 'light')
 
@@ -31,10 +30,6 @@ export const useUiStore = defineStore('ui', () => {
 
   function setSchemaEditorMode(mode: SchemaEditorMode): void {
     schemaEditorMode.value = mode
-  }
-
-  function toggleSchemaEditor(): void {
-    schemaEditorExpanded.value = !schemaEditorExpanded.value
   }
 
   function toggleTheme(): void {
@@ -56,12 +51,10 @@ export const useUiStore = defineStore('ui', () => {
   return {
     editMode,
     schemaEditorMode,
-    schemaEditorExpanded,
     toasts,
     theme,
     toggleEditMode,
     setSchemaEditorMode,
-    toggleSchemaEditor,
     toggleTheme,
     addToast,
     removeToast,
