@@ -36,11 +36,11 @@ const entryCount = computed(() => entriesStore.entries.length)
           Collect
         </RouterLink>
         <RouterLink
-          to="/data"
+          to="/review"
           class="text-sm font-medium text-neutral-600 hover:text-neutral-900 dark:text-neutral-300 dark:hover:text-white flex items-center gap-1.5"
           active-class="text-accent-700 dark:text-accent-400"
         >
-          Data
+          Review
           <span
             v-if="entryCount > 0"
             class="inline-flex items-center justify-center h-5 min-w-5 px-1 rounded-full bg-accent-600 text-white text-xs font-medium"

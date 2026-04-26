@@ -33,7 +33,7 @@ src/
     actions/      ExportButton · ViewDataButton
     common/       ConfirmDialog · Toast · IconButton · CollapsibleSection
     layout/       AppHeader
-  pages/          HomePage (/) · DataPage (/data)   ← wiring only, no logic
+  pages/          wiring only, no logic
 ```
 
 **Key invariants:**

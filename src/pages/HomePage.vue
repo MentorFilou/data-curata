@@ -44,7 +44,7 @@ const steps = [
   },
   {
     icon: Download,
-    to: '/data',
+    to: '/review',
     title: '3. Review',
     body: 'Browse, edit, and export your entries to JSON, JSONL, or CSV — with the schema attached.',
   },

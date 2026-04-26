@@ -20,8 +20,8 @@ test.describe('Flow 1: Define schema → add entry → verify on data page', () 
     // Add entry
     await page.click('button:has-text("Add entry")')
 
-    // Navigate to data page
-    await page.click('a[href="/data"]')
+    // Navigate to review page
+    await page.click('a[href="/review"]')
 
     // Verify entry appears
     await expect(page.locator('td')).toContainText('My first entry')
@@ -44,8 +44,8 @@ test.describe('Flow 2: Add entry → edit it → verify persists after reload', 
     await page.locator('input[type="text"]').first().fill('original value')
     await page.click('button:has-text("Add entry")')
 
-    // Go to data page and enable edit mode
-    await page.click('a[href="/data"]')
+    // Go to review page and enable edit mode
+    await page.click('a[href="/review"]')
     await page.click('button:has-text("Edit mode")')
 
     // Click edit (pencil) button for first row
@@ -94,8 +94,8 @@ test.describe('Flow 3: One of each field type → export as JSON', () => {
     await page.locator('input[type="number"]').first().fill('42')
     await page.click('button:has-text("Add entry")')
 
-    // Navigate to data page where the entries Export lives
-    await page.click('a[href="/data"]')
+    // Navigate to review page where the entries Export lives
+    await page.click('a[href="/review"]')
 
     // Click Export → dialog appears → choose "Field names" to trigger download
     await page.locator('main').getByRole('button', { name: 'Export', exact: true }).click()
