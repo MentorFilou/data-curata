@@ -130,7 +130,7 @@ function updateItemsType(newType: FieldType) {
 <template>
   <div
     :class="[
-      'rounded-lg border border-neutral-200 bg-neutral-50 dark:border-neutral-700 dark:bg-neutral-800/50 p-3 space-y-2',
+      'rounded-lg border border-neutral-200 bg-neutral-50 dark:border-neutral-700 dark:bg-neutral-800 p-3 space-y-2',
       depth > 0 ? 'ml-4 border-l-2 border-l-accent-600/40' : '',
     ]"
   >

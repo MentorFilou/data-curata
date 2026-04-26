@@ -36,10 +36,10 @@ function moveDown(id: string) {
 </script>
 
 <template>
-  <div class="p-4 space-y-3">
+  <div class="p-4 space-y-4">
     <div
       v-if="fields.length === 0"
-      class="text-center py-6 text-neutral-500 text-sm"
+      class="text-center py-3 px-4 rounded-lg bg-white dark:bg-neutral-800 text-neutral-500 text-sm"
     >
       No fields yet. Click "+ Add field" to start building your schema.
     </div>
@@ -58,12 +58,14 @@ function moveDown(id: string) {
       @add-child="addField"
     />
 
-    <button
-      class="flex items-center gap-2 text-sm text-accent-600 hover:text-accent-700 dark:text-accent-400 dark:hover:text-accent-300 font-medium transition-colors"
-      @click="addField"
-    >
-      <Plus class="w-4 h-4" />
-      Add field
-    </button>
+    <div class="flex items-center gap-2 bg-white dark:bg-neutral-800 px-4 py-2 rounded-lg w-fit">
+      <button
+        class="flex items-center gap-2 text-sm text-accent-600 hover:text-accent-700 dark:text-accent-400 dark:hover:text-accent-300 font-medium transition-colors"
+        @click="addField"
+      >
+        <Plus class="w-4 h-4" />
+        Add field
+      </button>
+    </div>
   </div>
 </template>
