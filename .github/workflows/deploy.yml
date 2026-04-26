@@ -1,6 +1,6 @@
 # Deploys to GitHub Pages on every push to main, but only after all CI workflows pass.
-# Triggered once per CI workflow completion; the gate job verifies (1) all have succeeded,
-# (2) for this commit it wasn't already deployed, and (3) cancels any sibling runs before proceeding.
+# Triggered once per CI workflow completion; the gate job (1) verifies all have succeeded
+# and (2) cancels any sibling runs before proceeding using the queue created by concurrency.
 
 name: Deploy
 
@@ -54,27 +54,9 @@ jobs:
             });
             core.setOutput('proceed', allPassed ? 'true' : 'false');
 
-      - name: Check SHA not already deployed
-        id: dedup
-        if: steps.check.outputs.proceed == 'true'
-        uses: actions/github-script@3a2844b7e9c422d3c10d287c895573f7108da1b3 # v9.0.0
-        with:
-          # cancel if a pages deployment for this commit already exists
-          script: |
-            const commitSha = context.payload.workflow_run.head_sha;
-            const { data } = await github.rest.repos.listDeployments({
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              sha: commitSha,
-              environment: 'github-pages',
-              per_page: 10,
-            });
-            const alreadyDeployed = data.some(d => d.sha === commitSha);
-            if (alreadyDeployed) core.setOutput('proceed', 'false');
-
       - name: Cancel other queued deploy runs for this SHA
         id: cancel
-        if: steps.check.outputs.proceed == 'true' && steps.dedup.outputs.proceed != 'false'
+        if: steps.check.outputs.proceed == 'true'
         uses: actions/github-script@3a2844b7e9c422d3c10d287c895573f7108da1b3 # v9.0.0
         with:
           # cancel sibling runs so only this one proceeds to deployment
