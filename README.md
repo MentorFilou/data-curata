@@ -92,6 +92,15 @@ The long-term goal is to create a reliable platform for data curation that prior
 
 ---
 
+## Reporting a Vulnerability
+
+
+Regarding security, we will put our best effort into resolving any issues that might arise as quickly and thoroughly as possible.
+
+Please refer to our [SECURITY.md](SECURITY.md) for details.
+
+---
+
 ## License
 
 This project is licensed under the [GNU General Public License v3.0 (GPL-3.0)](https://github.com/MentorFilou/data-curata/blob/main/LICENSE).
