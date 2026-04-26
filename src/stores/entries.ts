@@ -33,8 +33,9 @@ export const useEntriesStore = defineStore('entries', () => {
   function updateEntry(id: string, data: EntryObject): void {
     const idx = entries.value.findIndex((e) => e.id === id)
     if (idx === -1) return
-    entries.value[idx] = { ...entries.value[idx], data }
-    saveEntry(entries.value[idx]).catch(console.error)
+    const updated: Entry = { ...entries.value[idx], data }
+    entries.value[idx] = updated
+    saveEntry(updated).catch(console.error)
   }
 
   function removeEntry(id: string): void {
