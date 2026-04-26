@@ -116,12 +116,14 @@ function onReset() {
           No schema defined yet.
         </p>
         <p class="text-xs mt-1">
-          Head to <RouterLink
+          Head to
+          <RouterLink
             to="/define"
             class="text-accent-700 hover:underline dark:text-accent-400"
           >
             Define
-          </RouterLink> to create your data model.
+          </RouterLink>
+          to create your data model.
         </p>
       </div>
 

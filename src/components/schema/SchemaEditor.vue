@@ -72,14 +72,12 @@ function setMode(m: 'visual' | 'raw') {
 
 <style scoped>
 .schema-editor-body {
-  background-image:
-    radial-gradient(circle, #e4e4e7 0.1px, transparent 1px);
+  background-image: radial-gradient(circle, #e4e4e7 0.1px, transparent 1px);
   background-size: 15px 15px;
   background-position: 0 0;
 }
 
 :global(.dark) .schema-editor-body {
-  background-image:
-    radial-gradient(circle, #52525b 1px, transparent 1px);
+  background-image: radial-gradient(circle, #52525b 1px, transparent 1px);
 }
 </style>

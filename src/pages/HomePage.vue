@@ -1,13 +1,6 @@
 <script setup lang="ts">
 import { computed } from 'vue'
-import {
-  Sparkles,
-  FileCode,
-  ListPlus,
-  Download,
-  ArrowRight,
-  BookOpen,
-} from '@lucide/vue'
+import { Sparkles, FileCode, ListPlus, Download, ArrowRight, BookOpen } from '@lucide/vue'
 import { useSchemaStore } from '@/stores/schema'
 import { useEntriesStore } from '@/stores/entries'
 
@@ -21,12 +14,24 @@ const hasEntries = computed(() => entriesStore.entries.length > 0)
 
 const primaryCta = computed(() => {
   if (!hasSchema.value) {
-    return { to: '/define', label: 'Define your schema', hint: 'Start by describing the shape of your data.' }
+    return {
+      to: '/define',
+      label: 'Define your schema',
+      hint: 'Start by describing the shape of your data.',
+    }
   }
   if (!hasEntries.value) {
-    return { to: '/collect', label: 'Collect your first entry', hint: 'Your schema is ready — start filling it in.' }
+    return {
+      to: '/collect',
+      label: 'Collect your first entry',
+      hint: 'Your schema is ready — start filling it in.',
+    }
   }
-  return { to: '/collect', label: 'Continue collecting', hint: `You have ${entriesStore.entries.length} entr${entriesStore.entries.length === 1 ? 'y' : 'ies'} so far.` }
+  return {
+    to: '/collect',
+    label: 'Continue collecting',
+    hint: `You have ${entriesStore.entries.length} entr${entriesStore.entries.length === 1 ? 'y' : 'ies'} so far.`,
+  }
 })
 
 const steps = [
@@ -64,8 +69,8 @@ const steps = [
         Schema-driven data collection, without the spreadsheet sprawl.
       </h1>
       <p class="max-w-xl mx-auto text-sm text-neutral-600 dark:text-neutral-400">
-        Define a schema, collect entries that conform to it, then export in whatever
-        format suits you next — without losing a single field along the way.
+        Define a schema, collect entries that conform to it, then export in whatever format suits
+        you next — without losing a single field along the way.
       </p>
 
       <div class="flex flex-col items-center gap-2 pt-2">
