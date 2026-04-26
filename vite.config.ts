@@ -3,7 +3,7 @@ import vue from '@vitejs/plugin-vue'
 import { fileURLToPath, URL } from 'node:url'
 
 export default defineConfig({
-  base: process.env.GITHUB_ACTIONS ? '/data-curata/' : '/',
+  base: process.env.BASE_PATH || '/',
   plugins: [vue()],
   resolve: {
     alias: {
