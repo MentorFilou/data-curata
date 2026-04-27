@@ -81,6 +81,7 @@ const sortedSnapshots = computed(() =>
   <div class="space-y-6">
     <!-- Header -->
     <div class="flex items-center justify-between">
+    <div class="flex flex-wrap items-center justify-between gap-3">
       <div class="flex items-baseline gap-3">
         <h1 class="text-xl font-semibold text-neutral-900 dark:text-neutral-100">
           Entries ({{ entriesStore.entries.length }})
@@ -89,7 +90,7 @@ const sortedSnapshots = computed(() =>
           class="text-xs text-neutral-400 hover:text-accent-600 dark:hover:text-accent-400 underline"
           @click="showHistory = !showHistory"
         >
-          History
+          {{showHistory ? 'Hide' : 'Show'}} History
         </button>
       </div>
       <div class="flex items-center gap-3">
