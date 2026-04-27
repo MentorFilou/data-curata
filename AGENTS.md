@@ -8,7 +8,7 @@
 pnpm dev             # dev server at localhost:5173
 pnpm build           # production build (must pass before committing)
 pnpm typecheck       # vue-tsc --noEmit (strict, no any without comment)
-pnpm test            # Vitest unit tests (src/tests/**/*.test.ts)
+pnpm test            # Vitest unit tests (tests/unit/**/*.test.ts)
 pnpm test:e2e        # Playwright smoke tests (tests/e2e/smoke.spec.ts)
 pnpm lint            # ESLint static code analysis (eslint.config.js)
 pnpm format          # Prettier code style enforcement (.prettierrc)
