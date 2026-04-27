@@ -18,7 +18,9 @@ const entryCount = computed(() => entriesStore.entries.length)
         to="/"
         class="font-semibold text-lg tracking-tight text-neutral-900 hover:text-accent-700 dark:text-neutral-100 dark:hover:text-accent-400"
       >
-        Data Curata
+        <!--shorten title on mobile phones-->
+        <span class="sm:hidden">DC</span>
+        <span class="hidden sm:inline">Data Curata</span>
       </RouterLink>
       <nav class="flex items-center gap-4">
         <RouterLink
