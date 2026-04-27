@@ -14,14 +14,16 @@ const entryCount = computed(() => entriesStore.entries.length)
     class="bg-white border-b border-neutral-200 sticky top-0 z-40 dark:bg-neutral-900 dark:border-neutral-700"
   >
     <div class="max-w-content mx-auto px-4 h-14 flex items-center justify-between">
+      <!--top left title that routes to the landing page-->
       <RouterLink
         to="/"
         class="font-semibold text-lg tracking-tight text-neutral-900 hover:text-accent-700 dark:text-neutral-100 dark:hover:text-accent-400"
       >
-        <!--shorten title on mobile phones-->
+        <!--the following shortens the title on mobile phones-->
         <span class="sm:hidden">DC</span>
         <span class="hidden sm:inline">Data Curata</span>
       </RouterLink>
+      <!--links to the relevant pages (define, collect and review + docs)-->
       <nav class="flex items-center gap-4">
         <RouterLink
           to="/define"
@@ -50,6 +52,7 @@ const entryCount = computed(() => entriesStore.entries.length)
             {{ entryCount }}
           </span>
         </RouterLink>
+        <!--route to in-app docs over the book icon-->
         <RouterLink
           to="/docs"
           class="p-2 rounded-md text-neutral-500 hover:text-neutral-900 hover:bg-neutral-100 dark:text-neutral-400 dark:hover:text-white dark:hover:bg-neutral-800 transition-colors"
@@ -57,6 +60,7 @@ const entryCount = computed(() => entriesStore.entries.length)
         >
           <BookOpen class="w-4 h-4" />
         </RouterLink>
+        <!--light/dark theme toggle-->
         <button
           class="p-2 rounded-md text-neutral-500 hover:text-neutral-900 hover:bg-neutral-100 dark:text-neutral-400 dark:hover:text-white dark:hover:bg-neutral-800 transition-colors"
           :title="uiStore.theme === 'dark' ? 'Switch to light mode' : 'Switch to dark mode'"
