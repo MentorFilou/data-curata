@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { ref, computed, watch, provide } from 'vue'
-import EntryForm from '@/components/entry/EntryForm.vue'
-import EntryActions from '@/components/entry/EntryActions.vue'
+import EntryForm from '@/components/collect-page/EntryForm.vue'
+import EntryActions from '@/components/collect-page/EntryActions.vue'
 import { useSchemaStore } from '@/stores/schema'
 import { useEntriesStore } from '@/stores/entries'
 import { useUiStore } from '@/stores/ui'

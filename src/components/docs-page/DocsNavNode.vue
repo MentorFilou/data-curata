@@ -62,19 +62,34 @@ function docPath(key: string): string {
       <button
         v-if="node.children.length > 0"
         class="p-1 rounded-md shrink-0 transition-colors"
-        :class="activeInFolder
-          ? 'text-neutral-400 dark:text-neutral-600 cursor-default'
-          : 'text-neutral-400 hover:bg-neutral-100 hover:text-neutral-700 dark:text-neutral-600 dark:hover:bg-neutral-800 dark:hover:text-neutral-300'"
-        :title="activeInFolder ? 'Cannot collapse — you are inside this folder' : openFolders.has(node.path) ? 'Collapse' : 'Expand'"
+        :class="
+          activeInFolder
+            ? 'text-neutral-400 dark:text-neutral-600 cursor-default'
+            : 'text-neutral-400 hover:bg-neutral-100 hover:text-neutral-700 dark:text-neutral-600 dark:hover:bg-neutral-800 dark:hover:text-neutral-300'
+        "
+        :title="
+          activeInFolder
+            ? 'Cannot collapse — you are inside this folder'
+            : openFolders.has(node.path)
+              ? 'Collapse'
+              : 'Expand'
+        "
         :disabled="activeInFolder"
         @click="!activeInFolder && toggleFolder(node.path)"
       >
         <ChevronRight
-          :class="['w-4 h-4 transition-transform', openFolders.has(node.path) ? 'rotate-90' : '', activeInFolder ? 'opacity-30' : '']"
+          :class="[
+            'w-4 h-4 transition-transform',
+            openFolders.has(node.path) ? 'rotate-90' : '',
+            activeInFolder ? 'opacity-30' : '',
+          ]"
         />
       </button>
     </div>
-    <div v-show="openFolders.has(node.path)" class="flex flex-col gap-0.5 pl-3">
+    <div
+      v-show="openFolders.has(node.path)"
+      class="flex flex-col gap-0.5 pl-3"
+    >
       <DocsNavNode
         v-for="child in node.children"
         :key="child.type === 'file' ? child.key : child.path"

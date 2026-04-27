@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { computed, provide, ref, watchEffect } from 'vue'
-import { useRoute } from 'vue-router'
+import { useRoute, useRouter } from 'vue-router'
 import MarkdownIt from 'markdown-it'
 import markdownItFrontMatter from 'markdown-it-front-matter'
 import DocsNavNode from './DocsNavNode.vue'
@@ -51,8 +51,6 @@ function docTitle(key: string): string {
   return segment.charAt(0).toUpperCase() + segment.slice(1).replace(/-/g, ' ')
 }
 
-
-
 function nodeOrder(node: NavNode): number | undefined {
   if (node.type === 'file') return frontMatterMap[node.key]?.order
   return node.indexKey != null ? frontMatterMap[node.indexKey]?.order : undefined
@@ -95,7 +93,9 @@ function buildTree(relativeKeys: string[], prefix: string): NavNode[] {
       name: segment,
       path,
       indexKey: hasIndex ? `${path}/index` : null,
-      children: sortNodes(buildTree(hasIndex ? children.filter((c) => c !== 'index') : children, path)),
+      children: sortNodes(
+        buildTree(hasIndex ? children.filter((c) => c !== 'index') : children, path)
+      ),
     })
   }
 
@@ -118,6 +118,7 @@ provide('docs:toggleFolder', toggleFolder)
 provide('docs:docTitle', docTitle)
 
 const route = useRoute()
+const router = useRouter()
 
 const currentKey = computed(() => {
   const match = route.params.pathMatch
@@ -155,6 +156,26 @@ const breadcrumb = computed(() => {
   const trimmed = parts.at(-1) === 'index' ? parts.slice(0, -1) : parts
   return trimmed.map((s) => s.replace(/-/g, ' ')).join(' / ')
 })
+
+function onContentClick(e: MouseEvent) {
+  const anchor = (e.target as HTMLElement).closest('a')
+  if (!anchor) return
+  const href = anchor.getAttribute('href')
+  if (!href || href.startsWith('http') || href.startsWith('/') || href.startsWith('#')) return
+
+  // Resolve relative to the doc's own folder, not the browser URL.
+  // index.md is represented without /index in the URL, so the browser
+  // would treat the last segment as a file and resolve siblings one level too high.
+  const key = resolvedKey.value
+  const folder = key.endsWith('/index')
+    ? key.slice(0, -'/index'.length)
+    : key.split('/').slice(0, -1).join('/')
+  const clean = href.startsWith('./') ? href.slice(2) : href
+  const resolved = folder ? `${folder}/${clean}` : clean
+
+  e.preventDefault()
+  router.push(`/docs/${resolved}`)
+}
 </script>
 
 <template>
@@ -163,7 +184,9 @@ const breadcrumb = computed(() => {
     <aside
       class="w-44 sm:w-56 flex-shrink-0 border-r border-neutral-200 bg-neutral-50 dark:border-neutral-700 dark:bg-neutral-900 p-4"
     >
-      <p class="text-xs font-semibold uppercase tracking-wider text-neutral-400 dark:text-neutral-500 mb-3">
+      <p
+        class="text-xs font-semibold uppercase tracking-wider text-neutral-400 dark:text-neutral-500 mb-3"
+      >
         Pages
       </p>
       <nav class="flex flex-col gap-0.5">
@@ -179,7 +202,12 @@ const breadcrumb = computed(() => {
     <div class="flex-1 min-w-0 p-8">
       <!-- Breadcrumb -->
       <div class="text-xs text-neutral-400 dark:text-neutral-500 mb-6">
-        <RouterLink to="/docs" class="hover:text-neutral-600 dark:hover:text-neutral-300">docs</RouterLink>
+        <RouterLink
+          to="/docs"
+          class="hover:text-neutral-600 dark:hover:text-neutral-300"
+        >
+          docs
+        </RouterLink>
         <span v-if="currentKey !== 'index'"> / {{ breadcrumb }}</span>
       </div>
 
@@ -187,9 +215,13 @@ const breadcrumb = computed(() => {
       <div
         v-if="renderedHtml !== null"
         class="docs-content prose max-w-3xl text-neutral-800 dark:text-neutral-200"
+        @click="onContentClick"
         v-html="renderedHtml"
       />
-      <div v-else class="text-neutral-500 dark:text-neutral-400">
+      <div
+        v-else
+        class="text-neutral-500 dark:text-neutral-400"
+      >
         Page not found: <code class="font-mono text-sm">{{ resolvedKey }}</code>
       </div>
     </div>

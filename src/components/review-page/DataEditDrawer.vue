@@ -4,8 +4,8 @@ import { X } from '@lucide/vue'
 import type { Entry, EntryObject } from '@/lib/schema/types'
 import { useSchemaStore } from '@/stores/schema'
 import { validateEntry } from '@/lib/schema/validate'
-import EntryForm from '@/components/entry/EntryForm.vue'
-import EntryActions from '@/components/entry/EntryActions.vue'
+import EntryForm from '@/components/collect-page/EntryForm.vue'
+import EntryActions from '@/components/collect-page/EntryActions.vue'
 
 const props = defineProps<{
   entry: Entry | null
