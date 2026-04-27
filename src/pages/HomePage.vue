@@ -6,12 +6,14 @@ import { useEntriesStore } from '@/stores/entries'
 
 const readmeUrl = 'https://github.com/MentorFilou/data-curata/blob/main/README.md'
 
+// stores and the according variables used to determine previous usage for dynamic call-to-action texts
 const schemaStore = useSchemaStore()
 const entriesStore = useEntriesStore()
 
 const hasSchema = computed(() => schemaStore.fieldCount > 0)
 const hasEntries = computed(() => entriesStore.entries.length > 0)
 
+// dynamic call-to-action texts depending on previous usage
 const primaryCta = computed(() => {
   if (!hasSchema.value) {
     return {
@@ -34,6 +36,7 @@ const primaryCta = computed(() => {
   }
 })
 
+// descriptions with links for the 3 core steps
 const steps = [
   {
     icon: FileCode,
@@ -58,6 +61,7 @@ const steps = [
 
 <template>
   <div class="space-y-10 pt-6 pb-12">
+    <!--hero section with dynamic call-to-action button-->
     <section class="text-center space-y-4">
       <div
         class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-accent-50 text-accent-700 text-xs font-medium dark:bg-accent-900/30 dark:text-accent-300"
@@ -87,6 +91,7 @@ const steps = [
       </div>
     </section>
 
+    <!--section describing the 3 core steps of this app-->
     <section class="grid gap-4 sm:grid-cols-3">
       <RouterLink
         v-for="step in steps"
@@ -111,6 +116,7 @@ const steps = [
       </RouterLink>
     </section>
 
+    <!--section hinting the in-app documentation hints-->
     <section
       class="p-4 rounded-lg border border-dashed border-neutral-300 bg-neutral-50 dark:border-neutral-700 dark:bg-neutral-900/40 flex items-start gap-3"
     >
