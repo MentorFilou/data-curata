@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { computed } from 'vue'
-import { Sun, Moon } from '@lucide/vue'
+import { Sun, Moon, BookOpen } from '@lucide/vue'
 import { useEntriesStore } from '@/stores/entries'
 import { useUiStore } from '@/stores/ui'
 
@@ -47,6 +47,13 @@ const entryCount = computed(() => entriesStore.entries.length)
           >
             {{ entryCount }}
           </span>
+        </RouterLink>
+        <RouterLink
+          to="/docs"
+          class="p-2 rounded-md text-neutral-500 hover:text-neutral-900 hover:bg-neutral-100 dark:text-neutral-400 dark:hover:text-white dark:hover:bg-neutral-800 transition-colors"
+          title="Documentation"
+        >
+          <BookOpen class="w-4 h-4" />
         </RouterLink>
         <button
           class="p-2 rounded-md text-neutral-500 hover:text-neutral-900 hover:bg-neutral-100 dark:text-neutral-400 dark:hover:text-white dark:hover:bg-neutral-800 transition-colors"

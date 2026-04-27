@@ -116,14 +116,20 @@ const steps = [
     >
       <BookOpen class="w-4 h-4 mt-0.5 text-neutral-500 dark:text-neutral-400 shrink-0" />
       <div class="text-xs text-neutral-600 dark:text-neutral-400">
-        <span class="font-medium text-neutral-700 dark:text-neutral-300">In-app documentation</span>
-        is on its way. Until then, hover over field controls for tooltips, or
+        <RouterLink
+          to="/docs"
+          class="font-medium text-accent-700 hover:text-accent-800 underline underline-offset-2 dark:text-accent-400 dark:hover:text-accent-300"
+        >
+          Browse the documentation
+        </RouterLink>
+        for guides and reference. The
         <a
           :href="readmeUrl"
           target="_blank"
           rel="noopener noreferrer"
-          class="font-medium text-accent-700 hover:text-accent-800 underline underline-offset-2 dark:text-accent-400 dark:hover:text-accent-300"
-        >check the README on GitHub</a>.
+          class="underline underline-offset-2 hover:text-neutral-800 dark:hover:text-neutral-300"
+        >README on GitHub</a>
+        has additional context.
       </div>
     </section>
   </div>
