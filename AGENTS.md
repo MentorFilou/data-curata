@@ -1,6 +1,6 @@
 # AGENTS.md — Data Curata
 
-> Full spec: `docs/SPEC.md` · Implementation notes & deviations: `docs/NOTES.md`
+> (Partly Outdated) Full spec: `docs/SPEC.md` · (Partly Outdated) Implementation notes & deviations: `docs/NOTES.md`
 
 ## Commands
 

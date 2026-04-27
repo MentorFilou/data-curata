@@ -1,4 +1,9 @@
-# Implementation Notes
+---
+order: 3
+title: Impl Notes (Outdated)
+---
+
+# Implementation Notes (Outdated)
 
 ## What's Done
 

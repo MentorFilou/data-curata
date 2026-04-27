@@ -1,4 +1,11 @@
-# Data Collection SPA
+---
+order: 2
+title: Spec (Outdated)
+---
+
+# Specification (Outdated)
+
+## Data Collection SPA.
 
 A local-first, single-user web application for structured data collection. Users define a custom data model, fill in entries matching that model, and export the resulting dataset in their format of choice. All state persists locally in the browser — no backend, no accounts, no network calls.
 
