@@ -20,5 +20,5 @@
     }
   },
   "include": ["src/**/*.ts", "src/**/*.tsx", "src/**/*.vue", "tests/**/*.ts"],
-  "exclude": ["node_modules", "dist", "e2e"]
+  "exclude": ["node_modules", "dist", "tests/e2e"]
 }
