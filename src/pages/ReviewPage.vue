@@ -80,10 +80,9 @@ const sortedSnapshots = computed(() =>
 <template>
   <div class="space-y-6">
     <!-- Header -->
-    <div class="flex items-center justify-between">
-    <div class="flex flex-wrap items-center justify-between gap-3">
+    <div class="flex items-center gap-3">
       <div class="flex items-baseline gap-3">
-        <h1 class="text-xl font-semibold text-neutral-900 dark:text-neutral-100">
+        <h1 class="text-base sm:text-xl font-semibold text-neutral-900 dark:text-neutral-100">
           Entries ({{ entriesStore.entries.length }})
         </h1>
         <button
@@ -93,7 +92,7 @@ const sortedSnapshots = computed(() =>
           {{showHistory ? 'Hide' : 'Show'}} History
         </button>
       </div>
-      <div class="flex items-center gap-3">
+      <div class="flex items-center gap-2 ml-auto">
         <ImportButton />
         <ExportButton />
         <PrimaryToggle

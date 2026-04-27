@@ -33,14 +33,15 @@ async function clearAll() {
   <button
     :disabled="count === 0"
     :class="[
-      'flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-red-500',
+      'flex items-center gap-2 px-3 py-2 rounded-lg text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-red-500',
       count > 0
         ? 'border border-red-200 text-red-600 hover:bg-red-50 dark:border-red-800 dark:text-red-400 dark:hover:bg-red-900/30'
         : 'border border-neutral-200 text-neutral-400 cursor-not-allowed dark:border-neutral-700 dark:text-neutral-600',
     ]"
+    aria-label="Clear all data"
     @click="clearAll"
   >
     <Trash2 class="w-4 h-4" />
-    Clear all data
+    <span class="hidden sm:inline">Clear all data</span>
   </button>
 </template>

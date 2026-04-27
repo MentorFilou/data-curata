@@ -59,11 +59,12 @@ function cancelExport() {
   <div class="relative">
     <div class="flex rounded-lg border border-neutral-300 dark:border-neutral-600 overflow-hidden">
       <button
-        class="flex items-center gap-2 px-4 py-2 text-sm font-medium text-neutral-700 hover:bg-neutral-50 dark:text-neutral-300 dark:hover:bg-neutral-800 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-500"
+        class="flex items-center gap-2 px-3 py-2 text-sm font-medium text-neutral-700 hover:bg-neutral-50 dark:text-neutral-300 dark:hover:bg-neutral-800 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-500"
+        aria-label="Export"
         @click="chooseThenExport('json')"
       >
         <Download class="w-4 h-4" />
-        Export
+        <span class="hidden sm:inline">Export</span>
       </button>
       <button
         class="px-2 py-2 border-l border-neutral-300 dark:border-neutral-600 text-neutral-600 dark:text-neutral-400 hover:bg-neutral-50 dark:hover:bg-neutral-800 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-500"

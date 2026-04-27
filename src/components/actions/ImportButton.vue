@@ -84,11 +84,12 @@ function cancelImport() {
     >
 
     <button
-      class="flex items-center gap-2 px-4 py-2 text-sm font-medium rounded-lg border border-neutral-300 dark:border-neutral-600 text-neutral-700 hover:bg-neutral-50 dark:text-neutral-300 dark:hover:bg-neutral-800 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-500"
+      class="flex items-center gap-2 px-3 py-2 text-sm font-medium rounded-lg border border-neutral-300 dark:border-neutral-600 text-neutral-700 hover:bg-neutral-50 dark:text-neutral-300 dark:hover:bg-neutral-800 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-500"
+      aria-label="Import"
       @click="triggerFileInput"
     >
       <Upload class="w-4 h-4" />
-      Import
+      <span class="hidden sm:inline">Import</span>
     </button>
 
     <Teleport to="body">
