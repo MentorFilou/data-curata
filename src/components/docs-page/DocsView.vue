@@ -313,7 +313,7 @@ function onContentClick(e: MouseEvent) {
   background-color: var(--color-neutral-800);
 }
 
-.docs-content :deep(pre) :deep(code) {
+.docs-content :deep(pre code) {
   background-color: transparent;
   padding: 0;
 }
