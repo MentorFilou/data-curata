@@ -76,14 +76,13 @@ export interface Schema {
   fields: Field[]
 }
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any -- recursive JSON-like structure requires any
 export type EntryValue =
   | string
   | number
   | boolean
   | null
-  | Record<string, any>
-  | any[]
+  | { [key: string]: EntryValue }
+  | EntryValue[]
 
 export type EntryObject = Record<string, EntryValue>
 
