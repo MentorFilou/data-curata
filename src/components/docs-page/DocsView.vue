@@ -230,49 +230,135 @@ function onContentClick(e: MouseEvent) {
 
 <style scoped>
 .docs-content :deep(h1) {
-  @apply text-2xl font-bold mb-4 text-neutral-900 dark:text-neutral-100;
+  font-size: var(--text-2xl);
+  font-weight: 700;
+  margin-bottom: 1rem;
+  color: var(--color-neutral-900);
 }
+.dark .docs-content :deep(h1) {
+  color: var(--color-neutral-100);
+}
+
 .docs-content :deep(h2) {
-  @apply text-xl font-semibold mt-8 mb-3 text-neutral-900 dark:text-neutral-100;
+  font-size: var(--text-xl);
+  font-weight: 600;
+  margin-top: 2rem;
+  margin-bottom: 0.75rem;
+  color: var(--color-neutral-900);
 }
+.dark .docs-content :deep(h2) {
+  color: var(--color-neutral-100);
+}
+
 .docs-content :deep(h3) {
-  @apply text-base font-semibold mt-6 mb-2 text-neutral-900 dark:text-neutral-100;
+  
+  font-size: var(--text-base);
+  font-weight: 600;
+  margin-top: 1.5rem;
+  margin-bottom: 0.5rem;
+  color: var(--color-neutral-900);
 }
+.dark .docs-content :deep(h3) {
+  color: var(--color-neutral-100);
+}
+
 .docs-content :deep(p) {
-  @apply mb-3 leading-relaxed;
+  margin-bottom: 0.75rem;
+  line-height: 1.625;
 }
+
 .docs-content :deep(ul),
 .docs-content :deep(ol) {
-  @apply pl-5 mb-3;
+  padding-left: 1.25rem;
+  margin-bottom: 0.75rem;
 }
+
 .docs-content :deep(li) {
-  @apply mb-1;
+  margin-bottom: 0.25rem;
 }
+
 .docs-content :deep(pre) {
-  @apply bg-neutral-100 dark:bg-neutral-800 rounded-md p-4 overflow-x-auto text-sm mb-4;
+  background-color: var(--color-neutral-100);
+  border-radius: 0.375rem;
+  padding: 1rem;
+  overflow-x: auto;
+  font-size: var(--text-sm);
+  margin-bottom: 1rem;
 }
+.dark .docs-content :deep(pre) {
+  background-color: var(--color-neutral-800);
+}
+
 .docs-content :deep(code) {
-  @apply bg-neutral-100 dark:bg-neutral-800 px-1 py-0.5 rounded text-sm font-mono;
+  background-color: var(--color-neutral-100);
+  padding: 0.125rem 0.25rem;
+  border-radius: 0.25rem;
+  font-size: var(--text-sm);
+  font-family: var(--font-mono);
 }
+.dark .docs-content :deep(code) {
+  background-color: var(--color-neutral-800);
+}
+
 .docs-content :deep(pre) :deep(code) {
-  @apply bg-transparent p-0;
+  background-color: transparent;
+  padding: 0;
 }
+
 .docs-content :deep(blockquote) {
-  @apply border-l-4 border-neutral-300 dark:border-neutral-600 pl-4 text-neutral-500 dark:text-neutral-400 my-4;
+  border-left: 4px solid var(--color-neutral-300);
+  padding-left: 1rem;
+  color: var(--color-neutral-500);
+  margin: 1rem 0;
 }
+.dark .docs-content :deep(blockquote) {
+  border-color: var(--color-neutral-600);
+  color: var(--color-neutral-400);
+}
+
 .docs-content :deep(a) {
-  @apply text-accent-700 dark:text-accent-400 hover:underline;
+  color: var(--color-accent-700);
 }
+.dark .docs-content :deep(a) {
+  color: var(--color-accent-400);
+}
+.docs-content :deep(a:hover) {
+  text-decoration: underline;
+}
+
 .docs-content :deep(hr) {
-  @apply border-neutral-200 dark:border-neutral-700 my-6;
+  border-color: var(--color-neutral-200);
+  margin: 1.5rem 0;
 }
+.dark .docs-content :deep(hr) {
+  border-color: var(--color-neutral-700);
+}
+
 .docs-content :deep(table) {
-  @apply w-full text-sm border-collapse mb-4;
+  width: 100%;
+  font-size: var(--text-sm);
+  border-collapse: collapse;
+  margin-bottom: 1rem;
 }
+
 .docs-content :deep(th) {
-  @apply bg-neutral-100 dark:bg-neutral-800 font-semibold text-left px-3 py-2 border border-neutral-200 dark:border-neutral-700;
+  background-color: var(--color-neutral-100);
+  font-weight: 600;
+  text-align: left;
+  padding: 0.5rem 0.75rem;
+  border: 1px solid var(--color-neutral-200);
 }
+.dark .docs-content :deep(th) {
+  background-color: var(--color-neutral-800);
+  border-color: var(--color-neutral-700);
+}
+
 .docs-content :deep(td) {
-  @apply px-3 py-2 border border-neutral-200 dark:border-neutral-700;
+  padding: 0.5rem 0.75rem;
+  border: 1px solid var(--color-neutral-200);
 }
+.dark .docs-content :deep(td) {
+  border-color: var(--color-neutral-700);
+}
+
 </style>
