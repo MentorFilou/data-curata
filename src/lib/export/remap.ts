@@ -10,7 +10,10 @@ export function remapKeys(data: EntryObject, fields: Field[]): EntryObject {
   return result
 }
 
-export function reverseRemapKeys(data: EntryObject, fields: Field[]): EntryObject {
+export function reverseRemapKeys(
+  data: EntryObject,
+  fields: Field[]
+): EntryObject {
   const nameToId = new Map(fields.map((f) => [f.name, f.id]))
   const result: EntryObject = {}
   for (const [key, value] of Object.entries(data)) {
@@ -42,7 +45,9 @@ function reverseRemapValue(value: EntryValue, field: Field): EntryValue {
     return value
   }
   if (field.type === 'array' && Array.isArray(value)) {
-    return value.map((item) => reverseRemapValue(item as EntryValue, field.items))
+    return value.map((item) =>
+      reverseRemapValue(item as EntryValue, field.items)
+    )
   }
   return value
 }

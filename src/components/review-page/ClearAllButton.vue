@@ -23,7 +23,11 @@ async function clearAll() {
     danger: true,
   })
   if (!ok) return
-  await historyStore.snapshot('clear-all', schemaStore.schema, entriesStore.entries)
+  await historyStore.snapshot(
+    'clear-all',
+    schemaStore.schema,
+    entriesStore.entries
+  )
   await entriesStore.clearAll()
   uiStore.addToast('All entries deleted. Snapshot saved.', 'info')
 }

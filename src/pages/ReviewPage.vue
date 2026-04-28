@@ -65,7 +65,11 @@ async function restoreSnapshot(id: string) {
     danger: true,
   })
   if (!ok) return
-  await historyStore.snapshot('restore', schemaStore.schema, entriesStore.entries)
+  await historyStore.snapshot(
+    'restore',
+    schemaStore.schema,
+    entriesStore.entries
+  )
   schemaStore._applySchema(snap.schema)
   await entriesStore.replaceAll(snap.entries)
   uiStore.addToast('Snapshot restored', 'success')
@@ -73,7 +77,9 @@ async function restoreSnapshot(id: string) {
 }
 
 const sortedSnapshots = computed(() =>
-  [...historyStore.snapshots].sort((a, b) => b.createdAt.localeCompare(a.createdAt))
+  [...historyStore.snapshots].sort((a, b) =>
+    b.createdAt.localeCompare(a.createdAt)
+  )
 )
 </script>
 
@@ -82,14 +88,16 @@ const sortedSnapshots = computed(() =>
     <!-- Header -->
     <div class="flex items-center gap-3">
       <div class="flex items-baseline gap-3">
-        <h1 class="text-base sm:text-xl font-semibold text-neutral-900 dark:text-neutral-100">
+        <h1
+          class="text-base sm:text-xl font-semibold text-neutral-900 dark:text-neutral-100"
+        >
           Entries ({{ entriesStore.entries.length }})
         </h1>
         <button
           class="text-xs text-neutral-400 hover:text-accent-600 dark:hover:text-accent-400 underline"
           @click="showHistory = !showHistory"
         >
-          {{showHistory ? 'Hide' : 'Show'}} History
+          {{ showHistory ? 'Hide' : 'Show' }} History
         </button>
       </div>
       <div class="flex items-center gap-2 ml-auto">
@@ -108,7 +116,9 @@ const sortedSnapshots = computed(() =>
       v-if="showHistory"
       class="bg-white rounded-xl border border-neutral-200 p-4 shadow-xs dark:bg-neutral-800 dark:border-neutral-700"
     >
-      <h2 class="text-sm font-semibold text-neutral-800 dark:text-neutral-200 mb-3">
+      <h2
+        class="text-sm font-semibold text-neutral-800 dark:text-neutral-200 mb-3"
+      >
         Snapshots
       </h2>
       <div
@@ -128,11 +138,13 @@ const sortedSnapshots = computed(() =>
         >
           <div>
             <span class="font-medium">{{ snap.reason }}</span>
-            <span class="text-neutral-400 dark:text-neutral-500 ml-2">{{
-              new Date(snap.createdAt).toLocaleString()
-            }}</span>
+            <span class="text-neutral-400 dark:text-neutral-500 ml-2">
+              {{ new Date(snap.createdAt).toLocaleString() }}
+            </span>
             <span class="text-neutral-400 dark:text-neutral-500 ml-2">·</span>
-            <span class="text-neutral-400 dark:text-neutral-500 ml-2">{{ snap.entries.length }} entries</span>
+            <span class="text-neutral-400 dark:text-neutral-500 ml-2">
+              {{ snap.entries.length }} entries
+            </span>
           </div>
           <button
             class="text-xs text-accent-600 hover:text-accent-800 dark:text-accent-400 dark:hover:text-accent-300 underline"
@@ -149,9 +161,7 @@ const sortedSnapshots = computed(() =>
       v-if="entriesStore.entries.length === 0"
       class="text-center py-16 text-neutral-500"
     >
-      <p class="text-base">
-        No entries yet.
-      </p>
+      <p class="text-base">No entries yet.</p>
       <p class="text-sm mt-1">
         <RouterLink
           to="/define"

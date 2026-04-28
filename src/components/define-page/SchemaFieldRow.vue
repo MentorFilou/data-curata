@@ -5,7 +5,13 @@ function newId() {
   return crypto.randomUUID()
 }
 import { Trash2, ChevronUp, ChevronDown, Plus } from '@lucide/vue'
-import type { Field, FieldType, ObjectField, ArrayField, EnumField } from '@/lib/schema/types'
+import type {
+  Field,
+  FieldType,
+  ObjectField,
+  ArrayField,
+  EnumField,
+} from '@/lib/schema/types'
 import SchemaTypePicker from './SchemaTypePicker.vue'
 import SchemaEnumEditor from './SchemaEnumEditor.vue'
 import IconButton from '@/components/common/IconButton.vue'
@@ -60,7 +66,9 @@ function onTypeChange(newType: FieldType) {
 
 function updateChild(child: Field) {
   if (props.field.type !== 'object') return
-  const fields = (props.field as ObjectField).fields.map((f) => (f.id === child.id ? child : f))
+  const fields = (props.field as ObjectField).fields.map((f) =>
+    f.id === child.id ? child : f
+  )
   emit('update', { ...props.field, fields } as Field)
 }
 
@@ -90,7 +98,12 @@ function moveChildDown(id: string) {
 
 function addChildField() {
   if (props.field.type !== 'object') return
-  const newField: Field = { id: newId(), name: '', type: 'string', nullable: false }
+  const newField: Field = {
+    id: newId(),
+    name: '',
+    type: 'string',
+    nullable: false,
+  }
   emit('update', {
     ...props.field,
     fields: [...(props.field as ObjectField).fields, newField],
@@ -164,7 +177,7 @@ function updateItemsType(newType: FieldType) {
         placeholder="field name"
         class="flex-1 min-w-0 text-sm bg-white border border-neutral-300 text-neutral-900 rounded-sm px-2 py-1 focus:outline-hidden focus:ring-1 focus:ring-accent-400 placeholder:text-neutral-400 font-mono dark:bg-neutral-800 dark:border-neutral-600 dark:text-neutral-100 dark:placeholder:text-neutral-500"
         @input="update({ name: ($event.target as HTMLInputElement).value })"
-      >
+      />
 
       <SchemaTypePicker
         :model-value="field.type"
@@ -178,8 +191,10 @@ function updateItemsType(newType: FieldType) {
           type="checkbox"
           :checked="field.nullable"
           class="rounded-sm border-neutral-300 bg-white text-accent-500 focus:ring-accent-400 dark:border-neutral-600 dark:bg-neutral-800"
-          @change="update({ nullable: ($event.target as HTMLInputElement).checked })"
-        >
+          @change="
+            update({ nullable: ($event.target as HTMLInputElement).checked })
+          "
+        />
         nullable
       </label>
 
@@ -199,14 +214,16 @@ function updateItemsType(newType: FieldType) {
       type="text"
       placeholder="description (optional)"
       class="w-full text-xs bg-neutral-50 border border-neutral-200 text-neutral-500 rounded-sm px-2 py-1 focus:outline-hidden focus:ring-1 focus:ring-accent-400 placeholder:text-neutral-400 dark:bg-neutral-800/50 dark:border-neutral-700 dark:text-neutral-400 dark:placeholder:text-neutral-600"
-      @input="update({ description: ($event.target as HTMLInputElement).value || undefined })"
-    >
+      @input="
+        update({
+          description: ($event.target as HTMLInputElement).value || undefined,
+        })
+      "
+    />
 
     <!-- Enum values -->
     <div v-if="field.type === 'enum'">
-      <p class="text-xs text-neutral-500 dark:text-neutral-500 mb-1">
-        Values:
-      </p>
+      <p class="text-xs text-neutral-500 dark:text-neutral-500 mb-1">Values:</p>
       <SchemaEnumEditor
         :values="(field as EnumField).values"
         @update:values="update({ values: $event })"
@@ -221,10 +238,14 @@ function updateItemsType(newType: FieldType) {
       <label class="flex items-center gap-1 cursor-pointer">
         <input
           type="checkbox"
-          :checked="(field as import('@/lib/schema/types').NumberField).integer ?? false"
+          :checked="
+            (field as import('@/lib/schema/types').NumberField).integer ?? false
+          "
           class="rounded-sm border-neutral-300 bg-white text-accent-500 dark:border-neutral-600 dark:bg-neutral-800"
-          @change="update({ integer: ($event.target as HTMLInputElement).checked })"
-        >
+          @change="
+            update({ integer: ($event.target as HTMLInputElement).checked })
+          "
+        />
         integer only
       </label>
       <label class="flex items-center gap-1">
@@ -240,7 +261,7 @@ function updateItemsType(newType: FieldType) {
                 : undefined,
             })
           "
-        >
+        />
       </label>
       <label class="flex items-center gap-1">
         max:
@@ -255,7 +276,7 @@ function updateItemsType(newType: FieldType) {
                 : undefined,
             })
           "
-        >
+        />
       </label>
     </div>
 
@@ -267,10 +288,15 @@ function updateItemsType(newType: FieldType) {
       <label class="flex items-center gap-1 cursor-pointer">
         <input
           type="checkbox"
-          :checked="(field as import('@/lib/schema/types').StringField).multiline ?? false"
+          :checked="
+            (field as import('@/lib/schema/types').StringField).multiline ??
+            false
+          "
           class="rounded-sm border-neutral-300 bg-white text-accent-500 dark:border-neutral-600 dark:bg-neutral-800"
-          @change="update({ multiline: ($event.target as HTMLInputElement).checked })"
-        >
+          @change="
+            update({ multiline: ($event.target as HTMLInputElement).checked })
+          "
+        />
         multiline
       </label>
     </div>
@@ -280,7 +306,9 @@ function updateItemsType(newType: FieldType) {
       v-if="field.type === 'array'"
       class="space-y-2"
     >
-      <div class="flex items-center gap-2 text-xs text-neutral-500 dark:text-neutral-400">
+      <div
+        class="flex items-center gap-2 text-xs text-neutral-500 dark:text-neutral-400"
+      >
         <span>Items type:</span>
         <SchemaTypePicker
           :model-value="(field as ArrayField).items.type"
@@ -293,16 +321,22 @@ function updateItemsType(newType: FieldType) {
         class="ml-2"
       >
         <SchemaFieldRow
-          v-for="(child, idx) in ((field as ArrayField).items as ObjectField).fields"
+          v-for="(child, idx) in ((field as ArrayField).items as ObjectField)
+            .fields"
           :key="child.id"
           :field="child"
           :is-first="idx === 0"
-          :is-last="idx === ((field as ArrayField).items as ObjectField).fields.length - 1"
+          :is-last="
+            idx ===
+            ((field as ArrayField).items as ObjectField).fields.length - 1
+          "
           :depth="(depth ?? 0) + 1"
           @update="
             (updated) => {
               const items = (field as ArrayField).items as ObjectField
-              const fields = items.fields.map((f) => (f.id === updated.id ? updated : f))
+              const fields = items.fields.map((f) =>
+                f.id === updated.id ? updated : f
+              )
               emit('update', { ...field, items: { ...items, fields } } as Field)
             }
           "
@@ -338,7 +372,12 @@ function updateItemsType(newType: FieldType) {
           @add-child="
             () => {
               const items = (field as ArrayField).items as ObjectField
-              const newF: Field = { id: newId(), name: '', type: 'string', nullable: false }
+              const newF: Field = {
+                id: newId(),
+                name: '',
+                type: 'string',
+                nullable: false,
+              }
               emit('update', {
                 ...field,
                 items: { ...items, fields: [...items.fields, newF] },
@@ -351,7 +390,12 @@ function updateItemsType(newType: FieldType) {
           @click="
             () => {
               const items = (field as ArrayField).items as ObjectField
-              const newF: Field = { id: newId(), name: '', type: 'string', nullable: false }
+              const newF: Field = {
+                id: newId(),
+                name: '',
+                type: 'string',
+                nullable: false,
+              }
               emit('update', {
                 ...field,
                 items: { ...items, fields: [...items.fields, newF] },
@@ -359,7 +403,8 @@ function updateItemsType(newType: FieldType) {
             }
           "
         >
-          <Plus class="w-3 h-3" /> Add item field
+          <Plus class="w-3 h-3" />
+          Add item field
         </button>
       </div>
     </div>
@@ -386,7 +431,8 @@ function updateItemsType(newType: FieldType) {
         class="text-xs text-accent-600 hover:text-accent-700 dark:text-accent-400 dark:hover:text-accent-300 flex items-center gap-1"
         @click="addChildField"
       >
-        <Plus class="w-3 h-3" /> Add subfield
+        <Plus class="w-3 h-3" />
+        Add subfield
       </button>
     </div>
   </div>

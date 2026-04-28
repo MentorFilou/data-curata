@@ -37,7 +37,7 @@ function onInput(e: Event) {
           : 'border-neutral-300 bg-white dark:border-neutral-600 dark:bg-neutral-800',
       ]"
       @input="onInput"
-    >
+    />
     <p
       v-if="error"
       class="mt-1 text-xs text-red-600 dark:text-red-400"

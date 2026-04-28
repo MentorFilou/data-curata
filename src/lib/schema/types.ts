@@ -77,7 +77,13 @@ export interface Schema {
 }
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any -- recursive JSON-like structure requires any
-export type EntryValue = string | number | boolean | null | Record<string, any> | any[]
+export type EntryValue =
+  | string
+  | number
+  | boolean
+  | null
+  | Record<string, any>
+  | any[]
 
 export type EntryObject = Record<string, EntryValue>
 
@@ -87,7 +93,11 @@ export type Entry = {
   data: EntryObject
 }
 
-export type SnapshotReason = 'schema-change' | 'clear-all' | 'import' | 'restore'
+export type SnapshotReason =
+  | 'schema-change'
+  | 'clear-all'
+  | 'import'
+  | 'restore'
 
 export interface Snapshot {
   id: string

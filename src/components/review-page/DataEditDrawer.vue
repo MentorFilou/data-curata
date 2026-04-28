@@ -24,7 +24,9 @@ watch(
   { immediate: true }
 )
 
-const validationResult = computed(() => validateEntry(staged.value, schemaStore.schema))
+const validationResult = computed(() =>
+  validateEntry(staged.value, schemaStore.schema)
+)
 const canSubmit = computed(() => validationResult.value.valid)
 
 function onSave() {
@@ -50,7 +52,9 @@ function onSave() {
           <div
             class="flex items-center justify-between px-5 py-4 border-b border-neutral-200 dark:border-neutral-700"
           >
-            <h2 class="text-sm font-semibold text-neutral-900 dark:text-neutral-100">
+            <h2
+              class="text-sm font-semibold text-neutral-900 dark:text-neutral-100"
+            >
               Edit Entry
             </h2>
             <button
@@ -69,7 +73,9 @@ function onSave() {
               @update:model-value="staged = $event"
             />
           </div>
-          <div class="px-5 py-4 border-t border-neutral-200 dark:border-neutral-700">
+          <div
+            class="px-5 py-4 border-t border-neutral-200 dark:border-neutral-700"
+          >
             <EntryActions
               :can-submit="canSubmit"
               variant="compact"

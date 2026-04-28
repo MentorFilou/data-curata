@@ -35,7 +35,10 @@ async function onFileSelected(event: Event) {
 
   if (
     !Array.isArray(parsed) ||
-    !parsed.every((item) => item !== null && typeof item === 'object' && !Array.isArray(item))
+    !parsed.every(
+      (item) =>
+        item !== null && typeof item === 'object' && !Array.isArray(item)
+    )
   ) {
     uiStore.addToast('Expected a JSON array of objects', 'error')
     return
@@ -53,7 +56,11 @@ async function doImport(replace: boolean) {
   const remapped = raw.map((data) => reverseRemapKeys(data, fields))
 
   if (replace) {
-    await historyStore.snapshot('import', schemaStore.schema, entriesStore.entries)
+    await historyStore.snapshot(
+      'import',
+      schemaStore.schema,
+      entriesStore.entries
+    )
     await entriesStore.replaceAll(
       remapped.map((data) => ({
         id: crypto.randomUUID(),
@@ -61,7 +68,10 @@ async function doImport(replace: boolean) {
         data,
       }))
     )
-    uiStore.addToast(`Imported ${remapped.length} entries (replaced existing)`, 'success')
+    uiStore.addToast(
+      `Imported ${remapped.length} entries (replaced existing)`,
+      'success'
+    )
   } else {
     remapped.forEach((data) => entriesStore.addEntry(data))
     uiStore.addToast(`Imported ${remapped.length} entries (merged)`, 'success')
@@ -81,7 +91,7 @@ function cancelImport() {
       accept=".json"
       class="hidden"
       @change="onFileSelected"
-    >
+    />
 
     <button
       class="flex items-center gap-2 px-3 py-2 text-sm font-medium rounded-lg border border-neutral-300 dark:border-neutral-600 text-neutral-700 hover:bg-neutral-50 dark:text-neutral-300 dark:hover:bg-neutral-800 transition-colors focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-accent-500"
@@ -113,11 +123,16 @@ function cancelImport() {
               id="import-dialog-title"
               class="text-lg font-semibold text-neutral-900 dark:text-neutral-100"
             >
-              Import {{ pendingData?.length }} {{ pendingData?.length === 1 ? 'entry' : 'entries' }}
+              Import {{ pendingData?.length }}
+              {{ pendingData?.length === 1 ? 'entry' : 'entries' }}
             </h2>
-            <p class="text-sm text-neutral-600 dark:text-neutral-400 leading-relaxed">
-              <strong>Merge</strong> appends to existing entries. <strong>Replace</strong> clears
-              current entries first (a snapshot is saved automatically).
+            <p
+              class="text-sm text-neutral-600 dark:text-neutral-400 leading-relaxed"
+            >
+              <strong>Merge</strong>
+              appends to existing entries.
+              <strong>Replace</strong>
+              clears current entries first (a snapshot is saved automatically).
             </p>
             <div class="flex flex-col gap-2 pt-1">
               <button

@@ -53,11 +53,15 @@ function docTitle(key: string): string {
 
 function nodeOrder(node: NavNode): number | undefined {
   if (node.type === 'file') return frontMatterMap[node.key]?.order
-  return node.indexKey != null ? frontMatterMap[node.indexKey]?.order : undefined
+  return node.indexKey != null
+    ? frontMatterMap[node.indexKey]?.order
+    : undefined
 }
 
 function nodeName(node: NavNode): string {
-  return node.type === 'file' ? (node.key.split('/').pop() ?? node.key) : node.name
+  return node.type === 'file'
+    ? (node.key.split('/').pop() ?? node.key)
+    : node.name
 }
 
 function sortNodes(nodes: NavNode[]): NavNode[] {
@@ -94,7 +98,10 @@ function buildTree(relativeKeys: string[], prefix: string): NavNode[] {
       path,
       indexKey: hasIndex ? `${path}/index` : null,
       children: sortNodes(
-        buildTree(hasIndex ? children.filter((c) => c !== 'index') : children, path)
+        buildTree(
+          hasIndex ? children.filter((c) => c !== 'index') : children,
+          path
+        )
       ),
     })
   }
@@ -161,7 +168,13 @@ function onContentClick(e: MouseEvent) {
   const anchor = (e.target as HTMLElement).closest('a')
   if (!anchor) return
   const href = anchor.getAttribute('href')
-  if (!href || href.startsWith('http') || href.startsWith('/') || href.startsWith('#')) return
+  if (
+    !href ||
+    href.startsWith('http') ||
+    href.startsWith('/') ||
+    href.startsWith('#')
+  )
+    return
 
   // Resolve relative to the doc's own folder, not the browser URL.
   // index.md is represented without /index in the URL, so the browser
@@ -208,7 +221,7 @@ function onContentClick(e: MouseEvent) {
         >
           docs
         </RouterLink>
-        <span v-if="currentKey !== 'index'"> / {{ breadcrumb }}</span>
+        <span v-if="currentKey !== 'index'">/ {{ breadcrumb }}</span>
       </div>
 
       <!-- Content -->
@@ -222,7 +235,8 @@ function onContentClick(e: MouseEvent) {
         v-else
         class="text-neutral-500 dark:text-neutral-400"
       >
-        Page not found: <code class="font-mono text-sm">{{ resolvedKey }}</code>
+        Page not found:
+        <code class="font-mono text-sm">{{ resolvedKey }}</code>
       </div>
     </div>
   </div>
@@ -251,7 +265,6 @@ function onContentClick(e: MouseEvent) {
 }
 
 .docs-content :deep(h3) {
-  
   font-size: var(--text-base);
   font-weight: 600;
   margin-top: 1.5rem;
@@ -360,5 +373,4 @@ function onContentClick(e: MouseEvent) {
 .dark .docs-content :deep(td) {
   border-color: var(--color-neutral-700);
 }
-
 </style>

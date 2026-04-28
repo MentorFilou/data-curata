@@ -58,12 +58,19 @@ function subErrors(field: Field): Record<string, string> | undefined {
 </script>
 
 <template>
-  <div :class="['space-y-4', variant === 'compact' ? 'space-y-2' : 'space-y-5']">
+  <div
+    :class="['space-y-4', variant === 'compact' ? 'space-y-2' : 'space-y-5']"
+  >
     <div
       v-for="field in fields"
       :key="field.id"
     >
-      <div :class="['flex items-center gap-2', variant === 'compact' ? 'mb-0.5' : 'mb-1.5']">
+      <div
+        :class="[
+          'flex items-center gap-2',
+          variant === 'compact' ? 'mb-0.5' : 'mb-1.5',
+        ]"
+      >
         <label
           :class="[
             'font-medium text-neutral-800 dark:text-neutral-200',
@@ -79,7 +86,11 @@ function subErrors(field: Field): Record<string, string> | undefined {
           optional
         </span>
         <label
-          v-if="variant !== 'compact' && !insideArrayItem && pinnedPaths !== undefined"
+          v-if="
+            variant !== 'compact' &&
+            !insideArrayItem &&
+            pinnedPaths !== undefined
+          "
           :class="[
             'ml-auto flex items-center gap-1.5 select-none',
             ancestorPinned ? 'opacity-40 cursor-not-allowed' : 'cursor-pointer',
@@ -99,8 +110,10 @@ function subErrors(field: Field): Record<string, string> | undefined {
             class="w-3.5 h-3.5 rounded-sm accent-neutral-500"
             :class="ancestorPinned ? 'cursor-not-allowed' : 'cursor-pointer'"
             @change="togglePin?.(currentPath(field.id))"
-          >
-          <span class="text-xs text-neutral-400 dark:text-neutral-500">keep</span>
+          />
+          <span class="text-xs text-neutral-400 dark:text-neutral-500">
+            keep
+          </span>
         </label>
       </div>
       <p

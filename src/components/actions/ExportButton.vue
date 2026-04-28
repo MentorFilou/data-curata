@@ -57,7 +57,9 @@ function cancelExport() {
 
 <template>
   <div class="relative">
-    <div class="flex rounded-lg border border-neutral-300 dark:border-neutral-600 overflow-hidden">
+    <div
+      class="flex rounded-lg border border-neutral-300 dark:border-neutral-600 overflow-hidden"
+    >
       <button
         class="flex items-center gap-2 px-3 py-2 text-sm font-medium text-neutral-700 hover:bg-neutral-50 dark:text-neutral-300 dark:hover:bg-neutral-800 transition-colors focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-accent-500"
         aria-label="Export"
@@ -120,9 +122,14 @@ function cancelExport() {
             >
               Export keys as
             </h2>
-            <p class="text-sm text-neutral-600 dark:text-neutral-400 leading-relaxed">
-              Use field <strong>names</strong> for human-readable output, or field
-              <strong>IDs</strong> to keep full schema compatibility.
+            <p
+              class="text-sm text-neutral-600 dark:text-neutral-400 leading-relaxed"
+            >
+              Use field
+              <strong>names</strong>
+              for human-readable output, or field
+              <strong>IDs</strong>
+              to keep full schema compatibility.
             </p>
             <div class="flex flex-col gap-2 pt-1">
               <button

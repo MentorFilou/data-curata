@@ -44,7 +44,9 @@ watch(
   { deep: true }
 )
 
-const validationResult = computed(() => validateEntry(formData.value, schemaStore.schema))
+const validationResult = computed(() =>
+  validateEntry(formData.value, schemaStore.schema)
+)
 
 const canSubmit = computed(
   () => schemaStore.schema.fields.length > 0 && validationResult.value.valid
@@ -69,12 +71,17 @@ function applyPins(
       if (Array.isArray(src)) {
         // Keep only individually pinned items; remap their indices in nextPins
         const srcArr = src as EntryValue[]
-        const kept = srcArr.filter((_, idx) => pinnedPaths.value.has(subPrefix + idx))
+        const kept = srcArr.filter((_, idx) =>
+          pinnedPaths.value.has(subPrefix + idx)
+        )
         target[fieldId] = kept
-        for (let idx = 0; idx < srcArr.length; idx++) nextPins.delete(subPrefix + idx)
-        for (let idx = 0; idx < kept.length; idx++) nextPins.add(subPrefix + idx)
+        for (let idx = 0; idx < srcArr.length; idx++)
+          nextPins.delete(subPrefix + idx)
+        for (let idx = 0; idx < kept.length; idx++)
+          nextPins.add(subPrefix + idx)
       } else {
-        const tgt = ((target[fieldId] as EntryObject | null | undefined) ?? {}) as EntryObject
+        const tgt = ((target[fieldId] as EntryObject | null | undefined) ??
+          {}) as EntryObject
         applyPins(src as EntryObject, tgt, subPrefix, nextPins)
         target[fieldId] = tgt
       }
@@ -104,7 +111,9 @@ function onReset() {
     <div
       class="bg-white rounded-xl border border-neutral-200 p-6 shadow-xs dark:bg-neutral-800 dark:border-neutral-700"
     >
-      <h2 class="text-base font-semibold text-neutral-900 dark:text-neutral-100 mb-5">
+      <h2
+        class="text-base font-semibold text-neutral-900 dark:text-neutral-100 mb-5"
+      >
         Add Entry
       </h2>
 
@@ -112,9 +121,7 @@ function onReset() {
         v-if="schemaStore.schema.fields.length === 0"
         class="text-center py-10 text-neutral-500"
       >
-        <p class="text-sm">
-          No schema defined yet.
-        </p>
+        <p class="text-sm">No schema defined yet.</p>
         <p class="text-xs mt-1">
           Head to
           <RouterLink

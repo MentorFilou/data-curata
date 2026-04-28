@@ -1,4 +1,10 @@
-import type { Field, Schema, EntryValue, EntryObject, ObjectField } from './types'
+import type {
+  Field,
+  Schema,
+  EntryValue,
+  EntryObject,
+  ObjectField,
+} from './types'
 
 export interface SchemaValidationResult {
   valid: boolean
@@ -31,7 +37,9 @@ function validateFields(
     }
 
     if (names.has(field.name)) {
-      errors.push(`Duplicate field name "${field.name}" at level ${path || '(root)'}`)
+      errors.push(
+        `Duplicate field name "${field.name}" at level ${path || '(root)'}`
+      )
     }
     names.add(field.name)
 
@@ -64,7 +72,10 @@ function validateFields(
   }
 }
 
-export function validateEntry(entry: EntryObject, schema: Schema): EntryValidationResult {
+export function validateEntry(
+  entry: EntryObject,
+  schema: Schema
+): EntryValidationResult {
   const errors: Record<string, string> = {}
   validateObject(entry, schema.fields, '', errors)
   return { valid: Object.keys(errors).length === 0, errors }
@@ -159,7 +170,8 @@ function validateValue(
 
     case 'enum':
       if (typeof value !== 'string' || !field.values.includes(value)) {
-        errors[path] = `"${field.name}" must be one of: ${field.values.join(', ')}`
+        errors[path] =
+          `"${field.name}" must be one of: ${field.values.join(', ')}`
       }
       break
 
@@ -205,7 +217,10 @@ function isValidUrl(value: string): boolean {
   }
 }
 
-export function isBreakingChange(oldFields: Field[], newFields: Field[]): boolean {
+export function isBreakingChange(
+  oldFields: Field[],
+  newFields: Field[]
+): boolean {
   const oldMap = new Map(oldFields.map((f) => [f.id, f]))
   const newMap = new Map(newFields.map((f) => [f.id, f]))
 
@@ -228,7 +243,12 @@ export function isBreakingChange(oldFields: Field[], newFields: Field[]): boolea
 
     // Recurse into objects
     if (oldField.type === 'object' && newField.type === 'object') {
-      if (isBreakingChange((oldField as ObjectField).fields, (newField as ObjectField).fields)) {
+      if (
+        isBreakingChange(
+          (oldField as ObjectField).fields,
+          (newField as ObjectField).fields
+        )
+      ) {
         return true
       }
     }

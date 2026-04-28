@@ -17,7 +17,11 @@ async function bootstrap() {
   const schemaStore = useSchemaStore()
   const entriesStore = useEntriesStore()
   const historyStore = useHistoryStore()
-  await Promise.all([schemaStore.hydrate(), entriesStore.hydrate(), historyStore.hydrate()])
+  await Promise.all([
+    schemaStore.hydrate(),
+    entriesStore.hydrate(),
+    historyStore.hydrate(),
+  ])
 
   app.mount('#app')
 }

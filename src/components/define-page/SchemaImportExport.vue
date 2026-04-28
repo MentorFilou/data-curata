@@ -66,6 +66,6 @@ async function onFileSelected(e: Event) {
       accept=".json"
       class="hidden"
       @change="onFileSelected"
-    >
+    />
   </div>
 </template>

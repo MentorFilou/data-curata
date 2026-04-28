@@ -2,7 +2,10 @@
 import { computed, provide, inject } from 'vue'
 import type { Ref } from 'vue'
 import { Plus, Trash2 } from '@lucide/vue'
-import type { ArrayField as ArrayFieldType, EntryValue } from '@/lib/schema/types'
+import type {
+  ArrayField as ArrayFieldType,
+  EntryValue,
+} from '@/lib/schema/types'
 import { defaultValueForField } from '@/lib/schema/defaults'
 import EntryField from '../EntryField.vue'
 
@@ -14,7 +17,9 @@ const props = defineProps<{
   pathPrefix?: string
 }>()
 
-const emit = defineEmits<{ 'update:modelValue': [value: EntryValue[] | null] }>()
+const emit = defineEmits<{
+  'update:modelValue': [value: EntryValue[] | null]
+}>()
 
 provide('insideArrayItem', true)
 
@@ -129,7 +134,7 @@ function errorsForIndex(i: number): Record<string, string> | undefined {
             implicitlyKept ? 'cursor-not-allowed' : 'cursor-pointer',
           ]"
           @change="togglePin?.(itemPath(i))"
-        >
+        />
         <span class="text-xs text-neutral-400 dark:text-neutral-500">keep</span>
       </label>
       <button

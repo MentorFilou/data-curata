@@ -1,6 +1,11 @@
 import { defineStore } from 'pinia'
 import { ref } from 'vue'
-import type { Snapshot, Schema, Entry, SnapshotReason } from '@/lib/schema/types'
+import type {
+  Snapshot,
+  Schema,
+  Entry,
+  SnapshotReason,
+} from '@/lib/schema/types'
 import { loadSnapshots, saveSnapshot } from '@/lib/persistence/historyRepo'
 
 export const useHistoryStore = defineStore('history', () => {
@@ -13,7 +18,11 @@ export const useHistoryStore = defineStore('history', () => {
     hydrated.value = true
   }
 
-  async function snapshot(reason: SnapshotReason, schema: Schema, entries: Entry[]): Promise<void> {
+  async function snapshot(
+    reason: SnapshotReason,
+    schema: Schema,
+    entries: Entry[]
+  ): Promise<void> {
     const snap: Snapshot = {
       id: crypto.randomUUID(),
       createdAt: new Date().toISOString(),

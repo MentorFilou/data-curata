@@ -46,7 +46,7 @@ function remove(idx: number) {
         placeholder="Add value…"
         class="flex-1 text-xs bg-white border border-neutral-300 text-neutral-900 rounded-sm px-2 py-1 focus:outline-hidden focus:ring-1 focus:ring-accent-400 placeholder:text-neutral-400 dark:bg-neutral-800 dark:border-neutral-600 dark:text-neutral-200 dark:placeholder:text-neutral-500"
         @keydown.enter.prevent="add"
-      >
+      />
       <button
         class="p-1 rounded-sm bg-neutral-100 hover:bg-neutral-200 text-neutral-700 dark:bg-neutral-700 dark:hover:bg-neutral-600 dark:text-neutral-300"
         @click="add"

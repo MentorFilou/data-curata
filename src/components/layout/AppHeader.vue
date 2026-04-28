@@ -13,7 +13,9 @@ const entryCount = computed(() => entriesStore.entries.length)
   <header
     class="bg-white border-b border-neutral-200 sticky top-0 z-40 dark:bg-neutral-900 dark:border-neutral-700"
   >
-    <div class="max-w-content mx-auto px-4 h-14 flex items-center justify-between">
+    <div
+      class="max-w-content mx-auto px-4 h-14 flex items-center justify-between"
+    >
       <!--top left title that routes to the landing page-->
       <RouterLink
         to="/"
@@ -63,7 +65,11 @@ const entryCount = computed(() => entriesStore.entries.length)
         <!--light/dark theme toggle-->
         <button
           class="p-2 rounded-md text-neutral-500 hover:text-neutral-900 hover:bg-neutral-100 dark:text-neutral-400 dark:hover:text-white dark:hover:bg-neutral-800 transition-colors"
-          :title="uiStore.theme === 'dark' ? 'Switch to light mode' : 'Switch to dark mode'"
+          :title="
+            uiStore.theme === 'dark'
+              ? 'Switch to light mode'
+              : 'Switch to dark mode'
+          "
           @click="uiStore.toggleTheme()"
         >
           <Sun

@@ -52,14 +52,26 @@ export const useSchemaStore = defineStore('schema', () => {
         danger: true,
       })
       if (!ok) return false
-      await historyStore.snapshot('schema-change', schema.value, entriesStore.entries)
+      await historyStore.snapshot(
+        'schema-change',
+        schema.value,
+        entriesStore.entries
+      )
     } else if (hasEntries && !breaking) {
       // Purely additive — silent snapshot
-      await historyStore.snapshot('schema-change', schema.value, entriesStore.entries)
+      await historyStore.snapshot(
+        'schema-change',
+        schema.value,
+        entriesStore.entries
+      )
     }
 
     if (hasEntries) {
-      const migrated = migrateEntries(entriesStore.entries, schema.value, newSchema)
+      const migrated = migrateEntries(
+        entriesStore.entries,
+        schema.value,
+        newSchema
+      )
       _applySchema(newSchema)
       await entriesStore.replaceAll(migrated)
     } else {
@@ -94,7 +106,11 @@ export const useSchemaStore = defineStore('schema', () => {
     return setSchema(newSchema)
   }
 
-  async function moveField(id: string, direction: 'up' | 'down', parentId?: string): Promise<void> {
+  async function moveField(
+    id: string,
+    direction: 'up' | 'down',
+    parentId?: string
+  ): Promise<void> {
     const newSchema = deepClone(schema.value)
     const fields = parentId
       ? (() => {

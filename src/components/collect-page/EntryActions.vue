@@ -8,7 +8,12 @@ const emit = defineEmits<{ submit: []; reset: [] }>()
 </script>
 
 <template>
-  <div :class="['flex items-center gap-3', variant === 'compact' ? 'pt-2' : 'pt-4']">
+  <div
+    :class="[
+      'flex items-center gap-3',
+      variant === 'compact' ? 'pt-2' : 'pt-4',
+    ]"
+  >
     <button
       :disabled="!canSubmit"
       :class="[

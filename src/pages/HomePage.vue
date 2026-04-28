@@ -1,10 +1,18 @@
 <script setup lang="ts">
 import { computed } from 'vue'
-import { Sparkles, FileCode, ListPlus, Download, ArrowRight, BookOpen } from '@lucide/vue'
+import {
+  Sparkles,
+  FileCode,
+  ListPlus,
+  Download,
+  ArrowRight,
+  BookOpen,
+} from '@lucide/vue'
 import { useSchemaStore } from '@/stores/schema'
 import { useEntriesStore } from '@/stores/entries'
 
-const readmeUrl = 'https://github.com/MentorFilou/data-curata/blob/main/README.md'
+const readmeUrl =
+  'https://github.com/MentorFilou/data-curata/blob/main/README.md'
 
 // stores and the according variables used to determine previous usage for dynamic call-to-action texts
 const schemaStore = useSchemaStore()
@@ -69,12 +77,17 @@ const steps = [
         <Sparkles class="w-3.5 h-3.5" />
         Welcome to Data Curata
       </div>
-      <h1 class="text-3xl font-semibold tracking-tight text-neutral-900 dark:text-neutral-100">
+      <h1
+        class="text-3xl font-semibold tracking-tight text-neutral-900 dark:text-neutral-100"
+      >
         Schema-driven data collection, without the spreadsheet sprawl.
       </h1>
-      <p class="max-w-xl mx-auto text-sm text-neutral-600 dark:text-neutral-400">
-        Define a schema, collect entries that conform to it, then export in whatever format suits
-        you next — without losing a single field along the way.
+      <p
+        class="max-w-xl mx-auto text-sm text-neutral-600 dark:text-neutral-400"
+      >
+        Define a schema, collect entries that conform to it, then export in
+        whatever format suits you next — without losing a single field along the
+        way.
       </p>
 
       <div class="flex flex-col items-center gap-2 pt-2">
@@ -107,10 +120,14 @@ const steps = [
             class="w-5 h-5"
           />
         </div>
-        <h2 class="text-sm font-semibold text-neutral-900 dark:text-neutral-100 mb-1">
+        <h2
+          class="text-sm font-semibold text-neutral-900 dark:text-neutral-100 mb-1"
+        >
           {{ step.title }}
         </h2>
-        <p class="text-xs text-neutral-600 dark:text-neutral-400 leading-relaxed">
+        <p
+          class="text-xs text-neutral-600 dark:text-neutral-400 leading-relaxed"
+        >
           {{ step.body }}
         </p>
       </RouterLink>
@@ -120,7 +137,9 @@ const steps = [
     <section
       class="p-4 rounded-lg border border-dashed border-neutral-300 bg-neutral-50 dark:border-neutral-700 dark:bg-neutral-900/40 flex items-start gap-3"
     >
-      <BookOpen class="w-4 h-4 mt-0.5 text-neutral-500 dark:text-neutral-400 shrink-0" />
+      <BookOpen
+        class="w-4 h-4 mt-0.5 text-neutral-500 dark:text-neutral-400 shrink-0"
+      />
       <div class="text-xs text-neutral-600 dark:text-neutral-400">
         <RouterLink
           to="/docs"
@@ -134,7 +153,9 @@ const steps = [
           target="_blank"
           rel="noopener noreferrer"
           class="underline underline-offset-2 hover:text-neutral-800 dark:hover:text-neutral-300"
-        >README on GitHub</a>
+        >
+          README on GitHub
+        </a>
         has additional context.
       </div>
     </section>

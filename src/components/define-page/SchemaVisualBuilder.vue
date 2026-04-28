@@ -58,7 +58,9 @@ function moveDown(id: string) {
       @add-child="addField"
     />
 
-    <div class="flex items-center gap-2 bg-white dark:bg-neutral-800 px-4 py-2 rounded-lg w-fit">
+    <div
+      class="flex items-center gap-2 bg-white dark:bg-neutral-800 px-4 py-2 rounded-lg w-fit"
+    >
       <button
         class="flex items-center gap-2 text-sm text-accent-600 hover:text-accent-700 dark:text-accent-400 dark:hover:text-accent-300 font-medium transition-colors"
         @click="addField"

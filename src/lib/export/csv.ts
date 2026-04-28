@@ -32,7 +32,11 @@ export const csvFormat: ExportFormat = {
   },
 }
 
-function collectPaths(value: EntryValue, prefix: string, paths: Set<string>): void {
+function collectPaths(
+  value: EntryValue,
+  prefix: string,
+  paths: Set<string>
+): void {
   if (value === null || value === undefined) {
     if (prefix) paths.add(prefix)
     return
@@ -63,7 +67,8 @@ function getPath(obj: EntryValue, path: string): EntryValue {
   const parts = path.split('.')
   let current: EntryValue = obj
   for (const part of parts) {
-    if (current === null || current === undefined) return undefined as unknown as EntryValue
+    if (current === null || current === undefined)
+      return undefined as unknown as EntryValue
     if (Array.isArray(current)) {
       const idx = parseInt(part, 10)
       current = current[idx] as EntryValue

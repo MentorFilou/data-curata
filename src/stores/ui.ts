@@ -38,7 +38,11 @@ export const useUiStore = defineStore('ui', () => {
     applyTheme(theme.value)
   }
 
-  function addToast(message: string, type: Toast['type'] = 'info', duration = 3000): void {
+  function addToast(
+    message: string,
+    type: Toast['type'] = 'info',
+    duration = 3000
+  ): void {
     const id = crypto.randomUUID()
     toasts.value.push({ id, message, type, duration })
     setTimeout(() => removeToast(id), duration)

@@ -34,7 +34,9 @@ function setMode(m: 'visual' | 'raw') {
 
       <div class="flex items-center gap-4">
         <!-- Mode toggle -->
-        <div class="flex items-center gap-1 bg-neutral-100 dark:bg-neutral-700 rounded-md p-0.5">
+        <div
+          class="flex items-center gap-1 bg-neutral-100 dark:bg-neutral-700 rounded-md p-0.5"
+        >
           <button
             :class="[
               'px-3 py-1 text-xs rounded-sm transition-colors',

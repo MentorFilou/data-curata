@@ -53,5 +53,14 @@ export const useEntriesStore = defineStore('entries', () => {
     await saveAllEntries(newEntries)
   }
 
-  return { entries, hydrated, hydrate, addEntry, updateEntry, removeEntry, clearAll, replaceAll }
+  return {
+    entries,
+    hydrated,
+    hydrate,
+    addEntry,
+    updateEntry,
+    removeEntry,
+    clearAll,
+    replaceAll,
+  }
 })

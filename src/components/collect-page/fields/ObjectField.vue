@@ -1,5 +1,8 @@
 <script setup lang="ts">
-import type { ObjectField as ObjectFieldType, EntryObject } from '@/lib/schema/types'
+import type {
+  ObjectField as ObjectFieldType,
+  EntryObject,
+} from '@/lib/schema/types'
 import EntryForm from '../EntryForm.vue'
 
 defineProps<{

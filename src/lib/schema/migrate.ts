@@ -1,14 +1,22 @@
 import type { Field, Schema, Entry, EntryValue, EntryObject } from './types'
 import { defaultValueForField } from './defaults'
 
-export function migrateEntries(entries: Entry[], oldSchema: Schema, newSchema: Schema): Entry[] {
+export function migrateEntries(
+  entries: Entry[],
+  oldSchema: Schema,
+  newSchema: Schema
+): Entry[] {
   return entries.map((entry) => ({
     ...entry,
     data: migrateObject(entry.data, oldSchema.fields, newSchema.fields),
   }))
 }
 
-function migrateObject(obj: EntryObject, oldFields: Field[], newFields: Field[]): EntryObject {
+function migrateObject(
+  obj: EntryObject,
+  oldFields: Field[],
+  newFields: Field[]
+): EntryObject {
   const oldMap = new Map(oldFields.map((f) => [f.id, f]))
   const result: EntryObject = {}
 
@@ -33,7 +41,11 @@ function migrateObject(obj: EntryObject, oldFields: Field[], newFields: Field[])
         result[newField.id] =
           oldValue === null || oldValue === undefined
             ? defaultValueForField(newField)
-            : migrateObject(oldValue as EntryObject, oldField.fields, newField.fields)
+            : migrateObject(
+                oldValue as EntryObject,
+                oldField.fields,
+                newField.fields
+              )
       } else {
         result[newField.id] = oldValue ?? defaultValueForField(newField)
       }
@@ -62,10 +74,12 @@ function coerce(value: EntryValue, field: Field): EntryValue {
     case 'boolean':
       return Boolean(value)
     case 'date':
-      if (typeof value === 'string' && /^\d{4}-\d{2}-\d{2}$/.test(value)) return value
+      if (typeof value === 'string' && /^\d{4}-\d{2}-\d{2}$/.test(value))
+        return value
       return field.nullable ? null : ''
     case 'datetime':
-      if (typeof value === 'string' && !isNaN(new Date(value).getTime())) return value
+      if (typeof value === 'string' && !isNaN(new Date(value).getTime()))
+        return value
       return field.nullable ? null : ''
     case 'url':
       if (typeof value === 'string') {
@@ -78,7 +92,8 @@ function coerce(value: EntryValue, field: Field): EntryValue {
       }
       return field.nullable ? null : ''
     case 'enum':
-      if (typeof value === 'string' && field.values.includes(value)) return value
+      if (typeof value === 'string' && field.values.includes(value))
+        return value
       return field.values[0] ?? (field.nullable ? null : '')
     case 'object':
       return field.nullable ? null : defaultValueForField(field)

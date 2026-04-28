@@ -12,7 +12,9 @@ const emit = defineEmits<{ edit: [id: string]; remove: [id: string] }>()
 </script>
 
 <template>
-  <div class="overflow-x-auto rounded-xl border border-neutral-200 dark:border-neutral-700">
+  <div
+    class="overflow-x-auto rounded-xl border border-neutral-200 dark:border-neutral-700"
+  >
     <table class="w-full text-sm">
       <thead>
         <tr

@@ -29,7 +29,9 @@ const { state, accept, cancel } = useConfirm()
           >
             {{ state.options.title }}
           </h2>
-          <p class="text-sm text-neutral-700 dark:text-neutral-300 leading-relaxed">
+          <p
+            class="text-sm text-neutral-700 dark:text-neutral-300 leading-relaxed"
+          >
             {{ state.options.message }}
           </p>
           <div class="flex justify-end gap-3 pt-2">

@@ -27,7 +27,9 @@ watch(
   { deep: true }
 )
 
-const extensions = computed(() => (uiStore.theme === 'dark' ? [json(), oneDark] : [json()]))
+const extensions = computed(() =>
+  uiStore.theme === 'dark' ? [json(), oneDark] : [json()]
+)
 
 function onBlur() {
   try {
