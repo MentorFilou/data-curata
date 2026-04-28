@@ -162,7 +162,7 @@ function updateItemsType(newType: FieldType) {
         :value="field.name"
         type="text"
         placeholder="field name"
-        class="flex-1 min-w-0 text-sm bg-white border border-neutral-300 text-neutral-900 rounded px-2 py-1 focus:outline-none focus:ring-1 focus:ring-accent-400 placeholder:text-neutral-400 font-mono dark:bg-neutral-800 dark:border-neutral-600 dark:text-neutral-100 dark:placeholder:text-neutral-500"
+        class="flex-1 min-w-0 text-sm bg-white border border-neutral-300 text-neutral-900 rounded-sm px-2 py-1 focus:outline-hidden focus:ring-1 focus:ring-accent-400 placeholder:text-neutral-400 font-mono dark:bg-neutral-800 dark:border-neutral-600 dark:text-neutral-100 dark:placeholder:text-neutral-500"
         @input="update({ name: ($event.target as HTMLInputElement).value })"
       >
 
@@ -177,7 +177,7 @@ function updateItemsType(newType: FieldType) {
         <input
           type="checkbox"
           :checked="field.nullable"
-          class="rounded border-neutral-300 bg-white text-accent-500 focus:ring-accent-400 dark:border-neutral-600 dark:bg-neutral-800"
+          class="rounded-sm border-neutral-300 bg-white text-accent-500 focus:ring-accent-400 dark:border-neutral-600 dark:bg-neutral-800"
           @change="update({ nullable: ($event.target as HTMLInputElement).checked })"
         >
         nullable
@@ -198,7 +198,7 @@ function updateItemsType(newType: FieldType) {
       :value="field.description ?? ''"
       type="text"
       placeholder="description (optional)"
-      class="w-full text-xs bg-neutral-50 border border-neutral-200 text-neutral-500 rounded px-2 py-1 focus:outline-none focus:ring-1 focus:ring-accent-400 placeholder:text-neutral-400 dark:bg-neutral-800/50 dark:border-neutral-700 dark:text-neutral-400 dark:placeholder:text-neutral-600"
+      class="w-full text-xs bg-neutral-50 border border-neutral-200 text-neutral-500 rounded-sm px-2 py-1 focus:outline-hidden focus:ring-1 focus:ring-accent-400 placeholder:text-neutral-400 dark:bg-neutral-800/50 dark:border-neutral-700 dark:text-neutral-400 dark:placeholder:text-neutral-600"
       @input="update({ description: ($event.target as HTMLInputElement).value || undefined })"
     >
 
@@ -222,7 +222,7 @@ function updateItemsType(newType: FieldType) {
         <input
           type="checkbox"
           :checked="(field as import('@/lib/schema/types').NumberField).integer ?? false"
-          class="rounded border-neutral-300 bg-white text-accent-500 dark:border-neutral-600 dark:bg-neutral-800"
+          class="rounded-sm border-neutral-300 bg-white text-accent-500 dark:border-neutral-600 dark:bg-neutral-800"
           @change="update({ integer: ($event.target as HTMLInputElement).checked })"
         >
         integer only
@@ -232,7 +232,7 @@ function updateItemsType(newType: FieldType) {
         <input
           type="number"
           :value="(field as import('@/lib/schema/types').NumberField).min ?? ''"
-          class="w-16 bg-white border border-neutral-300 text-neutral-800 rounded px-1.5 py-0.5 focus:outline-none focus:ring-1 focus:ring-accent-400 dark:bg-neutral-800 dark:border-neutral-600 dark:text-neutral-200"
+          class="w-16 bg-white border border-neutral-300 text-neutral-800 rounded-sm px-1.5 py-0.5 focus:outline-hidden focus:ring-1 focus:ring-accent-400 dark:bg-neutral-800 dark:border-neutral-600 dark:text-neutral-200"
           @input="
             update({
               min: ($event.target as HTMLInputElement).value
@@ -247,7 +247,7 @@ function updateItemsType(newType: FieldType) {
         <input
           type="number"
           :value="(field as import('@/lib/schema/types').NumberField).max ?? ''"
-          class="w-16 bg-white border border-neutral-300 text-neutral-800 rounded px-1.5 py-0.5 focus:outline-none focus:ring-1 focus:ring-accent-400 dark:bg-neutral-800 dark:border-neutral-600 dark:text-neutral-200"
+          class="w-16 bg-white border border-neutral-300 text-neutral-800 rounded-sm px-1.5 py-0.5 focus:outline-hidden focus:ring-1 focus:ring-accent-400 dark:bg-neutral-800 dark:border-neutral-600 dark:text-neutral-200"
           @input="
             update({
               max: ($event.target as HTMLInputElement).value
@@ -268,7 +268,7 @@ function updateItemsType(newType: FieldType) {
         <input
           type="checkbox"
           :checked="(field as import('@/lib/schema/types').StringField).multiline ?? false"
-          class="rounded border-neutral-300 bg-white text-accent-500 dark:border-neutral-600 dark:bg-neutral-800"
+          class="rounded-sm border-neutral-300 bg-white text-accent-500 dark:border-neutral-600 dark:bg-neutral-800"
           @change="update({ multiline: ($event.target as HTMLInputElement).checked })"
         >
         multiline

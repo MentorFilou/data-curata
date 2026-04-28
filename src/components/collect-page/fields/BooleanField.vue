@@ -17,7 +17,7 @@ const emit = defineEmits<{ 'update:modelValue': [value: boolean] }>()
       <input
         type="checkbox"
         :checked="modelValue ?? false"
-        class="w-4 h-4 rounded border-neutral-300 text-accent-600 focus:ring-accent-500 dark:border-neutral-600 dark:bg-neutral-800"
+        class="w-4 h-4 rounded-sm border-neutral-300 text-accent-600 focus:ring-accent-500 dark:border-neutral-600 dark:bg-neutral-800"
         @change="emit('update:modelValue', ($event.target as HTMLInputElement).checked)"
       >
       <span

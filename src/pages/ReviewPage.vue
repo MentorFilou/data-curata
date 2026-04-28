@@ -106,7 +106,7 @@ const sortedSnapshots = computed(() =>
     <!-- History panel -->
     <div
       v-if="showHistory"
-      class="bg-white rounded-xl border border-neutral-200 p-4 shadow-sm dark:bg-neutral-800 dark:border-neutral-700"
+      class="bg-white rounded-xl border border-neutral-200 p-4 shadow-xs dark:bg-neutral-800 dark:border-neutral-700"
     >
       <h2 class="text-sm font-semibold text-neutral-800 dark:text-neutral-200 mb-3">
         Snapshots

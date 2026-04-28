@@ -37,7 +37,7 @@ function setMode(m: 'visual' | 'raw') {
         <div class="flex items-center gap-1 bg-neutral-100 dark:bg-neutral-700 rounded-md p-0.5">
           <button
             :class="[
-              'px-3 py-1 text-xs rounded transition-colors',
+              'px-3 py-1 text-xs rounded-sm transition-colors',
               mode === 'visual'
                 ? 'bg-white text-neutral-900 dark:bg-neutral-600 dark:text-white'
                 : 'text-neutral-500 hover:text-neutral-900 dark:text-neutral-400 dark:hover:text-neutral-200',
@@ -48,7 +48,7 @@ function setMode(m: 'visual' | 'raw') {
           </button>
           <button
             :class="[
-              'px-3 py-1 text-xs rounded transition-colors',
+              'px-3 py-1 text-xs rounded-sm transition-colors',
               mode === 'raw'
                 ? 'bg-white text-neutral-900 dark:bg-neutral-600 dark:text-white'
                 : 'text-neutral-500 hover:text-neutral-900 dark:text-neutral-400 dark:hover:text-neutral-200',

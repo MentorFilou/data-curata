@@ -97,7 +97,7 @@ const steps = [
         v-for="step in steps"
         :key="step.title"
         :to="step.to"
-        class="group block p-4 rounded-lg border border-neutral-200 bg-white hover:border-accent-400 hover:shadow-sm transition-all dark:border-neutral-700 dark:bg-neutral-900 dark:hover:border-accent-500"
+        class="group block p-4 rounded-lg border border-neutral-200 bg-white hover:border-accent-400 hover:shadow-xs transition-all dark:border-neutral-700 dark:bg-neutral-900 dark:hover:border-accent-500"
       >
         <div
           class="inline-flex items-center justify-center w-9 h-9 rounded-md bg-accent-50 text-accent-700 dark:bg-accent-900/30 dark:text-accent-300 mb-3"

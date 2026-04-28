@@ -102,7 +102,7 @@ function onReset() {
   <div class="space-y-8">
     <!-- Entry form -->
     <div
-      class="bg-white rounded-xl border border-neutral-200 p-6 shadow-sm dark:bg-neutral-800 dark:border-neutral-700"
+      class="bg-white rounded-xl border border-neutral-200 p-6 shadow-xs dark:bg-neutral-800 dark:border-neutral-700"
     >
       <h2 class="text-base font-semibold text-neutral-900 dark:text-neutral-100 mb-5">
         Add Entry

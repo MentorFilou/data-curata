@@ -34,14 +34,14 @@ const { state, accept, cancel } = useConfirm()
           </p>
           <div class="flex justify-end gap-3 pt-2">
             <button
-              class="px-4 py-2 text-sm font-medium rounded-lg border border-neutral-300 text-neutral-700 hover:bg-neutral-50 dark:border-neutral-600 dark:text-neutral-300 dark:hover:bg-neutral-700 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-500"
+              class="px-4 py-2 text-sm font-medium rounded-lg border border-neutral-300 text-neutral-700 hover:bg-neutral-50 dark:border-neutral-600 dark:text-neutral-300 dark:hover:bg-neutral-700 focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-accent-500"
               @click="cancel"
             >
               {{ state.options.cancelLabel ?? 'Cancel' }}
             </button>
             <button
               :class="[
-                'px-4 py-2 text-sm font-medium rounded-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-1',
+                'px-4 py-2 text-sm font-medium rounded-lg focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-offset-1',
                 state.options.danger
                   ? 'bg-red-600 text-white hover:bg-red-700 focus-visible:ring-red-500'
                   : 'bg-accent-600 text-white hover:bg-accent-700 focus-visible:ring-accent-500',

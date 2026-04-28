@@ -59,7 +59,7 @@ function cancelExport() {
   <div class="relative">
     <div class="flex rounded-lg border border-neutral-300 dark:border-neutral-600 overflow-hidden">
       <button
-        class="flex items-center gap-2 px-3 py-2 text-sm font-medium text-neutral-700 hover:bg-neutral-50 dark:text-neutral-300 dark:hover:bg-neutral-800 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-500"
+        class="flex items-center gap-2 px-3 py-2 text-sm font-medium text-neutral-700 hover:bg-neutral-50 dark:text-neutral-300 dark:hover:bg-neutral-800 transition-colors focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-accent-500"
         aria-label="Export"
         @click="chooseThenExport('json')"
       >
@@ -67,7 +67,7 @@ function cancelExport() {
         <span class="hidden sm:inline">Export</span>
       </button>
       <button
-        class="px-2 py-2 border-l border-neutral-300 dark:border-neutral-600 text-neutral-600 dark:text-neutral-400 hover:bg-neutral-50 dark:hover:bg-neutral-800 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-500"
+        class="px-2 py-2 border-l border-neutral-300 dark:border-neutral-600 text-neutral-600 dark:text-neutral-400 hover:bg-neutral-50 dark:hover:bg-neutral-800 transition-colors focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-accent-500"
         aria-label="More export formats"
         @click="showDropdown = !showDropdown"
       >
@@ -126,19 +126,19 @@ function cancelExport() {
             </p>
             <div class="flex flex-col gap-2 pt-1">
               <button
-                class="w-full px-4 py-2 text-sm font-medium rounded-lg bg-accent-600 text-white hover:bg-accent-700 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-500"
+                class="w-full px-4 py-2 text-sm font-medium rounded-lg bg-accent-600 text-white hover:bg-accent-700 focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-accent-500"
                 @click="doExport(true)"
               >
                 Field names
               </button>
               <button
-                class="w-full px-4 py-2 text-sm font-medium rounded-lg border border-neutral-300 text-neutral-700 hover:bg-neutral-50 dark:border-neutral-600 dark:text-neutral-300 dark:hover:bg-neutral-700 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-500"
+                class="w-full px-4 py-2 text-sm font-medium rounded-lg border border-neutral-300 text-neutral-700 hover:bg-neutral-50 dark:border-neutral-600 dark:text-neutral-300 dark:hover:bg-neutral-700 focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-accent-500"
                 @click="doExport(false)"
               >
                 Field IDs
               </button>
               <button
-                class="w-full px-4 py-2 text-sm text-neutral-500 dark:text-neutral-400 hover:text-neutral-700 dark:hover:text-neutral-200 focus-visible:outline-none"
+                class="w-full px-4 py-2 text-sm text-neutral-500 dark:text-neutral-400 hover:text-neutral-700 dark:hover:text-neutral-200 focus-visible:outline-hidden"
                 @click="cancelExport"
               >
                 Cancel

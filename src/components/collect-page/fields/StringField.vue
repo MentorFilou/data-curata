@@ -23,7 +23,7 @@ function onInput(e: Event) {
       :value="modelValue ?? ''"
       :placeholder="field.nullable ? 'optional' : ''"
       :class="[
-        'w-full rounded-lg border px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-accent-500 resize-y dark:text-neutral-100 dark:placeholder:text-neutral-500',
+        'w-full rounded-lg border px-3 py-2 text-sm focus:outline-hidden focus:ring-2 focus:ring-accent-500 resize-y dark:text-neutral-100 dark:placeholder:text-neutral-500',
         variant === 'compact' ? 'min-h-[60px] text-xs' : 'min-h-[80px]',
         error
           ? 'border-red-400 bg-red-50 dark:bg-red-950/40 dark:border-red-700'
@@ -37,7 +37,7 @@ function onInput(e: Event) {
       :value="modelValue ?? ''"
       :placeholder="field.nullable ? 'optional' : ''"
       :class="[
-        'w-full rounded-lg border px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-accent-500 dark:text-neutral-100 dark:placeholder:text-neutral-500',
+        'w-full rounded-lg border px-3 py-2 text-sm focus:outline-hidden focus:ring-2 focus:ring-accent-500 dark:text-neutral-100 dark:placeholder:text-neutral-500',
         variant === 'compact' ? 'py-1.5 text-xs' : '',
         error
           ? 'border-red-400 bg-red-50 dark:bg-red-950/40 dark:border-red-700'

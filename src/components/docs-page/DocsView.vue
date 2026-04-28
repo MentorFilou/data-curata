@@ -182,7 +182,7 @@ function onContentClick(e: MouseEvent) {
   <div class="flex min-h-screen">
     <!-- Sidebar -->
     <aside
-      class="w-44 sm:w-56 flex-shrink-0 border-r border-neutral-200 bg-neutral-50 dark:border-neutral-700 dark:bg-neutral-900 p-4"
+      class="w-44 sm:w-56 shrink-0 border-r border-neutral-200 bg-neutral-50 dark:border-neutral-700 dark:bg-neutral-900 p-4"
     >
       <p
         class="text-xs font-semibold uppercase tracking-wider text-neutral-400 dark:text-neutral-500 mb-3"

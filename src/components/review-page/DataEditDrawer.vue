@@ -54,7 +54,7 @@ function onSave() {
               Edit Entry
             </h2>
             <button
-              class="p-1 rounded hover:bg-neutral-100 dark:hover:bg-neutral-700 text-neutral-500 dark:text-neutral-400"
+              class="p-1 rounded-sm hover:bg-neutral-100 dark:hover:bg-neutral-700 text-neutral-500 dark:text-neutral-400"
               @click="emit('close')"
             >
               <X class="w-4 h-4" />

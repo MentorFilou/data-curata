@@ -74,7 +74,7 @@ function subErrors(field: Field): Record<string, string> | undefined {
         </label>
         <span
           v-if="field.nullable"
-          class="text-xs text-neutral-400 font-normal px-1 py-0.5 bg-neutral-100 rounded dark:bg-neutral-700 dark:text-neutral-500"
+          class="text-xs text-neutral-400 font-normal px-1 py-0.5 bg-neutral-100 rounded-sm dark:bg-neutral-700 dark:text-neutral-500"
         >
           optional
         </span>
@@ -96,7 +96,7 @@ function subErrors(field: Field): Record<string, string> | undefined {
             type="checkbox"
             :checked="isPinned(field.id) || ancestorPinned"
             :disabled="ancestorPinned"
-            class="w-3.5 h-3.5 rounded accent-neutral-500"
+            class="w-3.5 h-3.5 rounded-sm accent-neutral-500"
             :class="ancestorPinned ? 'cursor-not-allowed' : 'cursor-pointer'"
             @change="togglePin?.(currentPath(field.id))"
           >

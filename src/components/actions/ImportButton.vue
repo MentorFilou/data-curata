@@ -84,7 +84,7 @@ function cancelImport() {
     >
 
     <button
-      class="flex items-center gap-2 px-3 py-2 text-sm font-medium rounded-lg border border-neutral-300 dark:border-neutral-600 text-neutral-700 hover:bg-neutral-50 dark:text-neutral-300 dark:hover:bg-neutral-800 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-500"
+      class="flex items-center gap-2 px-3 py-2 text-sm font-medium rounded-lg border border-neutral-300 dark:border-neutral-600 text-neutral-700 hover:bg-neutral-50 dark:text-neutral-300 dark:hover:bg-neutral-800 transition-colors focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-accent-500"
       aria-label="Import"
       @click="triggerFileInput"
     >
@@ -121,19 +121,19 @@ function cancelImport() {
             </p>
             <div class="flex flex-col gap-2 pt-1">
               <button
-                class="w-full px-4 py-2 text-sm font-medium rounded-lg bg-accent-600 text-white hover:bg-accent-700 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-500"
+                class="w-full px-4 py-2 text-sm font-medium rounded-lg bg-accent-600 text-white hover:bg-accent-700 focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-accent-500"
                 @click="doImport(false)"
               >
                 Merge
               </button>
               <button
-                class="w-full px-4 py-2 text-sm font-medium rounded-lg border border-neutral-300 text-neutral-700 hover:bg-neutral-50 dark:border-neutral-600 dark:text-neutral-300 dark:hover:bg-neutral-700 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-500"
+                class="w-full px-4 py-2 text-sm font-medium rounded-lg border border-neutral-300 text-neutral-700 hover:bg-neutral-50 dark:border-neutral-600 dark:text-neutral-300 dark:hover:bg-neutral-700 focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-accent-500"
                 @click="doImport(true)"
               >
                 Replace all
               </button>
               <button
-                class="w-full px-4 py-2 text-sm text-neutral-500 dark:text-neutral-400 hover:text-neutral-700 dark:hover:text-neutral-200 focus-visible:outline-none"
+                class="w-full px-4 py-2 text-sm text-neutral-500 dark:text-neutral-400 hover:text-neutral-700 dark:hover:text-neutral-200 focus-visible:outline-hidden"
                 @click="cancelImport"
               >
                 Cancel

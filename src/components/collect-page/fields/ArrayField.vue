@@ -125,7 +125,7 @@ function errorsForIndex(i: number): Record<string, string> | undefined {
           :checked="isItemPinned(i) || implicitlyKept"
           :disabled="implicitlyKept"
           :class="[
-            'w-3.5 h-3.5 rounded accent-neutral-500',
+            'w-3.5 h-3.5 rounded-sm accent-neutral-500',
             implicitlyKept ? 'cursor-not-allowed' : 'cursor-pointer',
           ]"
           @change="togglePin?.(itemPath(i))"
@@ -133,7 +133,7 @@ function errorsForIndex(i: number): Record<string, string> | undefined {
         <span class="text-xs text-neutral-400 dark:text-neutral-500">keep</span>
       </label>
       <button
-        class="mt-1 p-1 text-red-400 hover:text-red-600 hover:bg-red-50 dark:hover:bg-red-900/30 rounded"
+        class="mt-1 p-1 text-red-400 hover:text-red-600 hover:bg-red-50 dark:hover:bg-red-900/30 rounded-sm"
         title="Remove item"
         @click="removeItem(i)"
       >
