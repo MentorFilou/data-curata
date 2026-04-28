@@ -5,6 +5,7 @@ import pluginVue from "eslint-plugin-vue";
 import typescriptEslint from "@typescript-eslint/eslint-plugin";
 import tsParser from "@typescript-eslint/parser";
 import vueParser from "vue-eslint-parser";
+import eslintConfigPrettier from "eslint-config-prettier";
 
 export default defineConfig([
     {
@@ -36,4 +37,5 @@ export default defineConfig([
             "@typescript-eslint/no-explicit-any": "warn",
         },
     },
+    eslintConfigPrettier,
 ]);

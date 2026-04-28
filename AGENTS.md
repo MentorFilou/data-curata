@@ -11,7 +11,9 @@ pnpm typecheck       # vue-tsc --noEmit (strict, no any without comment)
 pnpm test            # Vitest unit tests (tests/unit/**/*.test.ts)
 pnpm test:e2e        # Playwright smoke tests (tests/e2e/smoke.spec.ts)
 pnpm lint            # ESLint static code analysis (eslint.config.js)
-pnpm format          # Prettier code style enforcement (.prettierrc)
+pnpm lint:fix        # ESLint with auto-fix
+pnpm format          # Prettier format check (.prettierrc)
+pnpm format:fix      # Prettier auto-format
 ```
 
 All four of `build`, `typecheck`, `test`, and `test:e2e` must pass before a task is done.
