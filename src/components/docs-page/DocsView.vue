@@ -161,7 +161,7 @@ const renderedHtml = computed(() => {
 const breadcrumb = computed(() => {
   const parts = currentKey.value.split('/')
   const trimmed = parts.at(-1) === 'index' ? parts.slice(0, -1) : parts
-  return trimmed.map((s) => s.replace(/-/g, ' ')).join(' / ')
+  return trimmed.join(' / ')
 })
 
 function onContentClick(e: MouseEvent) {
