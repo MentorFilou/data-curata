@@ -107,6 +107,9 @@ dist
 .temp
 .cache
 
+# vite
+.vite/
+
 # vitepress build output
 **/.vitepress/dist
 
