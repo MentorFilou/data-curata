@@ -17,6 +17,12 @@ const rawModules = import.meta.glob('../../../docs/**/*.md', {
   eager: true,
 })
 
+const filteredRawModules = Object.fromEntries(
+  Object.entries(rawModules).filter(([path]) => {
+    return !path.split('/').some(part => part.startsWith('_'))
+  })
+)
+
 const docsMap: Record<string, string> = {}
 const frontMatterMap: Record<string, { order?: number; title?: string }> = {}
 
@@ -32,9 +38,9 @@ function parseFrontMatter(raw: string): { order?: number; title?: string } {
   }
 }
 
-for (const fullPath in rawModules) {
+for (const fullPath in filteredRawModules) {
   const key = fullPath.replace(/^.*\/docs\//, '').replace(/\.md$/, '')
-  const raw = rawModules[fullPath] as string
+  const raw = filteredRawModules[fullPath] as string
   docsMap[key] = raw
   frontMatterMap[key] = parseFrontMatter(raw)
 }
