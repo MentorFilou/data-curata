@@ -1,8 +1,8 @@
 name: CI
 
 on:
-  push:
-    branches: [main]
+  pull_request:
+    types: [opened, synchronize, edited]
 
 # all permissions are declared explicitly per job
 permissions: {} 
