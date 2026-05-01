@@ -89,6 +89,7 @@ jobs:
       - run: pnpm test
 
   test-e2e:
+    needs: [test]
     runs-on: ubuntu-24.04
     # 10 minute timeout because playwright possibly downloads an updated browser binary
     timeout-minutes: 10
