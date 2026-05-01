@@ -1,0 +1,122 @@
+name: Enforce ADR 000-using-madr
+
+on:
+  pull_request:
+    types: [opened, synchronize, edited]
+
+jobs:
+  check-adr-confirmation:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+
+      - name: Extract ADR titles
+        id: extract-adrs
+        run: |
+          # Get all ADR files (excluding _template.md and index.md)
+          adr_files=$(find docs/development/adr -maxdepth 1 -name "*.md" ! -name "_template.md" ! -name "index.md" | sort)
+
+          # Extract titles (first # heading, as front-matter is often a shortform) and build an array
+          titles=()
+          for file in $adr_files; do
+            # Extract the first line starting with "# " (skip front-matter)
+            title=$(grep -m 1 "^# " "$file" | sed 's/^# //')
+            if [ -n "$title" ]; then
+              titles+=("$title")
+            fi
+          done
+
+          # Store titles as JSON array for later use
+          printf '%s\n' "${titles[@]}" | jq -R . | jq -s . > /tmp/adr_titles.json
+          cat /tmp/adr_titles.json
+
+      - name: Validate ADR confirmation in PR description
+        id: validate
+        env:
+          PR_BODY: ${{ github.event.pull_request.body }}
+        run: |
+          # Read ADR titles
+          titles=$(cat /tmp/adr_titles.json | jq -r '.[]')
+
+          # Check if the section exists
+          if ! echo "$PR_BODY" | grep -q "# This PR respects Architectural Decisions"; then
+            echo "failure_type=missing_section" >> $GITHUB_OUTPUT
+            echo "is_valid=false" >> $GITHUB_OUTPUT
+            exit 0
+          fi
+
+          # Check if all ADRs are confirmed (have [x] checkbox)
+          has_unchecked=false
+          while IFS= read -r title; do
+            if ! echo "$PR_BODY" | grep -q "\[x\] $title"; then
+              has_unchecked=true
+              break
+            fi
+          done <<< "$titles"
+
+          if [ "$has_unchecked" = true ]; then
+            echo "failure_type=unchecked_boxes" >> $GITHUB_OUTPUT
+            echo "is_valid=false" >> $GITHUB_OUTPUT
+            exit 0
+          fi
+
+          echo "is_valid=true" >> $GITHUB_OUTPUT
+
+      - name: Post or update helpful comment on failure
+        if: steps.validate.outputs.is_valid == 'false'
+        uses: actions/github-script@3a2844b7e9c422d3c10d287c895573f7108da1b3 # v9.0.0
+        env:
+          FAILURE_TYPE: ${{ steps.validate.outputs.failure_type }}
+        with:
+          script: |
+            const fs = require('fs');
+            const titles = JSON.parse(fs.readFileSync('/tmp/adr_titles.json', 'utf8'));
+            const failureType = process.env.FAILURE_TYPE;
+            const BOT_MARKER = '<!-- adr-check-bot -->';
+
+            // Build the copy-paste section_template with unchecked boxes
+            const section_template = ['# This PR respects Architectural Decisions']
+              .concat(titles.map(t => `[ ] ${t}`))
+              .join('\n');
+
+            // Determine the message based on failure type
+            let message = '';
+            if (failureType === 'missing_section') {
+              message = `❌ **ADR confirmation missing**\n\nYour PR description does not contain the "This PR respects Architectural Decisions" section. Please add it and confirm that your changes respect all current architectural decisions by checking the relevant boxes.`;
+            } else if (failureType === 'unchecked_boxes') {
+              message = `❌ **ADR confirmation incomplete**\n\nOne or more architectural decisions have unchecked boxes. Please review each decision and check the box only if your changes truly respect it - else adapt first.`;
+            }
+
+            // Build the full comment with bot marker
+            const comment = `${BOT_MARKER}\n${message}\n\n**Please add or update this section in your PR description:**\n\n\`\`\`\n${section_template}\n\`\`\`\n\nDo not forget to review each decision and check the boxes accordingly.`;
+
+            // Search for existing bot comment
+            const comments = await github.rest.issues.listComments({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo
+            });
+
+            const existingComment = comments.data.find(c => c.body.includes(BOT_MARKER));
+
+            if (existingComment) {
+              // Update existing comment
+              await github.rest.issues.updateComment({
+                comment_id: existingComment.id,
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                body: comment
+              });
+            } else {
+              // Create new comment
+              await github.rest.issues.createComment({
+                issue_number: context.issue.number,
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                body: comment
+              });
+            }
+
+      - name: Fail the check if validation failed
+        if: steps.validate.outputs.is_valid == 'false'
+        run: exit 1
