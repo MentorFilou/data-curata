@@ -1,18 +1,22 @@
 ---
-order: 1
+order: 000
 title: Overview
 ---
 
 # Overview
 
-This documentation is currently outdated and will be renewed soon.
-It consists of two documents that haven't been updated in a while and do not reflect the current state anymore.
-However, for a general idea, they might still help.
+Documentation is currently being prepared and will be available soon.
 
 ## Table of Contents
 
-#### [Original Specification](./SPEC)
-The foundational specification document
+#### [User Documentation](./usage)
+Documentation aimed at introducing users into how the application works - easy to read.
 
-#### [Notes on the Original Implementation](./NOTES)
-Implementation notes and technical details
+#### [Developer Documentation](./development)
+Documentation aimed at introducing developers into how the aplication is build and how to contribute.
+
+#### [*Original Specification](./SPEC)
+OUTDATED - The foundational specification document
+
+#### [*Notes on the Original Implementation](./NOTES)
+OUTDATED - Implementation notes and technical details

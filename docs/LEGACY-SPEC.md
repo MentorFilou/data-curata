@@ -1,5 +1,5 @@
 ---
-order: 2
+order: 900
 title: Spec (Outdated)
 ---
 
