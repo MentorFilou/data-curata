@@ -19,7 +19,7 @@ const rawModules = import.meta.glob('../../../docs/**/*.md', {
 
 const filteredRawModules = Object.fromEntries(
   Object.entries(rawModules).filter(([path]) => {
-    return !path.split('/').some(part => part.startsWith('_'))
+    return !path.split('/').some((part) => part.startsWith('_'))
   })
 )
 
