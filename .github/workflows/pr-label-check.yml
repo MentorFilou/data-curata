@@ -1,0 +1,31 @@
+name: PR Label Check
+
+on:
+  pull_request:
+    types: [opened, reopened, labeled, unlabeled, synchronize]
+    branches: [main]
+
+# all permissions are declared explicitly per job
+permissions: {}
+
+jobs:
+  check-label:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 2
+    permissions:
+      pull-requests: read
+    steps:
+      - name: Verify exactly one release label is present
+        env:
+          LABELS: ${{ toJson(github.event.pull_request.labels.*.name) }}
+        run: |
+          count=$(echo "$LABELS" | grep -oE '"(patch|minor|major)"' | wc -l)
+          if [ "$count" -eq 0 ]; then
+            echo "::error::PR must have one of the labels: patch, minor, or major."
+            exit 1
+          fi
+          if [ "$count" -gt 1 ]; then
+            echo "::error::PR has more than one release label. Keep exactly one of: patch, minor, or major."
+            exit 1
+          fi
+          echo "Release label verified: $(echo "$LABELS" | grep -oE '"(patch|minor|major)"' | tr -d '"')"
