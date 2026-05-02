@@ -1,9 +1,10 @@
-# Deploys to GitHub Pages. Called by ci.yml after all CI jobs pass.
+# Deploys to GitHub Pages. Triggered only on merges to main branch.
 
 name: Deploy
 
 on:
-  workflow_call:
+  push:
+    branches: [main]:
 
 # all permissions are declared explicitly per job
 permissions: {}
