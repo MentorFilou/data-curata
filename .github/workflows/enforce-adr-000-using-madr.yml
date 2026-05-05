@@ -50,7 +50,7 @@ jobs:
           # Check if all ADRs are confirmed (have [x] checkbox)
           has_unchecked=false
           while IFS= read -r title; do
-            if ! echo "$PR_BODY" | grep -q "\[x\] $title"; then
+            if ! echo "$PR_BODY" | grep -q "- \[x\] $title"; then
               has_unchecked=true
               break
             fi
@@ -78,7 +78,7 @@ jobs:
 
             // Build the copy-paste section_template with unchecked boxes
             const section_template = ['# This PR respects Architectural Decisions']
-              .concat(titles.map(t => `[ ] ${t}`))
+              .concat(titles.map(t => `- [ ] ${t}`))
               .join('\n');
 
             // Determine the message based on failure type
