@@ -198,6 +198,20 @@ function updateItemsType(newType: FieldType) {
         nullable
       </label>
 
+      <label
+        class="flex items-center gap-1 text-xs text-neutral-500 dark:text-neutral-400 cursor-pointer select-none"
+      >
+        <input
+          type="checkbox"
+          :checked="field.unique ?? false"
+          class="rounded-sm border-neutral-300 bg-white text-accent-500 focus:ring-accent-400 dark:border-neutral-600 dark:bg-neutral-800"
+          @change="
+            update({ unique: ($event.target as HTMLInputElement).checked || undefined })
+          "
+        />
+        unique
+      </label>
+
       <IconButton
         size="sm"
         title="Remove field"

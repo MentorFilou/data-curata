@@ -14,6 +14,7 @@ export interface FieldBase {
   name: string
   type: FieldType
   nullable: boolean
+  unique?: boolean
   description?: string
 }
 

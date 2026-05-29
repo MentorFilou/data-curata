@@ -4,6 +4,7 @@ import type {
   EntryValue,
   EntryObject,
   ObjectField,
+  Entry,
 } from './types'
 
 export interface SchemaValidationResult {
@@ -72,13 +73,82 @@ function validateFields(
   }
 }
 
+export interface EntryValidationOptions {
+  existingEntries?: Entry[]
+  excludeId?: string
+}
+
 export function validateEntry(
   entry: EntryObject,
-  schema: Schema
+  schema: Schema,
+  options?: EntryValidationOptions
 ): EntryValidationResult {
   const errors: Record<string, string> = {}
   validateObject(entry, schema.fields, '', errors)
+  if (options?.existingEntries) {
+    checkUniqueness(
+      entry,
+      schema.fields,
+      [],
+      options.existingEntries,
+      options.excludeId,
+      errors
+    )
+  }
   return { valid: Object.keys(errors).length === 0, errors }
+}
+
+function getValueAtPath(data: EntryObject, path: string[]): EntryValue {
+  let current: EntryValue = data
+  for (const key of path) {
+    if (
+      current === null ||
+      current === undefined ||
+      typeof current !== 'object' ||
+      Array.isArray(current)
+    ) {
+      return null
+    }
+    current = (current as EntryObject)[key]
+  }
+  return current
+}
+
+function checkUniqueness(
+  root: EntryObject,
+  fields: Field[],
+  pathIds: string[],
+  existingEntries: Entry[],
+  excludeId: string | undefined,
+  errors: Record<string, string>
+): void {
+  for (const field of fields) {
+    const currentPath = [...pathIds, field.id]
+    if (field.unique) {
+      const value = getValueAtPath(root, currentPath)
+      if (value !== null && value !== undefined) {
+        const serialized = JSON.stringify(value)
+        const duplicate = existingEntries.some(
+          (e) =>
+            e.id !== excludeId &&
+            JSON.stringify(getValueAtPath(e.data, currentPath)) === serialized
+        )
+        if (duplicate) {
+          errors[currentPath.join('.')] = `"${field.name}" must be unique`
+        }
+      }
+    }
+    if (field.type === 'object') {
+      checkUniqueness(
+        root,
+        field.fields,
+        currentPath,
+        existingEntries,
+        excludeId,
+        errors
+      )
+    }
+  }
 }
 
 function validateObject(

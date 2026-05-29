@@ -85,6 +85,12 @@ function subErrors(field: Field): Record<string, string> | undefined {
         >
           optional
         </span>
+        <span
+          v-if="field.unique"
+          class="text-xs text-neutral-400 font-normal px-1 py-0.5 bg-neutral-100 rounded-sm dark:bg-neutral-700 dark:text-neutral-500"
+        >
+          unique
+        </span>
         <label
           v-if="
             variant !== 'compact' &&

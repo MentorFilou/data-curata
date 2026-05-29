@@ -3,6 +3,7 @@ import { ref, watch, computed } from 'vue'
 import { X } from '@lucide/vue'
 import type { Entry, EntryObject } from '@/lib/schema/types'
 import { useSchemaStore } from '@/stores/schema'
+import { useEntriesStore } from '@/stores/entries'
 import { validateEntry } from '@/lib/schema/validate'
 import EntryForm from '@/components/collect-page/EntryForm.vue'
 import EntryActions from '@/components/collect-page/EntryActions.vue'
@@ -14,6 +15,7 @@ const props = defineProps<{
 const emit = defineEmits<{ save: [data: EntryObject]; close: [] }>()
 
 const schemaStore = useSchemaStore()
+const entriesStore = useEntriesStore()
 const staged = ref<EntryObject>({})
 
 watch(
@@ -25,7 +27,10 @@ watch(
 )
 
 const validationResult = computed(() =>
-  validateEntry(staged.value, schemaStore.schema)
+  validateEntry(staged.value, schemaStore.schema, {
+    existingEntries: entriesStore.entries,
+    excludeId: props.entry?.id,
+  })
 )
 const canSubmit = computed(() => validationResult.value.valid)
 

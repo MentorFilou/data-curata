@@ -83,7 +83,9 @@ watch(
 )
 
 const validationResult = computed(() =>
-  validateEntry(formData.value, schemaStore.schema)
+  validateEntry(formData.value, schemaStore.schema, {
+    existingEntries: entriesStore.entries,
+  })
 )
 
 const canSubmit = computed(
