@@ -21,8 +21,45 @@ function buildDefaultData(): EntryObject {
   return data
 }
 
-const formData = ref<EntryObject>(buildDefaultData())
+const DRAFT_KEY = 'data-curata:collect-draft'
+
+function schemaFingerprint(): string {
+  return schemaStore.schema.fields.map((f) => f.id).join(',')
+}
+
+function saveDraft(data: EntryObject): void {
+  try {
+    localStorage.setItem(DRAFT_KEY, JSON.stringify({ fingerprint: schemaFingerprint(), data }))
+  } catch {
+    // Storage quota exceeded — silently skip
+  }
+}
+
+function clearDraft(): void {
+  localStorage.removeItem(DRAFT_KEY)
+}
+
+function loadDraft(): EntryObject | null {
+  try {
+    const raw = localStorage.getItem(DRAFT_KEY)
+    if (!raw) return null
+    const parsed = JSON.parse(raw) as { fingerprint: string; data: EntryObject }
+    if (parsed.fingerprint !== schemaFingerprint()) return null
+    return parsed.data
+  } catch {
+    return null
+  }
+}
+
+const restoredDraft = loadDraft()
+const formData = ref<EntryObject>(restoredDraft ?? buildDefaultData())
 const pinnedPaths = ref<Set<string>>(new Set())
+
+if (restoredDraft) {
+  uiStore.addToast('Draft restored', 'info')
+}
+
+watch(formData, (value) => saveDraft(value), { deep: true })
 
 function togglePin(path: string) {
   const next = new Set(pinnedPaths.value)
@@ -34,12 +71,13 @@ function togglePin(path: string) {
 provide('pinnedPaths', pinnedPaths)
 provide('togglePin', togglePin)
 
-// Reset form and pins when schema changes
+// Reset form, pins, and draft when schema changes
 watch(
   () => schemaStore.schema.fields,
   () => {
     formData.value = buildDefaultData()
     pinnedPaths.value = new Set()
+    clearDraft()
   },
   { deep: true }
 )
@@ -92,6 +130,7 @@ function applyPins(
 function onSubmit() {
   if (!canSubmit.value) return
   entriesStore.addEntry({ ...formData.value })
+  clearDraft()
   const newData = buildDefaultData()
   const nextPins = new Set(pinnedPaths.value)
   applyPins(formData.value, newData, '', nextPins)
@@ -102,6 +141,7 @@ function onSubmit() {
 
 function onReset() {
   formData.value = buildDefaultData()
+  clearDraft()
 }
 </script>
 
