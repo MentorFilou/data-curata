@@ -1,2 +1,2 @@
-# Auto detect text files and perform LF normalization
-* text=auto
+# Enforce LF line endings in the repo regardless of OS or core.autocrlf
+* text=auto eol=lf

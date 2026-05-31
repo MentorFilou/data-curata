@@ -51,6 +51,9 @@ web_modules/
 # Optional npm cache directory
 .npm
 
+# npm lockfile (project uses pnpm)
+package-lock.json
+
 # Optional eslint cache
 .eslintcache
 
@@ -104,6 +107,9 @@ dist
 .temp
 .cache
 
+# vite
+.vite/
+
 # vitepress build output
 **/.vitepress/dist
 
@@ -134,3 +140,7 @@ dist
 .yarn/build-state.yml
 .yarn/install-state.gz
 .pnp.*
+
+# Playwright
+playwright-report/
+test-results/
