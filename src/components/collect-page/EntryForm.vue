@@ -61,9 +61,10 @@ function subErrors(field: Field): Record<string, string> | undefined {
   <div
     :class="['space-y-4', variant === 'compact' ? 'space-y-2' : 'space-y-5']"
   >
-    <div
+    <label
       v-for="field in fields"
       :key="field.id"
+      class="block"
     >
       <div
         :class="[
@@ -71,14 +72,14 @@ function subErrors(field: Field): Record<string, string> | undefined {
           variant === 'compact' ? 'mb-0.5' : 'mb-1.5',
         ]"
       >
-        <label
+        <span
           :class="[
             'font-medium text-neutral-800 dark:text-neutral-200',
             variant === 'compact' ? 'text-xs' : 'text-sm',
           ]"
         >
           {{ field.name }}
-        </label>
+        </span>
         <span
           v-if="field.nullable"
           class="text-xs text-neutral-400 font-normal px-1 py-0.5 bg-neutral-100 rounded-sm dark:bg-neutral-700 dark:text-neutral-500"
@@ -138,6 +139,6 @@ function subErrors(field: Field): Record<string, string> | undefined {
         :path-prefix="childPrefix(field)"
         @update:model-value="updateField(field, $event)"
       />
-    </div>
+    </label>
   </div>
 </template>
